@@ -14,7 +14,13 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    Jesteś zalogowany
+
+                    <hr>
+                    Lista użytkowników:
+                    @foreach($users as $u)
+                        <li>{{ $u->name }}</li>
+                    @endforeach
                 </div>
             </div>
         </div>
