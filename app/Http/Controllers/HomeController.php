@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use DB;
+// use DB;
+
+use App\Invoice;
 
 class HomeController extends Controller
 {
@@ -25,8 +27,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $users = DB::table('users')->get();
+        $invoices = Invoice::all();
 
-        return view('home', compact('users'));
+        return view('home', compact('invoices'));
     }
 }

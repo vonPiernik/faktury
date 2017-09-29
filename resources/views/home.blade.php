@@ -17,9 +17,9 @@
                     Jesteś zalogowany
 
                     <hr>
-                    Lista użytkowników:
-                    @foreach($users as $u)
-                        <li>{{ $u->name }}</li>
+                    Lista faktur:
+                    @foreach($invoices as $invoice)
+                        <li>{{ $invoice->title }} (<strong>nr {{ $invoice->id }}</strong>) <small>z dnia {{ $invoice->created_at->format('d M Y') }}</small></li>
                     @endforeach
     
                     <hr>
