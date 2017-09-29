@@ -7,3 +7,18 @@
 
 // Bootstrap
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+
+// poszerz kontener bootstrapa
+
+@media (min-width: 1400px) {
+    .container{
+        width: 1360px;
+    }
+}
+
+@media (min-width: 1600px) {
+    .container{
+        width: 1560px;
+    }
+}
