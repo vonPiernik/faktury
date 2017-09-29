@@ -21,6 +21,10 @@
                     @foreach($users as $u)
                         <li>{{ $u->name }}</li>
                     @endforeach
+    
+                    <hr>
+
+                    <strong>Branch faktury</strong>
                 </div>
             </div>
         </div>
