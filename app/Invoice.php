@@ -22,4 +22,13 @@ class Invoice extends Model
             $builder->where('user_id', Auth::user()->id);
         });
     }
+
+
+    /**
+     * Get owner of this invoice
+     */
+    public function owner()
+    {
+        return $this->belongsTo('App\User');
+    }
 }
