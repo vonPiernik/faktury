@@ -27,7 +27,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $invoices = Invoice::belongToCurrentUser()->get();
+        $invoices = Invoice::all();
 
         return view('home', compact('invoices'));
     }
