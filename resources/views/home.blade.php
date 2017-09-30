@@ -15,11 +15,11 @@
                     @endif
                     <table class="table table-striped">
                         <thead>
-                            <tr><td>Numer</td><td>Tytuł faktury</td><td>Data wystawienia</td></tr>
+                            <tr><td>Numer</td><td>Tytuł faktury</td><td>Data wystawienia</td><td>user_id</td></tr>
                         </thead>
                         <tbody>
                         @foreach($invoices as $invoice)
-                            <tr><td>{{ $invoice->id }}</td><td>{{ $invoice->title }}</td><td> {{ $invoice->created_at->format('d M Y') }}</td></tr>
+                            <tr><td>{{ $invoice->id }}</td><td>{{ $invoice->title }}</td><td> {{ $invoice->created_at->format('d M Y') }}</td><td>{{ $invoice->user_id }}</td></tr>
                         @endforeach
                         </tbody>
                     </table>

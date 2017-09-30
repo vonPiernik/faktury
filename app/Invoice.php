@@ -4,14 +4,16 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Auth;
+
 class Invoice extends Model
 {
+	/*
 
-    /**
-     * The storage format of the model's date columns.
-     *
-     * @var string
-    	protected $dateFormat = 'Y-m-d';
-     
-     */
+		Returns only invoices that belongs to current user
+
+	*/
+	public function scopeBelongToCurrentUser($query){
+		return $query->where('user_id', Auth::user()->id );
+	}
 }

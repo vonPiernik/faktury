@@ -16,7 +16,7 @@ class InvoiceTableSeeder extends Seeder
         DB::table('invoices')->delete();
         for($i=1; $i<=25; $i++){
 	        $title = "Faktura dla Przedszkola nr".$i;
-	        Invoice::create(['user_id'=>'1', 'title' => $title]);
+	        Invoice::create(['user_id'=>$i%2, 'title' => $title]);
     	}
     }
 }
