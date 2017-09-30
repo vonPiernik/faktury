@@ -14,9 +14,16 @@ class InvoiceTableSeeder extends Seeder
     public function run()
     {
         DB::table('invoices')->delete();
+
+
+        // generuje 25 faktur na różnych klientów
         for($i=1; $i<=25; $i++){
-	        $title = "Faktura dla Przedszkola nr".$i;
-	        Invoice::create(['user_id'=>$i%2, 'title' => $title]);
+
+            $nr = rand(1,30);
+
+	        $customer = "Przedszkole nr".$nr;
+
+	        Invoice::create(['user_id'=>$i%2, 'customer' => $customer]);
     	}
     }
 }
