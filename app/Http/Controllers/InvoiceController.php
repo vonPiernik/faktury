@@ -42,24 +42,27 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
+        $customer = $request->query('customer','Łoś super ktoś');
         $invoice = Invoice::create([
             
             'user_id' => Auth::user()->id,
-            'customer' => $request->input('customer'),
+            'customer' => $customer,
 
         ]);
 
         Item::create([
             
             'invoice_id' => $invoice->id,
-            'name' => $request->input('name','Jakiś element'),
-            'amount' => $request->input('amount', 0),
-            'unit' => $request->input('unit','szt.'),
-            'price' => $request->input('price', 0),
-            'nett_value' => $request->input('net_value', 0),
-            'gross_value' => $request->input('name', 0),
+            'name' => $request->query('name','Jakiś element'),
+            'amount' => $request->query('amount', 1),
+            'unit' => $request->query('unit','szt.'),
+            'price' => $request->query('price', 1),
+            'net_value' => $request->query('net_value', 1),
+            'gross_value' => $request->query('name', 1),
 
         ]);
+
+        return redirect()->route('faktury.index');
     }
 
     /**
@@ -70,7 +73,9 @@ class InvoiceController extends Controller
      */
     public function show($id)
     {
-        //
+        $invoice = Invoice::find($id);
+
+        return view('faktury.show', compact('invoice',$invoice));        
     }
 
     /**
