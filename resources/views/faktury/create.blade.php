@@ -14,9 +14,27 @@
                         </div>
                     @endif
                     <hr>
-                        Formularz dodawania nowej faktury
+
+                    <div class="col-md-4">Twoje dane</div>
+                    <div class="col-md-4"><label for="date">Data wystawienia</label><br>
+                        <input type="date" name="date" id="date">
+                    </div>
+                    <div class="col-md-4"><label for="date">Dane klienta</label><br>
+                        <input type="text" name="customer" id="customer">
+                    </div>
+
+                    <br><br>
                     <hr>
-                    <strong>Branch faktury</strong>
+
+                    <div class="col-md-12">
+                        @include('faktury.items.create')
+                    </div>
+
+                    <br><hr><br>
+
+                    <div class="col-md-12">
+                        <strong>Branch faktury</strong>
+                    </div>
                 </div>
             </div>
         </div>
