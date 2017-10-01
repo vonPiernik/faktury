@@ -14,21 +14,26 @@
                         </div>
                     @endif
                     <hr>
+                    <form method="POST" action="/faktury">
+                        {{ csrf_field() }}
 
-                    <div class="col-md-4">Twoje dane</div>
-                    <div class="col-md-4"><label for="date">Data wystawienia</label><br>
-                        <input type="date" name="date" id="date">
-                    </div>
-                    <div class="col-md-4"><label for="date">Dane klienta</label><br>
-                        <input type="text" name="customer" id="customer">
-                    </div>
+                        <div class="col-md-4">Twoje dane</div>
+                        <div class="col-md-4"><label for="date">Data wystawienia</label><br>
+                        </div>
+                        <div class="col-md-4"><label for="date">Dane klienta</label><br>
+                            <input type="text" name="customer" id="customer">
+                        </div>
 
-                    <br><br>
-                    <hr>
+                        <br><br>
+                        <hr>
 
-                    <div class="col-md-12">
-                        @include('faktury.items.create')
-                    </div>
+                        <div class="col-md-12">
+                            @include('faktury.items.create')
+                        </div>
+
+                        <input type="submit" value="Wyślij">
+
+                    </form>
 
                     <br><hr><br>
 

@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Auth;
+
 use App\Invoice;
+
+use App\Item;
 
 class InvoiceController extends Controller
 {
@@ -38,7 +42,24 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $invoice = Invoice::create([
+            
+            'user_id' => Auth::user()->id,
+            'customer' => $request->input('customer'),
+
+        ]);
+
+        Item::create([
+            
+            'invoice_id' => $invoice->id,
+            'name' => $request->input('name','Jakiś element'),
+            'amount' => $request->input('amount', 0),
+            'unit' => $request->input('unit','szt.'),
+            'price' => $request->input('price', 0),
+            'nett_value' => $request->input('net_value', 0),
+            'gross_value' => $request->input('name', 0),
+
+        ]);
     }
 
     /**
