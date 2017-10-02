@@ -29,7 +29,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Faktury') }}
+                        <img src="{{ url('/') }}/images/logo-bmale.png" alt="Fakturnis">
                     </a>
                 </div>
 
@@ -78,5 +78,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+
+    @yield('pagescripts')
 </body>
 </html>

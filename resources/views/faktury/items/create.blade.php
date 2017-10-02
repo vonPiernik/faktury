@@ -1,4 +1,4 @@
-<table class="table table-striped">
+<table class="table table-striped items">
     <thead>
         <tr>
             <td>Nazwa</td>
@@ -10,7 +10,7 @@
         </tr>
     </thead>
     <tbody>
-    	<tr>
+    	<tr class="items-row items-row-1">
 			<td><input type="text" id="name" name="name" style="width: 100%;"></td>
 			<td><input type="number" id="amount" name="amount" style="width: 50px;"></td>
 			<td><input type="text" id="unit" name="unit" size="4"></td>
@@ -19,5 +19,5 @@
 			<td><input type="number" id="gross_value" name="gross_value" style="width: 50px;"></td>
 		</tr>
     </tbody>
+    <button id="add-row">Dodaj element</button>
 </table>
-

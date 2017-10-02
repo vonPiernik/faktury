@@ -8,6 +8,12 @@
 // Bootstrap
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
 
+//ogólne style
+
+.navbar-brand img {
+    height: 100% !important;
+}
+
 
 // poszerz kontener bootstrapa
 

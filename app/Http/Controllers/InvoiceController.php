@@ -71,9 +71,10 @@ class InvoiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Invoice $faktury)
     {
-        $invoice = Invoice::find($id);
+        // change variable name, it looks better :p
+        $invoice = $faktury;
 
         return view('faktury.show', compact('invoice',$invoice));        
     }

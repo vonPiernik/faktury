@@ -46,3 +46,25 @@
     </div>
 </div>
 @endsection
+
+@section('pagescripts')
+<script>
+var item = 1;
+
+$("button#add-row").on("click", function(e){
+    e.preventDefault();
+    item=item+1;
+
+    var itemsRow = '<tr class="items-row items-row-'+ item +' hidden"><td><input type="text" id="name" name="name" style="width: 100%;"></td><td><input type="number" id="amount" name="amount" style="width: 50px;"></td><td><input type="text" id="unit" name="unit" size="4"></td><td><input type="number" id="price" name="price" style="width: 50px;"></td><td><input type="number" id="net_value" name="net_value" style="width: 50px;"></td><td><input type="number" id="gross_value" name="gross_value" style="width: 50px;"></td><td><a href-"#" id="remove-row">Usuń</a></tr>';
+
+    $(itemsRow).insertAfter( ".items-row:last-child()" );
+    $(".items-row-" + item).removeClass("hidden").hide().fadeIn();
+})
+
+$("#remove-row").on("click", function(e){
+    e.preventDefault();
+    
+    $(".items-row").fadeOut();
+})
+</script>
+@endsection

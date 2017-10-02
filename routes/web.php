@@ -20,10 +20,6 @@ Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
 
-	Route::get('home', 'HomeController@index')->name('home');
-
-	Route::view('dodaj-fakture', 'invoice.new')->name('new-invoice');
-
 	Route::resource('faktury','InvoiceController');
 
 });
