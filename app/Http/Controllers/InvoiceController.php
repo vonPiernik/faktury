@@ -49,18 +49,21 @@ class InvoiceController extends Controller
             'customer' => $customer,
 
         ]);
+        $items = $request->input('items_amount');
+        
+        for($i = 1; $i <= $items; $i++){
+            Item::create([
+                
+                'invoice_id' => $invoice->id,
+                'name' => $request->query('name_'.$i ,'Jakiś element'),
+                'amount' => $request->query('amount_'.$i, 1),
+                'unit' => $request->query('unit_'.$i,'szt.'),
+                'price' => $request->query('price_'.$i, 1),
+                'net_value' => $request->query('net_value_'.$i, 1),
+                'gross_value' => $request->query('gross_value_'.$i, 1),
 
-        Item::create([
-            
-            'invoice_id' => $invoice->id,
-            'name' => $request->query('name','Jakiś element'),
-            'amount' => $request->query('amount', 1),
-            'unit' => $request->query('unit','szt.'),
-            'price' => $request->query('price', 1),
-            'net_value' => $request->query('net_value', 1),
-            'gross_value' => $request->query('name', 1),
-
-        ]);
+            ]);
+        }
 
         return redirect()->route('faktury.index');
     }

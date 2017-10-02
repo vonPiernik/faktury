@@ -55,16 +55,20 @@ $("button#add-row").on("click", function(e){
     e.preventDefault();
     item=item+1;
 
-    var itemsRow = '<tr class="items-row items-row-'+ item +' hidden"><td><input type="text" id="name" name="name" style="width: 100%;"></td><td><input type="number" id="amount" name="amount" style="width: 50px;"></td><td><input type="text" id="unit" name="unit" size="4"></td><td><input type="number" id="price" name="price" style="width: 50px;"></td><td><input type="number" id="net_value" name="net_value" style="width: 50px;"></td><td><input type="number" id="gross_value" name="gross_value" style="width: 50px;"></td><td><a href-"#" id="remove-row">Usuń</a></tr>';
+    var itemsRow = '<tr class="items-row items-row-'+ item +'"><td><input type="text" name="name_'+ item +'" style="width: 100%;"></td><td><input type="number" name="amount_'+ item +'" style="width: 50px;"></td><td><input type="text" name="unit_'+ item +'" size="4"></td><td><input type="number" name="price_'+ item +'" style="width: 50px;"></td><td><input type="number" name="net_value_'+ item +'" style="width: 50px;"></td><td><input type="number" name="gross_value_'+ item +'" style="width: 50px;"></td><td><a href="#" id="remove-row">Usuń</a></td></tr>';
 
     $(itemsRow).insertAfter( ".items-row:last-child()" );
-    $(".items-row-" + item).removeClass("hidden").hide().fadeIn();
+    $(".items-row-" + item).hide().fadeIn();
+
+    $("#items_amount").val(item);
 })
 
-$("#remove-row").on("click", function(e){
+
+$(".items").on("click",'#remove-row',function(e){
     e.preventDefault();
     
-    $(".items-row").fadeOut();
-})
+    $(this).parents('tr').remove();
+});
+
 </script>
 @endsection
