@@ -34,6 +34,8 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <hr>
+                        {{ $invoices->links() }}
                     @else
                         <h3><strong>
                             Nie utworzyłeś jeszcze żadnej faktury. Możesz to zrobić <a href="{{ route('faktury.create') }}">tutaj</a>

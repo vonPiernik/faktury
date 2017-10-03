@@ -21,7 +21,7 @@
                         <div class="col-md-4"><label for="date">Data wystawienia</label><br>
                         </div>
                         <div class="col-md-4"><label for="date">Dane klienta</label><br>
-                            <input type="text" name="customer" id="customer">
+                            <input type="text" name="customer" id="customer" required value="Klient">
                         </div>
 
                         <br><br>
@@ -55,7 +55,7 @@ $("button#add-row").on("click", function(e){
     e.preventDefault();
     item=item+1;
 
-    var itemsRow = '<tr class="items-row items-row-'+ item +'"><td><input type="text" name="name_'+ item +'" style="width: 100%;"></td><td><input type="number" name="amount_'+ item +'" style="width: 50px;"></td><td><input type="text" name="unit_'+ item +'" size="4"></td><td><input type="number" name="price_'+ item +'" style="width: 50px;"></td><td><input type="number" name="net_value_'+ item +'" style="width: 50px;"></td><td><input type="number" name="gross_value_'+ item +'" style="width: 50px;"></td><td><a href="#" id="remove-row">Usuń</a></td></tr>';
+    var itemsRow = '<tr class="items-row items-row-'+ item +'"><td><input required type="text" value="Pozycja" name="name_'+ item +'" style="width: 100%;"></td><td><input required  min="0" value="0" type="number" name="amount_'+ item +'" style="width: 50px;"></td><td><input required type="text" value="szt." name="unit_'+ item +'" size="4"></td><td><input required  min="0" value="0" type="number" name="price_'+ item +'" style="width: 50px;"></td><td><input required  min="0" value="0" type="number" name="net_value_'+ item +'" style="width: 50px;"></td><td><input required  min="0" value="0" type="number" name="gross_value_'+ item +'" style="width: 50px;"></td><td><a href="#" id="remove-row">Usuń</a></td></tr>';
 
     $(itemsRow).insertAfter( ".items-row:last-child()" );
     $(".items-row-" + item).hide().fadeIn();

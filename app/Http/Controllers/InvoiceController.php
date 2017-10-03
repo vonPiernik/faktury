@@ -19,7 +19,7 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        $invoices = Invoice::all();
+        $invoices = Invoice::orderBy('created_at','desc')->paginate(15);
 
         return view('faktury.index', compact('invoices'));
     }
@@ -42,30 +42,32 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
-        $customer = $request->query('customer','Łoś super ktoś');
+        $input = $request -> all();
+
+        $customer = $input['customer'];
         $invoice = Invoice::create([
             
             'user_id' => Auth::user()->id,
             'customer' => $customer,
 
         ]);
-        $items = $request->input('items_amount');
+        $items = $input['items_amount'];
         
         for($i = 1; $i <= $items; $i++){
             Item::create([
                 
                 'invoice_id' => $invoice->id,
-                'name' => $request->query('name_'.$i ,'Jakiś element'),
-                'amount' => $request->query('amount_'.$i, 1),
-                'unit' => $request->query('unit_'.$i,'szt.'),
-                'price' => $request->query('price_'.$i, 1),
-                'net_value' => $request->query('net_value_'.$i, 1),
-                'gross_value' => $request->query('gross_value_'.$i, 1),
+                'name' => $input['name_'.$i],
+                'amount' => $input['amount_'.$i],
+                'unit' => $input['unit_'.$i],
+                'price' => $input['price_'.$i],
+                'net_value' => $input['net_value_'.$i],
+                'gross_value' => $input['gross_value_'.$i],
 
             ]);
         }
 
-        return redirect()->route('faktury.index');
+        return redirect()->route('faktury.show',$invoice->id);
     }
 
     /**
