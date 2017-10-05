@@ -15,10 +15,37 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', require('./components/Example.vue'));
 
-const app = new Vue({
-    el: '#app'
-});
+Vue.component('item-row', require('./components/ItemRow.vue'), {
+    props: [ 'row'],
+    template: '#item-template',
+    data: function () {
+        return {
 
+        } 
+    },
+    methods: {
+        remove() {
+            this.$emit('remove');
+        }
+    }
+}),
+
+new Vue({
+    el: "#app",
+    data: {
+        rows: []
+    },
+
+    methods: {
+
+        addRow(){
+            this.rows.push({row: ''}); 
+        },
+
+        removeRow(index){
+            this.rows.splice(index,1);
+        }
+    }
+})
 

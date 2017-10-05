@@ -48,27 +48,33 @@
 @endsection
 
 @section('pagescripts')
+
 <script>
-var item = 1;
+    // $("button#add-row").on("click", function(e){
+    //     e.preventDefault();
+    // })
+</script>
+<script>
+// var item = 1;
 
-$("button#add-row").on("click", function(e){
-    e.preventDefault();
-    item=item+1;
+// $("button#add-row").on("click", function(e){
+//     e.preventDefault();
+//     item=item+1;
 
-    var itemsRow = '<tr class="items-row items-row-'+ item +'"><td><input required type="text" value="Pozycja" name="name_'+ item +'" style="width: 100%;"></td><td><input required  min="0" value="0" type="number" name="amount_'+ item +'" style="width: 50px;"></td><td><input required type="text" value="szt." name="unit_'+ item +'" size="4"></td><td><input required  min="0" value="0" type="number" name="price_'+ item +'" style="width: 50px;"></td><td><input required  min="0" value="0" type="number" name="net_value_'+ item +'" style="width: 50px;"></td><td><input required  min="0" value="0" type="number" name="gross_value_'+ item +'" style="width: 50px;"></td><td><a href="#" id="remove-row">Usuń</a></td></tr>';
+//     var itemsRow = '<tr class="items-row items-row-'+ item +'"><td><input required type="text" value="Pozycja" name="name_'+ item +'" style="width: 100%;"></td><td><input required  min="0" value="0" type="number" name="amount_'+ item +'" style="width: 50px;"></td><td><input required type="text" value="szt." name="unit_'+ item +'" size="4"></td><td><input required  min="0" value="0" type="number" name="price_'+ item +'" style="width: 50px;"></td><td><input required  min="0" value="0" type="number" name="net_value_'+ item +'" style="width: 50px;"></td><td><input required  min="0" value="0" type="number" name="gross_value_'+ item +'" style="width: 50px;"></td><td><a href="#" id="remove-row">Usuń</a></td></tr>';
 
-    $(itemsRow).insertAfter( ".items-row:last-child()" );
-    $(".items-row-" + item).hide().fadeIn();
+//     $(itemsRow).insertAfter( ".items-row:last-child()" );
+//     $(".items-row-" + item).hide().fadeIn();
 
-    $("#items_amount").val(item);
-})
+//     $("#items_amount").val(item);
+// })
 
 
-$(".items").on("click",'#remove-row',function(e){
-    e.preventDefault();
+// $(".items").on("click",'#remove-row',function(e){
+//     e.preventDefault();
     
-    $(this).parents('tr').remove();
-});
+//     $(this).parents('tr').remove();
+// });
 
 </script>
 @endsection
