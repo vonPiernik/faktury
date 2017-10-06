@@ -72,9 +72,27 @@
                 </div>
             </div>
         </nav>
+        
 
-        @yield('content')
-    </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">@yield('page-title')</div>
+
+                        <div class="panel-body">
+                        @yield('content')
+                        </div>
+
+                    </div><!-- /.panel -->
+                </div>
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+
+
+    </div><!-- /#app -->
+
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
