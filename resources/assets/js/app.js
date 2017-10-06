@@ -15,37 +15,43 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+Vue.component('item-list', require('./components/ItemList.vue'));
 
-Vue.component('item-row', require('./components/ItemRow.vue'), {
-    props: [ 'row'],
-    template: '#item-template',
-    data: function () {
-        return {
+// Task template
+Vue.component('item-row',require('./components/ItemRow.vue'));
+// Vue.component('item-row', require('./components/ItemRow.vue'), {
+//     props: [ 'index', 'row' ],
+//     template: '#item-template',
+//     data: function () {
+//         return {
 
-        } 
-    },
-    methods: {
-        remove() {
-            this.$emit('remove');
-        }
-    }
-}),
+//         } 
+//     },
+//     methods: {
+//         remove() {
+//             this.$emit('remove');
+//         }
+//     }
+// }),
+
+// new Vue({
+//     el: "#app",
+//     data: {
+//         rows: []
+//     },
+
+//     methods: {
+
+//         addRow(){
+//             this.rows.push({row: ''}); 
+//         },
+
+//         removeRow(index){
+//             this.rows.splice(index,1);
+//         }
+//     }
+// })
 
 new Vue({
-    el: "#app",
-    data: {
-        rows: []
-    },
-
-    methods: {
-
-        addRow(){
-            this.rows.push({row: ''}); 
-        },
-
-        removeRow(index){
-            this.rows.splice(index,1);
-        }
-    }
+    el: "#app"
 })
-

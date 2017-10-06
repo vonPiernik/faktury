@@ -46,6 +46,13 @@
                     <strong>Branch faktury</strong>
                 </div>
             </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">Zadania (vuejs)</div>
+
+                <div class="panel-body">
+                    <item-list></item-list>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -773,7 +773,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(9);
-module.exports = __webpack_require__(36);
+module.exports = __webpack_require__(39);
 
 
 /***/ }),
@@ -797,31 +797,45 @@ window.Vue = __webpack_require__(35);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('item-row', __webpack_require__(46), {
-    props: ['row'],
-    template: '#item-template',
-    data: function data() {
-        return {};
-    },
-    methods: {
-        remove: function remove() {
-            this.$emit('remove');
-        }
-    }
-}), new Vue({
-    el: "#app",
-    data: {
-        rows: []
-    },
+Vue.component('item-list', __webpack_require__(50));
 
-    methods: {
-        addRow: function addRow() {
-            this.rows.push({ row: '' });
-        },
-        removeRow: function removeRow(index) {
-            this.rows.splice(index, 1);
-        }
-    }
+// Task template
+Vue.component('item-row', __webpack_require__(36));
+// Vue.component('item-row', require('./components/ItemRow.vue'), {
+//     props: [ 'index', 'row' ],
+//     template: '#item-template',
+//     data: function () {
+//         return {
+
+//         } 
+//     },
+//     methods: {
+//         remove() {
+//             this.$emit('remove');
+//         }
+//     }
+// }),
+
+// new Vue({
+//     el: "#app",
+//     data: {
+//         rows: []
+//     },
+
+//     methods: {
+
+//         addRow(){
+//             this.rows.push({row: ''}); 
+//         },
+
+//         removeRow(index){
+//             this.rows.splice(index,1);
+//         }
+//     }
+// })
+
+new Vue({
+  el: "#app"
 });
 
 /***/ }),
@@ -41911,29 +41925,14 @@ module.exports = Vue$3;
 
 /***/ }),
 /* 36 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 37 */,
-/* 38 */,
-/* 39 */,
-/* 40 */,
-/* 41 */,
-/* 42 */,
-/* 43 */,
-/* 44 */,
-/* 45 */,
-/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(47)
+var normalizeComponent = __webpack_require__(37)
 /* script */
-var __vue_script__ = null
+var __vue_script__ = __webpack_require__(49)
 /* template */
-var __vue_template__ = __webpack_require__(48)
+var __vue_template__ = __webpack_require__(38)
 /* styles */
 var __vue_styles__ = null
 /* scopeId */
@@ -41971,7 +41970,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 47 */
+/* 37 */
 /***/ (function(module, exports) {
 
 /* globals __VUE_SSR_CONTEXT__ */
@@ -42068,130 +42067,16 @@ module.exports = function normalizeComponent (
 
 
 /***/ }),
-/* 48 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("tr", { staticClass: "items-row items-row-1" }, [
-    _vm._m(0),
-    _vm._v(" "),
-    _vm._m(1),
-    _vm._v(" "),
-    _vm._m(2),
-    _vm._v(" "),
-    _vm._m(3),
-    _vm._v(" "),
-    _vm._m(4),
-    _vm._v(" "),
-    _vm._m(5),
-    _vm._v(" "),
-    _c("td", [
-      _c("button", { attrs: { type: "button" }, on: { click: _vm.remove } }, [
-        _vm._v(" X ")
-      ])
-    ])
-  ])
+  return _c("li", [_vm._t("default"), _vm._v(_vm._s(_vm.item.task))], 2)
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("input", {
-        staticStyle: { width: "100%" },
-        attrs: { required: "", type: "text", value: "Pozycja", name: "name_1" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("input", {
-        staticStyle: { width: "50px" },
-        attrs: {
-          required: "",
-          min: "0",
-          value: "0",
-          type: "number",
-          name: "amount_1"
-        }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("input", {
-        attrs: {
-          required: "",
-          type: "text",
-          value: "szt.",
-          name: "unit_1",
-          size: "4"
-        }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("input", {
-        staticStyle: { width: "50px" },
-        attrs: {
-          required: "",
-          min: "0",
-          value: "0",
-          type: "number",
-          name: "price_1"
-        }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("input", {
-        staticStyle: { width: "50px" },
-        attrs: {
-          required: "",
-          min: "0",
-          value: "0",
-          type: "number",
-          name: "net_value_1"
-        }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("input", {
-        staticStyle: { width: "50px" },
-        attrs: {
-          required: "",
-          min: "0",
-          value: "0",
-          type: "number",
-          name: "gross_value_1"
-        }
-      })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -42200,6 +42085,165 @@ if (false) {
      require("vue-hot-reload-api").rerender("data-v-3aa4d192", module.exports)
   }
 }
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 40 */,
+/* 41 */,
+/* 42 */,
+/* 43 */,
+/* 44 */,
+/* 45 */,
+/* 46 */,
+/* 47 */,
+/* 48 */,
+/* 49 */
+/***/ (function(module, exports) {
+
+//
+//
+//
+//
+
+// Task list template
+module.exports = {
+    props: ['item']
+};
+
+/***/ }),
+/* 50 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(37)
+/* script */
+var __vue_script__ = __webpack_require__(52)
+/* template */
+var __vue_template__ = __webpack_require__(51)
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\ItemList.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] ItemList.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-798195de", Component.options)
+  } else {
+    hotAPI.reload("data-v-798195de", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 51 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("button", { attrs: { type: "button" }, on: { click: _vm.addItem } }, [
+        _vm._v(" Dodaj element")
+      ]),
+      _vm._v(" "),
+      _vm._l(_vm.tasks, function(task, index) {
+        return _c("item-row", { key: index, attrs: { item: task } }, [
+          _vm._v("\n        \t#" + _vm._s(index) + _vm._s(task.task) + " "),
+          task.complete ? _c("span", [_vm._v("(done)")]) : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              attrs: { type: "button" },
+              on: {
+                click: function($event) {
+                  _vm.removeItem(index)
+                }
+              }
+            },
+            [_vm._v(" X ")]
+          )
+        ])
+      })
+    ],
+    2
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-798195de", module.exports)
+  }
+}
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports) {
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+// Task list template
+module.exports = {
+	data: function data() {
+		return {
+			tasks: [{ task: 'mall1', complete: true }, { task: 'mall2', complete: false }, { task: 'mall3', complete: false }]
+		};
+	},
+	methods: {
+		addItem: function addItem() {
+			this.tasks.push({ task: 'dodane', complete: true });
+		},
+		removeItem: function removeItem(index) {
+			this.tasks.splice(index, 1);
+		}
+	}
+};
 
 /***/ })
 /******/ ]);
