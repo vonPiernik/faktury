@@ -47,18 +47,19 @@ module.exports = {
 	}, 
 	watch: {
 	    items: {
-	    handler: function (after, before) {
-        	console.log("Zmienił się: " + this)
+	    handler: function (val, oldVal) {
+	    	val.forEach(function(item, index){
+		    	val[index].net_value = val[index].amount * val[index].price;
+		    })
+	    	str = JSON.stringify(val);
+			str = JSON.stringify(val, null, 4); // (Optional) beautiful indented output.
+			console.log(str); 
+			console.log(val[0].name)
 	    },
 	    deep: true
 	    }
     },
 	methods: {
-		onInput(object, attribute, event) {
-		  Vue.set(object, attribute, event.target.value)
-
-		  // put logic from the watch function here.
-		},
 		addItem(){
 			this.items.push({
 			  	name: "Produkt",
