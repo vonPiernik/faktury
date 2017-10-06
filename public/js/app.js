@@ -42064,6 +42064,7 @@ module.exports = Component.exports
 //
 //
 //
+//
 
 // Task list template
 module.exports = {
@@ -42071,23 +42072,37 @@ module.exports = {
 		return {
 			items: [{
 				name: "Produkt",
-				amount: "0",
+				amount: 0,
 				unit: "szt.",
-				price: "0",
-				net_value: "0",
-				gross_value: "0"
+				price: 0,
+				net_value: 0,
+				gross_value: 0,
+				itemIndex: 0
 			}]
 		};
 	},
+	watch: {
+		items: {
+			handler: function handler(after, before) {
+				console.log("Zmienił się: " + this);
+			},
+			deep: true
+		}
+	},
 	methods: {
+		onInput: function onInput(object, attribute, event) {
+			Vue.set(object, attribute, event.target.value);
+
+			// put logic from the watch function here.
+		},
 		addItem: function addItem() {
 			this.items.push({
 				name: "Produkt",
-				amount: "0",
+				amount: 0,
 				unit: "szt.",
-				price: "0",
-				net_value: "0",
-				gross_value: "0"
+				price: 0,
+				net_value: 0,
+				gross_value: 0
 			});
 		},
 		removeItem: function removeItem(index) {
@@ -42125,6 +42140,9 @@ var render = function() {
               on: {
                 remove: function($event) {
                   _vm.removeItem(index)
+                },
+                inputFire: function($event) {
+                  _vm.onInput(item, "price", $event)
                 }
               }
             })

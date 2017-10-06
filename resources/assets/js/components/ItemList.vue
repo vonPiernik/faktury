@@ -18,9 +18,10 @@
         			:key="index" 
         			:i="index" 
         			:item="item" 
-        			v-on:remove="removeItem(index)">
+        			v-on:remove="removeItem(index)"
+        			v-on:inputFire="onInput(item, 'price', $event)">
         </item-row>
-        
+
 		</tbody>
 
 	</table>
@@ -35,23 +36,37 @@ module.exports = {
 	return {
 	  items: [{
 	  	name: "Produkt",
-	  	amount: "0",
+	  	amount: 0,
 	  	unit: "szt.",
-	  	price: "0",
-	  	net_value: "0",
-	  	gross_value: "0"
+	  	price: 0,
+	  	net_value: 0,
+	  	gross_value: 0,
+	  	itemIndex: 0
 	  }]
-	};
-	},
+	}
+	}, 
+	watch: {
+	    items: {
+	    handler: function (after, before) {
+        	console.log("Zmienił się: " + this)
+	    },
+	    deep: true
+	    }
+    },
 	methods: {
+		onInput(object, attribute, event) {
+		  Vue.set(object, attribute, event.target.value)
+
+		  // put logic from the watch function here.
+		},
 		addItem(){
 			this.items.push({
 			  	name: "Produkt",
-			  	amount: "0",
+			  	amount: 0,
 			  	unit: "szt.",
-			  	price: "0",
-			  	net_value: "0",
-			  	gross_value: "0"
+			  	price: 0,
+			  	net_value: 0,
+			  	gross_value: 0
 			  })
 		},
 		removeItem(index){
