@@ -15,6 +15,8 @@
                 <td>Cena</td>
                 <td>Ilość</td>
                 <td>Wartość netto</td>
+                <td>Stawka VAT</td>
+                <td>Kwota VAT</td>
                 <td>Wartość brutto</td>
             </tr>
             </thead>
@@ -22,10 +24,12 @@
             @foreach($invoice->items()->get() as $item)
                 <tr>
                     <td>{{ $item->name }}</td>
-                    <td>{{ $item->price }}</td>
+                    <td>{{ $item->price }} zł</td>
                     <td>{{ $item->amount }} {{ $item->unit }}</td>
-                    <td>{{ $item->net_value }}</td>
-                    <td>{{ $item->gross_value }}</td>
+                    <td>{{ $item->net_value }} zł</td>
+                    <td>{{ $item->vat }}%</td>
+                    <td>{{ $item->vat_value }} zł</td>
+                    <td>{{ $item->gross_value }} zł</td>
                 </tr>
             @endforeach
             </tbody>

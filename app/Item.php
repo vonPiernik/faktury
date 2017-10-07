@@ -12,7 +12,15 @@ class Item extends Model
      * @var array
      */
     protected $fillable = [
-        'invoice_id','name','amount','unit','price','net_value','gross_value'
+        'invoice_id',
+        'name',
+        'amount',
+        'unit',
+        'price',
+        'vat',
+        'vat_value',
+        'net_value',
+        'gross_value'
     ];
 
 

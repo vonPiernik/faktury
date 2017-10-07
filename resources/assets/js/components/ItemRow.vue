@@ -6,7 +6,7 @@
                          :name="'name_' + i">
             </td>
             <td>
-                <input required  min="0" 
+                <input required  min="0" step="0.01" 
                 v-model.number="item.amount" 
                 @change="computeValues(item.amount)" 
                 type="number" 
@@ -19,40 +19,41 @@
                 :name="'unit_' + i" size="4">
             </td>
             <td>
-                <input required  min="0.01"
+                <input required  min="0.01" step="0.01"
                 v-model.number="item.price" 
                 @change="computeValues(item.price)" 
                 type="number" 
                 :name="'price_' + i">
             </td>
             <td>
-                <input required  min="1" max="100" step="1" 
+                <input required  min="1" max="100"
                 v-model.number="item.vat" 
                 @change="computeValues(item.vat)" 
                 type="number" 
-                :name="'price_' + i">
+                :name="'vat_' + i">
             </td>
             <td>
-                <input disabled required  min="0.01" 
+                <input readonly required  min="0.01" step="0.01"
                 v-model.number="item.vat_value" 
                 @change="computeValues(item.vat_value)" 
                 type="number" 
-                :name="'price_' + i">
+                :name="'vat_value_' + i">
             </td>
             <td>
-                <input required  min="0" 
+                <input required  min="0" step="0.01"
                 v-model.number="item.net_value" 
                 @change="computeValues(item.net_value)" 
                 type="number" 
                 :name="'net_value_' + i">
             </td>
-            <td><input required  min="0" 
+            <td><input required  min="0" step="0.01"
                 v-model.number="item.gross_value" 
                 @change="computeValues(item.gross_value)" 
                 type="number" 
                 :name="'gross_value_' + i">
             </td>
             <td><button type="button" @click="remove"> X </button></td>
+
     </tr>
 </template>
 

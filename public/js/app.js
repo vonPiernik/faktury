@@ -870,7 +870,7 @@ module.exports = function normalizeComponent (
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(10);
-module.exports = __webpack_require__(43);
+module.exports = __webpack_require__(48);
 
 
 /***/ }),
@@ -42066,6 +42066,9 @@ module.exports = Component.exports
 //
 //
 //
+//
+//
+//
 
 module.exports = {
 	data: function data() {
@@ -42079,7 +42082,8 @@ module.exports = {
 				vat_value: 0.00,
 				net_value: 0.00,
 				gross_value: 0.00
-			}]
+			}],
+			itemsAmount: 0
 		};
 	},
 	methods: {
@@ -42094,9 +42098,11 @@ module.exports = {
 				net_value: 0.00,
 				gross_value: 0.00
 			});
+			this.itemsAmount++;
 		},
 		removeItem: function removeItem(index) {
 			Vue.delete(this.items, index);
+			this.itemsAmount--;
 		}
 	}
 };
@@ -42131,7 +42137,28 @@ var render = function() {
           })
         })
       )
-    ])
+    ]),
+    _vm._v(" "),
+    _c("input", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model",
+          value: _vm.itemsAmount,
+          expression: "itemsAmount"
+        }
+      ],
+      attrs: { type: "hidden", name: "items_amount" },
+      domProps: { value: _vm.itemsAmount },
+      on: {
+        input: function($event) {
+          if ($event.target.composing) {
+            return
+          }
+          _vm.itemsAmount = $event.target.value
+        }
+      }
+    })
   ])
 }
 var staticRenderFns = [
@@ -42176,13 +42203,13 @@ if (false) {
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(53)
+  __webpack_require__(41)
 }
 var normalizeComponent = __webpack_require__(8)
 /* script */
-var __vue_script__ = __webpack_require__(41)
+var __vue_script__ = __webpack_require__(46)
 /* template */
-var __vue_template__ = __webpack_require__(42)
+var __vue_template__ = __webpack_require__(47)
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
@@ -42221,400 +42248,46 @@ module.exports = Component.exports
 
 /***/ }),
 /* 41 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+// style-loader: Adds some css to the DOM by adding a <style> tag
 
-module.exports = {
-    props: ['item', 'i'],
-    data: function data() {
-        return {};
-    },
-    methods: {
-        remove: function remove() {
-            this.$emit('remove');
-        },
-        computeValues: function computeValues(whatChanged) {
-            vatV = this.item.vat / 100 + 1;
-
-            if (whatChanged == this.item.price || whatChanged == this.item.amount) {
-                this.item.net_value = (this.item.price * this.item.amount).toFixed(2);
-                this.item.gross_value = (this.item.net_value * vatV).toFixed(2);
-                this.item.vat_value = (this.item.net_value * (this.item.vat / 100)).toFixed(2);
-            } else if (whatChanged == this.item.vat) {
-                this.item.gross_value = (this.item.net_value * vatV).toFixed(2);
-                this.item.vat_value = (this.item.net_value * (this.item.vat / 100)).toFixed(2);
-            } else if (whatChanged == this.item.vat_value) {} else if (whatChanged == this.item.net_value) {
-                this.item.gross_value = (this.item.net_value * vatV).toFixed(2);
-                this.item.price = (this.item.net_value / this.item.amount).toFixed(2);
-                this.item.vat_value = (this.item.net_value * (this.item.vat / 100)).toFixed(2);
-            } else if (whatChanged == this.item.gross_value) {
-                this.item.net_value = (this.item.gross_value / vatV).toFixed(2);
-                this.item.price = (this.item.net_value / this.item.amount).toFixed(2);
-                this.item.vat_value = (this.item.net_value * (this.item.vat / 100)).toFixed(2);
-            }
-            console.log(this.item.net_value);
-        }
-    }
-};
+// load the styles
+var content = __webpack_require__(42);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(44)("01f76f94", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3aa4d192\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ItemRow.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3aa4d192\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ItemRow.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
 
 /***/ }),
 /* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("tr", { staticClass: "items-row" }, [
-    _c("td", [
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.item.name,
-            expression: "item.name"
-          }
-        ],
-        attrs: { required: "", type: "text", name: "name_" + _vm.i },
-        domProps: { value: _vm.item.name },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.item.name = $event.target.value
-          }
-        }
-      })
-    ]),
-    _vm._v(" "),
-    _c("td", [
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model.number",
-            value: _vm.item.amount,
-            expression: "item.amount",
-            modifiers: { number: true }
-          }
-        ],
-        attrs: {
-          required: "",
-          min: "0",
-          type: "number",
-          name: "amount_" + _vm.i
-        },
-        domProps: { value: _vm.item.amount },
-        on: {
-          change: function($event) {
-            _vm.computeValues(_vm.item.amount)
-          },
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.item.amount = _vm._n($event.target.value)
-          },
-          blur: function($event) {
-            _vm.$forceUpdate()
-          }
-        }
-      })
-    ]),
-    _vm._v(" "),
-    _c("td", [
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.item.unit,
-            expression: "item.unit"
-          }
-        ],
-        attrs: { required: "", type: "text", name: "unit_" + _vm.i, size: "4" },
-        domProps: { value: _vm.item.unit },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.item.unit = $event.target.value
-          }
-        }
-      })
-    ]),
-    _vm._v(" "),
-    _c("td", [
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model.number",
-            value: _vm.item.price,
-            expression: "item.price",
-            modifiers: { number: true }
-          }
-        ],
-        attrs: {
-          required: "",
-          min: "0.01",
-          type: "number",
-          name: "price_" + _vm.i
-        },
-        domProps: { value: _vm.item.price },
-        on: {
-          change: function($event) {
-            _vm.computeValues(_vm.item.price)
-          },
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.item.price = _vm._n($event.target.value)
-          },
-          blur: function($event) {
-            _vm.$forceUpdate()
-          }
-        }
-      })
-    ]),
-    _vm._v(" "),
-    _c("td", [
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model.number",
-            value: _vm.item.vat,
-            expression: "item.vat",
-            modifiers: { number: true }
-          }
-        ],
-        attrs: {
-          required: "",
-          min: "1",
-          max: "100",
-          step: "1",
-          type: "number",
-          name: "price_" + _vm.i
-        },
-        domProps: { value: _vm.item.vat },
-        on: {
-          change: function($event) {
-            _vm.computeValues(_vm.item.vat)
-          },
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.item.vat = _vm._n($event.target.value)
-          },
-          blur: function($event) {
-            _vm.$forceUpdate()
-          }
-        }
-      })
-    ]),
-    _vm._v(" "),
-    _c("td", [
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model.number",
-            value: _vm.item.vat_value,
-            expression: "item.vat_value",
-            modifiers: { number: true }
-          }
-        ],
-        attrs: {
-          disabled: "",
-          required: "",
-          min: "0.01",
-          type: "number",
-          name: "price_" + _vm.i
-        },
-        domProps: { value: _vm.item.vat_value },
-        on: {
-          change: function($event) {
-            _vm.computeValues(_vm.item.vat_value)
-          },
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.item.vat_value = _vm._n($event.target.value)
-          },
-          blur: function($event) {
-            _vm.$forceUpdate()
-          }
-        }
-      })
-    ]),
-    _vm._v(" "),
-    _c("td", [
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model.number",
-            value: _vm.item.net_value,
-            expression: "item.net_value",
-            modifiers: { number: true }
-          }
-        ],
-        attrs: {
-          required: "",
-          min: "0",
-          type: "number",
-          name: "net_value_" + _vm.i
-        },
-        domProps: { value: _vm.item.net_value },
-        on: {
-          change: function($event) {
-            _vm.computeValues(_vm.item.net_value)
-          },
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.item.net_value = _vm._n($event.target.value)
-          },
-          blur: function($event) {
-            _vm.$forceUpdate()
-          }
-        }
-      })
-    ]),
-    _vm._v(" "),
-    _c("td", [
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model.number",
-            value: _vm.item.gross_value,
-            expression: "item.gross_value",
-            modifiers: { number: true }
-          }
-        ],
-        attrs: {
-          required: "",
-          min: "0",
-          type: "number",
-          name: "gross_value_" + _vm.i
-        },
-        domProps: { value: _vm.item.gross_value },
-        on: {
-          change: function($event) {
-            _vm.computeValues(_vm.item.gross_value)
-          },
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.item.gross_value = _vm._n($event.target.value)
-          },
-          blur: function($event) {
-            _vm.$forceUpdate()
-          }
-        }
-      })
-    ]),
-    _vm._v(" "),
-    _c("td", [
-      _c("button", { attrs: { type: "button" }, on: { click: _vm.remove } }, [
-        _vm._v(" X ")
-      ])
-    ])
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-3aa4d192", module.exports)
-  }
-}
+exports = module.exports = __webpack_require__(43)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "\ninput[type=\"number\"]{\n    width: 80px;\n}\n", ""]);
+
+// exports
+
 
 /***/ }),
 /* 43 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 44 */,
-/* 45 */
 /***/ (function(module, exports) {
 
 /*
@@ -42696,54 +42369,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 46 */,
-/* 47 */,
-/* 48 */,
-/* 49 */,
-/* 50 */,
-/* 51 */,
-/* 52 */,
-/* 53 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(54);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(55)("01f76f94", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3aa4d192\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ItemRow.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3aa4d192\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ItemRow.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 54 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(45)(undefined);
-// imports
-
-
-// module
-exports.push([module.i, "\ninput[type=\"number\"]{\n    width: 80px;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 55 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -42762,7 +42388,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(56)
+var listToStyles = __webpack_require__(45)
 
 /*
 type StyleObject = {
@@ -42964,7 +42590,7 @@ function applyToTag (styleElement, obj) {
 
 
 /***/ }),
-/* 56 */
+/* 45 */
 /***/ (function(module, exports) {
 
 /**
@@ -42995,6 +42621,404 @@ module.exports = function listToStyles (parentId, list) {
   return styles
 }
 
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports) {
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+module.exports = {
+    props: ['item', 'i'],
+    data: function data() {
+        return {};
+    },
+    methods: {
+        remove: function remove() {
+            this.$emit('remove');
+        },
+        computeValues: function computeValues(whatChanged) {
+            vatV = this.item.vat / 100 + 1;
+
+            if (whatChanged == this.item.price || whatChanged == this.item.amount) {
+                this.item.net_value = (this.item.price * this.item.amount).toFixed(2);
+                this.item.gross_value = (this.item.net_value * vatV).toFixed(2);
+                this.item.vat_value = (this.item.net_value * (this.item.vat / 100)).toFixed(2);
+            } else if (whatChanged == this.item.vat) {
+                this.item.gross_value = (this.item.net_value * vatV).toFixed(2);
+                this.item.vat_value = (this.item.net_value * (this.item.vat / 100)).toFixed(2);
+            } else if (whatChanged == this.item.vat_value) {} else if (whatChanged == this.item.net_value) {
+                this.item.gross_value = (this.item.net_value * vatV).toFixed(2);
+                this.item.price = (this.item.net_value / this.item.amount).toFixed(2);
+                this.item.vat_value = (this.item.net_value * (this.item.vat / 100)).toFixed(2);
+            } else if (whatChanged == this.item.gross_value) {
+                this.item.net_value = (this.item.gross_value / vatV).toFixed(2);
+                this.item.price = (this.item.net_value / this.item.amount).toFixed(2);
+                this.item.vat_value = (this.item.net_value * (this.item.vat / 100)).toFixed(2);
+            }
+            console.log(this.item.net_value);
+        }
+    }
+};
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("tr", { staticClass: "items-row" }, [
+    _c("td", [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.item.name,
+            expression: "item.name"
+          }
+        ],
+        attrs: { required: "", type: "text", name: "name_" + _vm.i },
+        domProps: { value: _vm.item.name },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.item.name = $event.target.value
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c("td", [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model.number",
+            value: _vm.item.amount,
+            expression: "item.amount",
+            modifiers: { number: true }
+          }
+        ],
+        attrs: {
+          required: "",
+          min: "0",
+          step: "0.01",
+          type: "number",
+          name: "amount_" + _vm.i
+        },
+        domProps: { value: _vm.item.amount },
+        on: {
+          change: function($event) {
+            _vm.computeValues(_vm.item.amount)
+          },
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.item.amount = _vm._n($event.target.value)
+          },
+          blur: function($event) {
+            _vm.$forceUpdate()
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c("td", [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.item.unit,
+            expression: "item.unit"
+          }
+        ],
+        attrs: { required: "", type: "text", name: "unit_" + _vm.i, size: "4" },
+        domProps: { value: _vm.item.unit },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.item.unit = $event.target.value
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c("td", [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model.number",
+            value: _vm.item.price,
+            expression: "item.price",
+            modifiers: { number: true }
+          }
+        ],
+        attrs: {
+          required: "",
+          min: "0.01",
+          step: "0.01",
+          type: "number",
+          name: "price_" + _vm.i
+        },
+        domProps: { value: _vm.item.price },
+        on: {
+          change: function($event) {
+            _vm.computeValues(_vm.item.price)
+          },
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.item.price = _vm._n($event.target.value)
+          },
+          blur: function($event) {
+            _vm.$forceUpdate()
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c("td", [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model.number",
+            value: _vm.item.vat,
+            expression: "item.vat",
+            modifiers: { number: true }
+          }
+        ],
+        attrs: {
+          required: "",
+          min: "1",
+          max: "100",
+          type: "number",
+          name: "vat_" + _vm.i
+        },
+        domProps: { value: _vm.item.vat },
+        on: {
+          change: function($event) {
+            _vm.computeValues(_vm.item.vat)
+          },
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.item.vat = _vm._n($event.target.value)
+          },
+          blur: function($event) {
+            _vm.$forceUpdate()
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c("td", [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model.number",
+            value: _vm.item.vat_value,
+            expression: "item.vat_value",
+            modifiers: { number: true }
+          }
+        ],
+        attrs: {
+          readonly: "",
+          required: "",
+          min: "0.01",
+          step: "0.01",
+          type: "number",
+          name: "vat_value_" + _vm.i
+        },
+        domProps: { value: _vm.item.vat_value },
+        on: {
+          change: function($event) {
+            _vm.computeValues(_vm.item.vat_value)
+          },
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.item.vat_value = _vm._n($event.target.value)
+          },
+          blur: function($event) {
+            _vm.$forceUpdate()
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c("td", [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model.number",
+            value: _vm.item.net_value,
+            expression: "item.net_value",
+            modifiers: { number: true }
+          }
+        ],
+        attrs: {
+          required: "",
+          min: "0",
+          step: "0.01",
+          type: "number",
+          name: "net_value_" + _vm.i
+        },
+        domProps: { value: _vm.item.net_value },
+        on: {
+          change: function($event) {
+            _vm.computeValues(_vm.item.net_value)
+          },
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.item.net_value = _vm._n($event.target.value)
+          },
+          blur: function($event) {
+            _vm.$forceUpdate()
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c("td", [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model.number",
+            value: _vm.item.gross_value,
+            expression: "item.gross_value",
+            modifiers: { number: true }
+          }
+        ],
+        attrs: {
+          required: "",
+          min: "0",
+          step: "0.01",
+          type: "number",
+          name: "gross_value_" + _vm.i
+        },
+        domProps: { value: _vm.item.gross_value },
+        on: {
+          change: function($event) {
+            _vm.computeValues(_vm.item.gross_value)
+          },
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.item.gross_value = _vm._n($event.target.value)
+          },
+          blur: function($event) {
+            _vm.$forceUpdate()
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c("td", [
+      _c("button", { attrs: { type: "button" }, on: { click: _vm.remove } }, [
+        _vm._v(" X ")
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-3aa4d192", module.exports)
+  }
+}
+
+/***/ }),
+/* 48 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

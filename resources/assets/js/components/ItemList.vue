@@ -26,6 +26,9 @@
 		</tbody>
 
 	</table>
+
+	<input type="hidden" v-model="itemsAmount" name="items_amount">
+
 	</div>
 </template>
 
@@ -43,7 +46,8 @@ module.exports = {
 	  	vat_value: 0.00,
 	  	net_value: 0.00,
 	  	gross_value: 0.00
-	  }]
+	  }],
+	  itemsAmount: 0
 	}
 	}, 
 	methods: {
@@ -58,9 +62,11 @@ module.exports = {
 			  	net_value: 0.00,
 			  	gross_value: 0.00
 			  })
+			this.itemsAmount++;
 		},
 		removeItem(index){
 			Vue.delete(this.items,index)
+			this.itemsAmount--;
 		}
 	}
 };
