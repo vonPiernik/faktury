@@ -1,24 +1,105 @@
 <template>
     <tr class="items-row">
-            <td><input required type="text" v-model="item.name" name="name_1" style="width: 100%;"></td>
-            <td><input required  min="0" v-model="item.amount" type="number" name="amount_1" style="width: 50px;"></td>
-            <td><input required type="text" v-model="item.unit" name="unit_1" size="4"></td>
-            <td><input required  min="0" v-model="item.price" type="number" name="price_1" style="width: 50px;"></td>
-            <td><input required  min="0" v-model="item.net_value" type="number" name="net_value_1" style="width: 50px;"></td>
-            <td><input required  min="0" v-model="item.gross_value" type="number" name="gross_value_1" style="width: 50px;"></td>
+            <td>
+                <input required type="text"
+                         v-model="item.name" 
+                         :name="'name_' + i">
+            </td>
+            <td>
+                <input required  min="0" 
+                v-model.number="item.amount" 
+                @change="computeValues(item.amount)" 
+                type="number" 
+                :name="'amount_' + i">
+            </td>
+            <td>
+                <input required 
+                type="text" 
+                v-model="item.unit" 
+                :name="'unit_' + i" size="4">
+            </td>
+            <td>
+                <input required  min="0.01"
+                v-model.number="item.price" 
+                @change="computeValues(item.price)" 
+                type="number" 
+                :name="'price_' + i">
+            </td>
+            <td>
+                <input required  min="1" max="100" step="1" 
+                v-model.number="item.vat" 
+                @change="computeValues(item.vat)" 
+                type="number" 
+                :name="'price_' + i">
+            </td>
+            <td>
+                <input disabled required  min="0.01" 
+                v-model.number="item.vat_value" 
+                @change="computeValues(item.vat_value)" 
+                type="number" 
+                :name="'price_' + i">
+            </td>
+            <td>
+                <input required  min="0" 
+                v-model.number="item.net_value" 
+                @change="computeValues(item.net_value)" 
+                type="number" 
+                :name="'net_value_' + i">
+            </td>
+            <td><input required  min="0" 
+                v-model.number="item.gross_value" 
+                @change="computeValues(item.gross_value)" 
+                type="number" 
+                :name="'gross_value_' + i">
+            </td>
             <td><button type="button" @click="remove"> X </button></td>
     </tr>
 </template>
 
+<style>
+    input[type="number"]{
+        width: 80px;
+    }
+</style>
+
 <script>
-// Task list template
 module.exports = {
     props: ['item', 'i'],
+    data: function () {
+        return {
+        
+        }
+    }, 
     methods: {
         remove() {
             this.$emit('remove');
-        } 
+        },
+        computeValues(whatChanged){
+            vatV = (this.item.vat / 100) + 1;
+
+            if(whatChanged == this.item.price || whatChanged == this.item.amount){
+                this.item.net_value = (this.item.price * this.item.amount).toFixed(2)
+                this.item.gross_value = (this.item.net_value * vatV).toFixed(2)
+                this.item.vat_value = (this.item.net_value * (this.item.vat / 100)).toFixed(2)
+            } else if(whatChanged == this.item.vat) {
+                this.item.gross_value = (this.item.net_value * vatV).toFixed(2)
+                this.item.vat_value = (this.item.net_value * (this.item.vat / 100)).toFixed(2)
+            } else if(whatChanged == this.item.vat_value) {
+
+            } else if(whatChanged == this.item.net_value) {
+                this.item.gross_value = (this.item.net_value * vatV).toFixed(2)
+                this.item.price = (this.item.net_value / this.item.amount).toFixed(2)
+                this.item.vat_value = (this.item.net_value * (this.item.vat / 100)).toFixed(2)
+            } else if(whatChanged == this.item.gross_value) {
+                this.item.net_value = (this.item.gross_value / vatV).toFixed(2)
+                this.item.price = (this.item.net_value / this.item.amount).toFixed(2)
+                this.item.vat_value = (this.item.net_value * (this.item.vat / 100)).toFixed(2)
+            }
+            console.log(this.item.net_value )
+
+        }
     }
 };
+
 
 </script>
