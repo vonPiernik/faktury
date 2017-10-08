@@ -10,15 +10,12 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 /**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
+ * Include Vue components
  */
+Vue.component('item-list', require('./components/ItemList.vue'));
 
-Vue.component('example', require('./components/Example.vue'));
+Vue.component('item-row',require('./components/ItemRow.vue'));
 
-const app = new Vue({
-    el: '#app'
-});
-
-
+new Vue({
+    el: "#app"
+})

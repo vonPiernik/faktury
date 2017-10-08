@@ -10,15 +10,19 @@
         </tr>
     </thead>
     <tbody>
-    	<tr class="items-row items-row-1">
+    	<item-row v-for="(row, index) in rows" :row="row" :index="index" v-on:remove="removeRow(index)"></item-row>
+<!--     	<tr class="items-row items-row-1">
 			<td><input required type="text" value="Pozycja" name="name_1" style="width: 100%;"></td>
 			<td><input required  min="0" value="0" type="number" name="amount_1" style="width: 50px;"></td>
 			<td><input required type="text" value="szt." name="unit_1" size="4"></td>
 			<td><input required  min="0" value="0" type="number" name="price_1" style="width: 50px;"></td>
 			<td><input required  min="0" value="0" type="number" name="net_value_1" style="width: 50px;"></td>
 			<td><input required  min="0" value="0" type="number" name="gross_value_1" style="width: 50px;"></td>
-		</tr>
+		</tr> -->
     </tbody>
-    <button id="add-row">Dodaj element</button>
-    <input type="hidden" id="items_amount" name="items_amount" value="1">
+
+    <button type="button" id="add-row" @click="addRow"> Add Row </button>
+
 </table>
+
+

@@ -53,7 +53,7 @@ class InvoiceController extends Controller
         ]);
         $items = $input['items_amount'];
         
-        for($i = 1; $i <= $items; $i++){
+        for($i = 0; $i <= $items; $i++){
             Item::create([
                 
                 'invoice_id' => $invoice->id,
@@ -61,6 +61,8 @@ class InvoiceController extends Controller
                 'amount' => $input['amount_'.$i],
                 'unit' => $input['unit_'.$i],
                 'price' => $input['price_'.$i],
+                'vat' => $input['vat_'.$i],
+                'vat_value' => $input['vat_value_'.$i],
                 'net_value' => $input['net_value_'.$i],
                 'gross_value' => $input['gross_value_'.$i],
 

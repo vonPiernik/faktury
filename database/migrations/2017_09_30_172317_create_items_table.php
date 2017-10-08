@@ -17,11 +17,13 @@ class CreateItemsTable extends Migration
             $table->increments('id');
             $table->integer('invoice_id');
             $table->string('name');
-            $table->integer('amount');
+            $table->float('amount');
             $table->string('unit');
-            $table->integer('price');
-            $table->integer('net_value');
-            $table->integer('gross_value');
+            $table->float('price');
+            $table->float('vat');
+            $table->float('vat_value');
+            $table->float('net_value');
+            $table->float('gross_value');
             $table->timestamps();
         });
     }
