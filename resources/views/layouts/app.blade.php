@@ -11,12 +11,13 @@
     <title>{{ config('app.name', 'Faktury') }}</title>
 
     <!-- Styles -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,500,700" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
-            <div class="container">
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
                 <div class="navbar-header">
 
                     <!-- Collapsed Hamburger -->
@@ -29,14 +30,20 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        <img src="{{ url('/') }}/images/logo-bmale.png" alt="Fakturnis">
+                        <!-- <img src="{{ url('/') }}/images/logo-bmale.png" alt="Fakturnis"> -->
+                        Simins
                     </a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        &nbsp;
+                         <!-- Authentication Links -->
+                        @guest
+                        @else
+                            <li><a href="{{ route('faktury.index') }}">Twoje faktury</a></li>
+                            <li><a href="{{ route('faktury.create') }}">Nowa faktura</a></li>
+                        @endguest
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -46,8 +53,6 @@
                             <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
-                            <li><a href="{{ route('faktury.index') }}">Twoje faktury</a></li>
-                            <li><a href="{{ route('faktury.create') }}">Nowa faktura</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     {{ Auth::user()->name }} <span class="caret"></span>
@@ -75,14 +80,23 @@
         
 
 
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
-                <div class="col-md-8 col-md-offset-2">
+                <div class="dash-sidebar">
+                    Pasek boczny
+                </div>
+                <div class="dash-content">
                     <div class="panel panel-default">
                         <div class="panel-heading">@yield('page-title')</div>
+                        
+                        <div class="dash-content-sidebar">
+                            @yield('sub-sidebar')
+                        </div>
 
-                        <div class="panel-body">
-                        @yield('content')
+                        <div class="dash-content-main">
+                            <div class="panel-body">
+                            @yield('content')
+                            </div>
                         </div>
 
                     </div><!-- /.panel -->

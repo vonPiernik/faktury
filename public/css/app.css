@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);@charset "UTF-8";
+@charset "UTF-8";
 
 /*!
  * Bootstrap v3.3.7 (http://getbootstrap.com)
@@ -8350,9 +8350,123 @@ button.close {
   }
 }
 
+/* >>----------> [ ogólne ] <-----------<< */
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  color: #8c8c8c;
+  background: #f5f6fa;
+}
+
+/* >>----------> [ navbar ] <-----------<< */
+
+.navbar-default {
+  background-color: #fff;
+  border-color: #eee;
+}
+
 .navbar-brand img {
   height: 100% !important;
 }
+
+.navbar-default .navbar-nav > li > a {
+  color: #8c8c8c;
+}
+
+.navbar-default .navbar-nav > li.dropdown > a {
+  font-weight: 500;
+  color: #4688ff;
+}
+
+.navbar-default .navbar-brand {
+  color: #4688ff;
+  font-weight: bold;
+}
+
+/* >>----------> [ dashboard layout ] <-----------<< */
+
+.dash-sidebar {
+  width: 300px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding: 20px;
+  padding-top: 70px;
+  background: #fff;
+  border-right: 1px solid #eee;
+  height: 100%;
+  background: #fdfdfe;
+}
+
+.dash-content {
+  margin-left: 300px;
+  padding-top: 110px;
+}
+
+.dash-content-sidebar {
+  position: fixed;
+  width: 300px;
+  background: #fff;
+  height: 100%;
+  padding: 20px;
+}
+
+.panel-body,
+.panel-heading,
+.panel-default {
+  border: 0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  background: transparent;
+}
+
+.panel-body {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 4px;
+}
+
+.dash-content-main {
+  margin-left: 300px;
+  padding: 20px;
+}
+
+.panel-default > .panel-heading {
+  padding: 0 20px;
+  /* font-weight: bold; */
+  font-size: 18px;
+  color: #444;
+  position: fixed;
+  top: 50px;
+  border-bottom: 1px solid #eeeeee;
+  width: 100%;
+  background: #fff;
+  background: #fbfbfd;
+  z-index: 1;
+  line-height: 60px;
+  /*margin-top: -1px;*/
+}
+
+/* >>----------> [ lista faktur ] <-----------<< */
+
+ul.invoices-list li {
+  display: block;
+}
+
+ul.invoices-list {
+  padding: 0;
+}
+
+ul.invoices-list a {
+  display: block;
+  padding: 10px 0;
+}
+
+ul.invoices-list small {
+  display: block;
+}
+
+/* >>----------> [ bootstrap container wider ] <-----------<< */
 
 @media (min-width: 1400px) {
   .container {
