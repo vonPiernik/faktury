@@ -16,6 +16,38 @@ Vue.component('item-list', require('./components/ItemList.vue'));
 
 Vue.component('item-row',require('./components/ItemRow.vue'));
 
+Vue.component('invoice-single',require('./components/InvoiceSingle.vue'));
+
 new Vue({
-    el: "#app"
+    el: "#app",
+    data: function() {
+        return {
+            list: [],
+            invoice: {
+                id: '',
+                customer: 'Placeholder dla klienta',
+                created_at: '',
+                items: {}
+            }
+        };
+    },
+    
+    created() {
+        axios.get(`api/invoices`)
+        .then(response => {
+             this.list = response.data
+        })
+    },
+    
+    methods: { 
+        showInvoice(id) {
+
+
+            axios.get(`api/invoices/` + id).then(response => {
+                this.invoice.id = response.data.id
+                this.invoice.customer = response.data.customer
+                this.invoice.created_at = response.data.created_at
+            })
+        }
+    }
 })

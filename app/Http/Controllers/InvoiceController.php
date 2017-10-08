@@ -19,6 +19,7 @@ class InvoiceController extends Controller
      */
     public function index()
     {
+
         $invoices = Invoice::orderBy('created_at','desc')->paginate(15);
 
         return view('faktury.index', compact('invoices'));

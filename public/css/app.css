@@ -8424,6 +8424,9 @@ body {
   background: #fff;
   border: 1px solid #eee;
   border-radius: 4px;
+  -webkit-transition: .3s all;
+  transition: .3s all;
+  opacity: 1;
 }
 
 .dash-content-main {
@@ -8447,6 +8450,10 @@ body {
   /*margin-top: -1px;*/
 }
 
+.panel-body.faded {
+  opacity: 0;
+}
+
 /* >>----------> [ lista faktur ] <-----------<< */
 
 ul.invoices-list li {
@@ -8460,6 +8467,13 @@ ul.invoices-list {
 ul.invoices-list a {
   display: block;
   padding: 10px 0;
+  text-decoration: none;
+  -webkit-transition: .3s all;
+  transition: .3s all;
+}
+
+ul.invoices-list a:active {
+  color: rgba(0, 0, 0, 0.24);
 }
 
 ul.invoices-list small {

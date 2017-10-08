@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 
+use App\Invoice;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,3 +18,13 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+ 
+Route::get('invoices/{id}', function($id) {
+    return Invoice::findOrFail($id);
+});
+ 
+Route::get('invoices', function() {
+    return Invoice::all();
+});
+

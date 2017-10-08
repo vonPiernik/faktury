@@ -9,7 +9,7 @@
         <ul class="invoices-list">
                 @foreach($invoices as $invoice)
                     
-                    <li><a href="{{ route('faktury.show',$invoice->id) }}">
+                    <li><a href="{{ route('faktury.show',$invoice->id) }}" @click.prevent="showInvoice({{1}})">
                         <strong>{{ $invoice->customer }}</strong>
                         <small> {{ $invoice->created_at->format('d M Y') }}</small>
                     </a></li>
@@ -26,6 +26,7 @@
 
 @endsection
 @section('content')
-stsazd
+
+@{{ invoice.customer }}
 
 @endsection
