@@ -26,6 +26,8 @@ Vue.use(Router)
 
 Vue.component('App',require('./components/App.vue'));
 
+Vue.component('InvoiceList',require('./components/InvoiceList.vue'));
+
 
 // 0. If using a module system, call Vue.use(VueRouter)
 
@@ -34,7 +36,9 @@ Vue.component('App',require('./components/App.vue'));
 // const App = { component: require('./components/App.vue') }
 
 const IndexView = require('./components/IndexView.vue');
+
 const InvoiceNew = require('./components/InvoiceNew.vue');
+
 const Login = require('./components/Login.vue');
 
 const router = new Router({
@@ -42,7 +46,7 @@ const router = new Router({
   routes: [
     { 
         path: '/faktury',
-        component: IndexView
+        component: IndexView,
     },
     { 
         path: '/faktury/nowa',

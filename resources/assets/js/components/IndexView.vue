@@ -1,19 +1,21 @@
 <template>
-  <div>
-  	<div class="row">
-	    Dashboard
+    <div class="panel panel-default"> 
+        
+                        <div class="panel-heading">{{ page.title }}</div> 
+                         
+                        <invoice-list></invoice-list>
+                       
 	</div>
-  </div>
 </template>
-
-
 
 <script>
 module.exports = {
     data: function () {
-        return {
-        
-        }
+	    return {
+		  page: {
+		  	title: "Twoje faktury"
+		  }
+		}
     }, 
 };
 

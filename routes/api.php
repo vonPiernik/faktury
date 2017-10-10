@@ -21,7 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
  
 Route::get('invoices/{id}', function($id) {
-    return Invoice::findOrFail($id);
+    return Invoice::with("items")->find($id);
 });
  
 Route::get('invoices', function() {

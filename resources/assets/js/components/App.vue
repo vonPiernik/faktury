@@ -53,20 +53,28 @@
             </div>
         </nav>
 
+     
+ 
 
 
 
 
+<div class="container-fluid"> 
+            <div class="row"> 
+                <div class="dash-sidebar"> 
+                    Pasek boczny 
+                </div> 
+                <div class="dash-content"> 
 
-		<main>
-			<div class="container-fluid">
 	      <!-- router outlet -->
-			<transition name="slide-fade">
 			  <keep-alive>
 			    <router-view></router-view>
 			  </keep-alive>
-			</transition>
-		</div></main>
+
+                </div> 
+            </div><!-- /.row --> 
+        </div><!-- /.container --> 
+		</div>
 
 	</div>
 </template>
