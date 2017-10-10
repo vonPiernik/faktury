@@ -18,8 +18,11 @@ Route::get('/', function () {
 Auth::routes();
 
 
+
 Route::middleware(['auth'])->group(function () {
 
-	Route::resource('faktury','InvoiceController');
-
+	// Route::resource('faktury','InvoiceController');
+	# Vue
+	Route::any('{all}', 'InvoiceController@index')
+	->where(['all' => '.*']);
 });

@@ -27,14 +27,15 @@ class Invoice extends Model
 		Returns only invoices that belongs to current user
 
 	*/
-	// protected static function boot()
- //    {
- //        parent::boot();
-
- //        static::addGlobalScope('belongsToCurrentUser', function (Builder $builder) {
- //            $builder->where('user_id', Auth::user()->id);
- //        });
- //    }
+	protected static function boot()
+    {
+        parent::boot();
+        if(Auth::id()){
+            static::addGlobalScope('belongsToCurrentUser', function (Builder $builder) {
+                    $builder->where('user_id', Auth::id());
+            });
+        }
+    }
 
 
     /**

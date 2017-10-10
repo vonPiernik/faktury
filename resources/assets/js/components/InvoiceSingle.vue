@@ -1,6 +1,6 @@
 <template>
     <div>
-        {{ invoice.customer }}
+        Blabla  
     </div>  
 </template>
 

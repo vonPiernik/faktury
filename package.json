@@ -19,6 +19,8 @@
     "vue": "^2.1.10"
   },
   "dependencies": {
-    "axios": "^0.16.2"
+    "axios": "^0.16.2",
+    "vue-router": "^2.7.0",
+    "vue-router-transition": "^1.0.9"
   }
 }

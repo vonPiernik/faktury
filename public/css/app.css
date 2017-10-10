@@ -8356,6 +8356,7 @@ body {
   font-family: 'Montserrat', sans-serif;
   color: #8c8c8c;
   background: #f5f6fa;
+  padding-top: 51px;
 }
 
 /* >>----------> [ navbar ] <-----------<< */
@@ -8363,6 +8364,7 @@ body {
 .navbar-default {
   background-color: #fff;
   border-color: #eee;
+  margin-bottom: 0;
 }
 
 .navbar-brand img {
@@ -8383,10 +8385,43 @@ body {
   font-weight: bold;
 }
 
+/* >>----------> [ transitions for vue  ] <-----------<< */
+
+.fade-enter-active,
+.fade-leave-active {
+  -webkit-transition: opacity .5s;
+  transition: opacity .5s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+/* Enter and leave animations can use different */
+
+/* durations and timing functions.              */
+
+.slide-fade-enter-active {
+  -webkit-transition: all .3s ease;
+  transition: all .3s ease;
+}
+
+.slide-fade-leave-active {
+  display: none;
+}
+
+.slide-fade-enter,
+.slide-fade-leave-to {
+  -webkit-transform: translateY(-10px);
+          transform: translateY(-10px);
+  opacity: 0;
+}
+
 /* >>----------> [ dashboard layout ] <-----------<< */
 
 .dash-sidebar {
-  width: 300px;
+  width: 230px;
   position: fixed;
   left: 0;
   top: 0;
@@ -8399,16 +8434,16 @@ body {
 }
 
 .dash-content {
-  margin-left: 300px;
+  margin-left: 230px;
   padding-top: 110px;
 }
 
 .dash-content-sidebar {
   position: fixed;
-  width: 300px;
+  width: 370px;
   background: #fff;
   height: 100%;
-  padding: 20px;
+  padding: 0px;
 }
 
 .panel-body,
@@ -8426,11 +8461,15 @@ body {
   border-radius: 4px;
   -webkit-transition: .3s all;
   transition: .3s all;
-  opacity: 1;
+}
+
+.blurred {
+  -webkit-filter: blur(4px);
+          filter: blur(4px);
 }
 
 .dash-content-main {
-  margin-left: 300px;
+  margin-left: 370px;
   padding: 20px;
 }
 
@@ -8450,10 +8489,6 @@ body {
   /*margin-top: -1px;*/
 }
 
-.panel-body.faded {
-  opacity: 0;
-}
-
 /* >>----------> [ lista faktur ] <-----------<< */
 
 ul.invoices-list li {
@@ -8466,10 +8501,16 @@ ul.invoices-list {
 
 ul.invoices-list a {
   display: block;
-  padding: 10px 0;
+  padding: 20px 20px;
+  color: #444;
   text-decoration: none;
   -webkit-transition: .3s all;
   transition: .3s all;
+}
+
+ul.invoices-list a.current {
+  color: #fff;
+  background: #4688ff;
 }
 
 ul.invoices-list a:active {
