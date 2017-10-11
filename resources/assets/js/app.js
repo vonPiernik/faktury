@@ -51,6 +51,12 @@ const router = new Router({
     { 
         path: '/faktury/nowa',
         component: InvoiceNew
+    },
+    { 
+        path: '/faktury/:invoiceId',
+        component: IndexView,
+        name: 'faktury/show',
+        props: true
     }
   ]
 })

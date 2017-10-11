@@ -2,7 +2,6 @@
     <div class="panel panel-default"> 
         
                         <div class="panel-heading">{{ page.title }}</div> 
-                         
                         <invoice-list></invoice-list>
                        
 	</div>

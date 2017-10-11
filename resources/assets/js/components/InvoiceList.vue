@@ -2,15 +2,19 @@
 <div>
 	<div class="dash-content-sidebar">
 		<ul class="invoices-list">
-			<li v-for="inv in list"><a href="#" @click.prevent="showInvoice(inv.id)">
+			<li v-for="inv in list">
+				<router-link 
+					:to="{ name: 'faktury/show', params: { invoiceId: inv.id }}"
+					tag="a"
+					@click.native="showInvoice(inv.id)">
 				<strong>{{ inv.customer }}</strong>
 				<small> {{ inv.created_at }}</small>
-			</a></li>
+			</router-link></li>
 		</ul>
 	</div>
 	<div class="dash-content-main">
 		<div class="panel-body">
-			<div class="invoice-body" v-if="invoice.id">
+			<div class="invoice-body" v-if="" >
 				<h1>Faktura nr {{ invoice.id }} dla {{ invoice.customer }}</h1>
 				<small>Data wystawienia: {{ invoice.created_at }}</small> 
 				<hr>
@@ -53,7 +57,7 @@ module.exports = {
         return { 
             list: [], 
             invoice: { 
-                id: '', 
+                id: '1', 
                 customer: 'Placeholder dla klienta', 
                 created_at: '', 
                 items: {} 
@@ -62,17 +66,25 @@ module.exports = {
     }, 
      
     created() { 
-        axios.get(`api/invoices`) 
+        axios.get(`/api/invoices`) 
         .then(response => { 
              this.list = response.data 
         }) 
+
+        console.log(this.$route.params.invoiceId)
+
+        if(this.$route.params.invoiceId){
+        	axios.get(`/api/invoices/` + this.$route.params.invoiceId).then(response => { 
+                this.invoice = response.data
+            }) 
+        }
     }, 
      
     methods: {  
         showInvoice(id) { 
  
  
-            axios.get(`api/invoices/` + id).then(response => { 
+            axios.get(`/api/invoices/` + id).then(response => { 
                 this.invoice = response.data
             }) 
         } 

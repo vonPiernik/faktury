@@ -128,7 +128,7 @@ ul.invoices-list a {
     -webkit-transition: .3s all;
     transition: .3s all;
 }
-ul.invoices-list a.current{
+ul.invoices-list .router-link-active{
     color: #fff;
     background: #4688ff;	
 }

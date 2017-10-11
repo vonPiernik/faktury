@@ -870,7 +870,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(10);
-module.exports = __webpack_require__(47);
+module.exports = __webpack_require__(51);
 
 
 /***/ }),
@@ -908,7 +908,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]);
 
 Vue.component('App', __webpack_require__(38));
 
-Vue.component('InvoiceList', __webpack_require__(57));
+Vue.component('InvoiceList', __webpack_require__(41));
 
 // 0. If using a module system, call Vue.use(VueRouter)
 
@@ -916,11 +916,11 @@ Vue.component('InvoiceList', __webpack_require__(57));
 // These can be imported from other files
 // const App = { component: require('./components/App.vue') }
 
-var IndexView = __webpack_require__(41);
+var IndexView = __webpack_require__(44);
 
-var InvoiceNew = __webpack_require__(44);
+var InvoiceNew = __webpack_require__(47);
 
-var Login = __webpack_require__(46);
+var Login = __webpack_require__(50);
 
 var router = new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({
     mode: 'history',
@@ -930,6 +930,11 @@ var router = new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({
     }, {
         path: '/faktury/nowa',
         component: InvoiceNew
+    }, {
+        path: '/faktury/:invoiceId',
+        component: IndexView,
+        name: 'faktury/show',
+        props: true
     }]
 });
 
@@ -44767,7 +44772,7 @@ var render = function() {
     _c("div", { staticClass: "container-fluid" }, [
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "dash-sidebar" }, [
-          _vm._v(" \n                    Pasek boczny \n                ")
+          _vm._v(" \n                    Pasek boczny  \n                ")
         ]),
         _vm._v(" "),
         _c(
@@ -44859,242 +44864,6 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources\\assets\\js\\components\\IndexView.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] IndexView.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-42b1e3f2", Component.options)
-  } else {
-    hotAPI.reload("data-v-42b1e3f2", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 42 */
-/***/ (function(module, exports) {
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-module.exports = {
-				data: function data() {
-								return {
-												page: {
-																title: "Twoje faktury"
-												}
-								};
-				}
-};
-
-/***/ }),
-/* 43 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "panel panel-default" },
-    [
-      _c("div", { staticClass: "panel-heading" }, [
-        _vm._v(_vm._s(_vm.page.title))
-      ]),
-      _vm._v(" "),
-      _c("invoice-list")
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-42b1e3f2", module.exports)
-  }
-}
-
-/***/ }),
-/* 44 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(1)
-/* script */
-var __vue_script__ = __webpack_require__(59)
-/* template */
-var __vue_template__ = __webpack_require__(45)
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources\\assets\\js\\components\\InvoiceNew.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] InvoiceNew.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-0dcc0ef3", Component.options)
-  } else {
-    hotAPI.reload("data-v-0dcc0ef3", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 45 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "panel panel-default" }, [
-    _c("div", { staticClass: "panel-heading" }, [
-      _vm._v(_vm._s(_vm.page.title))
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "dash-content-sidebar" }, [
-      _vm._v(
-        " \n                            Sidebar costam\n                        "
-      )
-    ]),
-    _vm._v(" "),
-    _vm._m(0)
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "dash-content-main" }, [
-      _c("div", { staticClass: "panel-body" }, [
-        _vm._v(
-          " \n                            Tresc \n                            "
-        )
-      ])
-    ])
-  }
-]
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-0dcc0ef3", module.exports)
-  }
-}
-
-/***/ }),
-/* 46 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var normalizeComponent = __webpack_require__(1)
-/* script */
-var __vue_script__ = null
-/* template */
-var __vue_template__ = null
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources\\assets\\js\\components\\Login.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 47 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 48 */,
-/* 49 */,
-/* 50 */,
-/* 51 */,
-/* 52 */,
-/* 53 */,
-/* 54 */,
-/* 55 */,
-/* 56 */,
-/* 57 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(1)
-/* script */
-var __vue_script__ = __webpack_require__(60)
-/* template */
-var __vue_template__ = __webpack_require__(58)
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
 Component.options.__file = "resources\\assets\\js\\components\\InvoiceList.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] InvoiceList.vue: functional components are not supported with templates, they should use render functions.")}
@@ -45119,162 +44888,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 58 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "dash-content-sidebar" }, [
-      _c(
-        "ul",
-        { staticClass: "invoices-list" },
-        _vm._l(_vm.list, function(inv) {
-          return _c("li", [
-            _c(
-              "a",
-              {
-                attrs: { href: "#" },
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    _vm.showInvoice(inv.id)
-                  }
-                }
-              },
-              [
-                _c("strong", [_vm._v(_vm._s(inv.customer))]),
-                _vm._v(" "),
-                _c("small", [_vm._v(" " + _vm._s(inv.created_at))])
-              ]
-            )
-          ])
-        })
-      )
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "dash-content-main" }, [
-      _c("div", { staticClass: "panel-body" }, [
-        _vm.invoice.id
-          ? _c("div", { staticClass: "invoice-body" }, [
-              _c("h1", [
-                _vm._v(
-                  "Faktura nr " +
-                    _vm._s(_vm.invoice.id) +
-                    " dla " +
-                    _vm._s(_vm.invoice.customer)
-                )
-              ]),
-              _vm._v(" "),
-              _c("small", [
-                _vm._v("Data wystawienia: " + _vm._s(_vm.invoice.created_at))
-              ]),
-              _vm._v(" "),
-              _c("hr"),
-              _vm._v(" "),
-              _c("table", { staticClass: "table table-striped" }, [
-                _vm._m(0),
-                _vm._v(" "),
-                _c(
-                  "tbody",
-                  _vm._l(_vm.invoice.items, function(item) {
-                    return _c("tr", [
-                      _c("td", [_vm._v(_vm._s(item.name))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(item.price) + " zł")]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm._v(_vm._s(item.amount) + " " + _vm._s(item.unit))
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(item.net_value) + " zł")]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(item.vat) + "%")]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(item.vat_value) + " zł")]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(item.gross_value) + " zł")])
-                    ])
-                  })
-                )
-              ])
-            ])
-          : _vm._e()
-      ])
-    ])
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("td", [_vm._v("Nazwa")]),
-        _vm._v(" "),
-        _c("td", [_vm._v("Cena")]),
-        _vm._v(" "),
-        _c("td", [_vm._v("Ilość")]),
-        _vm._v(" "),
-        _c("td", [_vm._v("Wartość netto")]),
-        _vm._v(" "),
-        _c("td", [_vm._v("Stawka VAT")]),
-        _vm._v(" "),
-        _c("td", [_vm._v("Kwota VAT")]),
-        _vm._v(" "),
-        _c("td", [_vm._v("Wartość brutto")])
-      ])
-    ])
-  }
-]
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-a71a8e4a", module.exports)
-  }
-}
-
-/***/ }),
-/* 59 */
+/* 42 */
 /***/ (function(module, exports) {
 
 //
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-module.exports = {
-				data: function data() {
-								return {
-												page: {
-																title: "Nowa faktura"
-												}
-								};
-				}
-};
-
-/***/ }),
-/* 60 */
-/***/ (function(module, exports) {
-
 //
 //
 //
@@ -45330,7 +44950,7 @@ module.exports = {
         return {
             list: [],
             invoice: {
-                id: '',
+                id: '1',
                 customer: 'Placeholder dla klienta',
                 created_at: '',
                 items: {}
@@ -45341,9 +44961,17 @@ module.exports = {
     created: function created() {
         var _this = this;
 
-        axios.get('api/invoices').then(function (response) {
+        axios.get('/api/invoices').then(function (response) {
             _this.list = response.data;
         });
+
+        console.log(this.$route.params.invoiceId);
+
+        if (this.$route.params.invoiceId) {
+            axios.get('/api/invoices/' + this.$route.params.invoiceId).then(function (response) {
+                _this.invoice = response.data;
+            });
+        }
     },
 
 
@@ -45351,12 +44979,395 @@ module.exports = {
         showInvoice: function showInvoice(id) {
             var _this2 = this;
 
-            axios.get('api/invoices/' + id).then(function (response) {
+            axios.get('/api/invoices/' + id).then(function (response) {
                 _this2.invoice = response.data;
             });
         }
     }
 };
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "dash-content-sidebar" }, [
+      _c(
+        "ul",
+        { staticClass: "invoices-list" },
+        _vm._l(_vm.list, function(inv) {
+          return _c(
+            "li",
+            [
+              _c(
+                "router-link",
+                {
+                  attrs: {
+                    to: { name: "faktury/show", params: { invoiceId: inv.id } },
+                    tag: "a"
+                  },
+                  nativeOn: {
+                    click: function($event) {
+                      _vm.showInvoice(inv.id)
+                    }
+                  }
+                },
+                [
+                  _c("strong", [_vm._v(_vm._s(inv.customer))]),
+                  _vm._v(" "),
+                  _c("small", [_vm._v(" " + _vm._s(inv.created_at))])
+                ]
+              )
+            ],
+            1
+          )
+        })
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "dash-content-main" }, [
+      _c("div", { staticClass: "panel-body" }, [
+        _c("div", { staticClass: "invoice-body" }, [
+          _c("h1", [
+            _vm._v(
+              "Faktura nr " +
+                _vm._s(_vm.invoice.id) +
+                " dla " +
+                _vm._s(_vm.invoice.customer)
+            )
+          ]),
+          _vm._v(" "),
+          _c("small", [
+            _vm._v("Data wystawienia: " + _vm._s(_vm.invoice.created_at))
+          ]),
+          _vm._v(" "),
+          _c("hr"),
+          _vm._v(" "),
+          _c("table", { staticClass: "table table-striped" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c(
+              "tbody",
+              _vm._l(_vm.invoice.items, function(item) {
+                return _c("tr", [
+                  _c("td", [_vm._v(_vm._s(item.name))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(item.price) + " zł")]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _vm._v(_vm._s(item.amount) + " " + _vm._s(item.unit))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(item.net_value) + " zł")]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(item.vat) + "%")]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(item.vat_value) + " zł")]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(item.gross_value) + " zł")])
+                ])
+              })
+            )
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("td", [_vm._v("Nazwa")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Cena")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Ilość")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Wartość netto")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Stawka VAT")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Kwota VAT")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Wartość brutto")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-a71a8e4a", module.exports)
+  }
+}
+
+/***/ }),
+/* 44 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(45)
+/* template */
+var __vue_template__ = __webpack_require__(46)
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\IndexView.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] IndexView.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-42b1e3f2", Component.options)
+  } else {
+    hotAPI.reload("data-v-42b1e3f2", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports) {
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+module.exports = {
+				data: function data() {
+								return {
+												page: {
+																title: "Twoje faktury"
+												}
+								};
+				}
+};
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "panel panel-default" },
+    [
+      _c("div", { staticClass: "panel-heading" }, [
+        _vm._v(_vm._s(_vm.page.title))
+      ]),
+      _vm._v(" "),
+      _c("invoice-list")
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-42b1e3f2", module.exports)
+  }
+}
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(48)
+/* template */
+var __vue_template__ = __webpack_require__(49)
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\InvoiceNew.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] InvoiceNew.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-0dcc0ef3", Component.options)
+  } else {
+    hotAPI.reload("data-v-0dcc0ef3", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 48 */
+/***/ (function(module, exports) {
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+module.exports = {
+				data: function data() {
+								return {
+												page: {
+																title: "Nowa faktura"
+												}
+								};
+				}
+};
+
+/***/ }),
+/* 49 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "panel panel-default" }, [
+    _c("div", { staticClass: "panel-heading" }, [
+      _vm._v(_vm._s(_vm.page.title))
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "dash-content-sidebar" }, [
+      _vm._v(
+        " \n                            Sidebar costam\n                        "
+      )
+    ]),
+    _vm._v(" "),
+    _vm._m(0)
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "dash-content-main" }, [
+      _c("div", { staticClass: "panel-body" }, [
+        _vm._v(
+          " \n                            Tresc \n                            "
+        )
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-0dcc0ef3", module.exports)
+  }
+}
+
+/***/ }),
+/* 50 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = null
+/* template */
+var __vue_template__ = null
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\Login.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 51 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

@@ -62,7 +62,7 @@
 <div class="container-fluid"> 
             <div class="row"> 
                 <div class="dash-sidebar"> 
-                    Pasek boczny 
+                    Pasek boczny  
                 </div> 
                 <div class="dash-content"> 
 
