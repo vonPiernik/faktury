@@ -15,6 +15,8 @@
 								</ul>
 							</div>
 							    <router-view :invoice="invoice"
+					    					 :list="list"
+					    					 v-on:upList="updateInvoicesList()"
 							    			 :currentUser="currentUser">
 							    </router-view>
                        
@@ -41,33 +43,44 @@ module.exports = {
         }; 
     },
 
-    created() { 
-        axios.get(`/api/invoices`) 
-        .then(response => { 
-             this.list = response.data 
-        }) 
-
-
-        if(this.$route.params.invoiceId){
-        	axios.get(`/api/invoices/` + this.$route.params.invoiceId).then(response => { 
-                this.invoice = response.data
-            }) 
-        } else {
-	        axios.get(`/api/invoices/first`) 
-	        .then(response => { 
-                this.invoice = response.data
-	        })
+    watch: {
+        $route:  {
+            handler: function(oldValue, newValue) {
+            	this.updateInvoicesList()                
+            }
         }
     },
-     
+
+    created() { 
+        this.updateInvoicesList()
+    },
+
     methods: {  
         showInvoice(id) { 
- 
- 			this.invoice.blured = "blured"
+
             axios.get(`/api/invoices/` + id).then(response => { 
                 this.invoice = response.data
             }) 
-        } 
+        },
+
+        updateInvoicesList() {
+        	console.log("triggered")
+
+        	axios.get(`/api/invoices`) 
+	        .then(response => { 
+	             this.list = response.data 
+	        }) 
+	        if(this.$route.params.invoiceId){
+	        	axios.get(`/api/invoices/` + this.$route.params.invoiceId).then(response => { 
+	                this.invoice = response.data
+	            }) 
+	        } else {
+		        axios.get(`/api/invoices/first`) 
+		        .then(response => { 
+	                this.invoice = response.data
+		        })
+	        }
+		}
     } 
 };
 

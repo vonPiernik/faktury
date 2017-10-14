@@ -44889,6 +44889,8 @@ module.exports = Component.exports
 //
 //
 //
+//
+//
 
 module.exports = {
     props: ['currentUser'],
@@ -44908,33 +44910,44 @@ module.exports = {
         };
     },
 
-    created: function created() {
-        var _this = this;
-
-        axios.get("/api/invoices").then(function (response) {
-            _this.list = response.data;
-        });
-
-        if (this.$route.params.invoiceId) {
-            axios.get("/api/invoices/" + this.$route.params.invoiceId).then(function (response) {
-                _this.invoice = response.data;
-            });
-        } else {
-            axios.get("/api/invoices/first").then(function (response) {
-                _this.invoice = response.data;
-            });
+    watch: {
+        $route: {
+            handler: function handler(oldValue, newValue) {
+                this.updateInvoicesList();
+            }
         }
+    },
+
+    created: function created() {
+        this.updateInvoicesList();
     },
 
 
     methods: {
         showInvoice: function showInvoice(id) {
+            var _this = this;
+
+            axios.get("/api/invoices/" + id).then(function (response) {
+                _this.invoice = response.data;
+            });
+        },
+        updateInvoicesList: function updateInvoicesList() {
             var _this2 = this;
 
-            this.invoice.blured = "blured";
-            axios.get("/api/invoices/" + id).then(function (response) {
-                _this2.invoice = response.data;
+            console.log("triggered");
+
+            axios.get("/api/invoices").then(function (response) {
+                _this2.list = response.data;
             });
+            if (this.$route.params.invoiceId) {
+                axios.get("/api/invoices/" + this.$route.params.invoiceId).then(function (response) {
+                    _this2.invoice = response.data;
+                });
+            } else {
+                axios.get("/api/invoices/first").then(function (response) {
+                    _this2.invoice = response.data;
+                });
+            }
         }
     }
 };
@@ -44993,7 +45006,16 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("router-view", {
-        attrs: { invoice: _vm.invoice, currentUser: _vm.currentUser }
+        attrs: {
+          invoice: _vm.invoice,
+          list: _vm.list,
+          currentUser: _vm.currentUser
+        },
+        on: {
+          upList: function($event) {
+            _vm.updateInvoicesList()
+          }
+        }
       })
     ],
     1
@@ -45102,42 +45124,66 @@ module.exports = Component.exports
 
 axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 module.exports = {
-  props: ['currentUser'],
-  data: function data() {
-    return {
-      page: {
-        title: "Nowa faktura"
-      },
-      invoice: {
-        user_id: this.currentUser.id,
-        id: '',
-        customer: '',
-        created_at: '',
-        items: [{
-          name: "Produkt",
-          amount: 1,
-          unit: "szt.",
-          price: 0.01,
-          vat: 23,
-          vat_value: 0.00,
-          net_value: 0.00,
-          gross_value: 0.00,
-          invoice_id: 0
-        }]
-      }
-    };
-  },
-  methods: {
-    createInvoice: function createInvoice() {
-      var _this = this;
+    props: ['currentUser', 'list'],
+    data: function data() {
+        return {
+            page: {
+                title: "Nowa faktura"
+            },
+            invoice: {
+                user_id: this.currentUser.id,
+                id: '',
+                customer: 'Test',
+                created_at: '',
+                items: [{
+                    name: "Produkt",
+                    amount: 1,
+                    unit: "szt.",
+                    price: 0.01,
+                    vat: 23,
+                    vat_value: 0.00,
+                    net_value: 0.00,
+                    gross_value: 0.00,
+                    invoice_id: 0
+                }]
+            }
+        };
+    },
+    watch: {
+        invoice: {
+            handler: function handler(oldValue, newValue) {
+                this.createDraft();
+            },
+            deep: true
+        }
+    },
+    methods: {
+        upList: function upList() {
+            this.$emit('upList');
+        },
+        createInvoice: function createInvoice() {
+            var _this = this;
 
-      axios.post('/api/invoices/add', this.invoice).then(function (response) {
-        _this.$router.push('/faktury');
-      }).catch(function (error) {
-        console.log(error);
-      });
+            axios.post('/api/invoices', this.invoice).then(function (response) {
+                _this.$router.push('/faktury/' + response.data);
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+
+        createDraft: _.debounce(function () {
+            var _this2 = this;
+
+            console.log(this.invoice.id);
+            axios.post('/api/invoices', this.invoice).then(function (response) {
+                _this2.invoice.id = response.data;
+            });
+            this.upList();
+        },
+        // This is the number of milliseconds we wait for the
+        // user to stop typing.
+        500)
     }
-  }
 };
 
 /***/ }),

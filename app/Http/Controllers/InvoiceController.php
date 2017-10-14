@@ -19,10 +19,7 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-
-        $invoices = Invoice::orderBy('created_at','desc')->paginate(15);
-
-        return view('faktury.index', compact('invoices'));
+        return Invoice::with('items')->orderBy('created_at','desc')->get();
     }
 
     /**
@@ -44,33 +41,19 @@ class InvoiceController extends Controller
     public function store(Request $request)
     {
         $input = $request -> all();
-
-        $customer = $input['customer'];
-        $invoice = Invoice::create([
-            
-            'user_id' => Auth::user()->id,
-            'customer' => $customer,
-
-        ]);
-        $items = $input['items_amount'];
-        
-        for($i = 0; $i <= $items; $i++){
-            Item::create([
-                
-                'invoice_id' => $invoice->id,
-                'name' => $input['name_'.$i],
-                'amount' => $input['amount_'.$i],
-                'unit' => $input['unit_'.$i],
-                'price' => $input['price_'.$i],
-                'vat' => $input['vat_'.$i],
-                'vat_value' => $input['vat_value_'.$i],
-                'net_value' => $input['net_value_'.$i],
-                'gross_value' => $input['gross_value_'.$i],
-
-            ]);
+        $invoice = Invoice::updateOrCreate(['id' => $input['id']],
+            [
+            'user_id' => 1,
+            'customer' => $input['customer'],
+            ]
+        );
+        foreach($input['items'] as &$k){
+            $k['invoice_id'] = $invoice->id;
         }
+        Item::where('invoice_id',$invoice->id)->delete();
+        Item::insert($input['items']);
 
-        return redirect()->route('faktury.show',$invoice->id);
+        return $invoice->id;
     }
 
     /**
@@ -79,12 +62,9 @@ class InvoiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Invoice $faktury)
+    public function show($id)
     {
-        // change variable name, it looks better :p
-        $invoice = $faktury;
-
-        return view('faktury.show', compact('invoice',$invoice));        
+        return Invoice::with("items")->find($id);      
     }
 
     /**

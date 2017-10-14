@@ -23,6 +23,7 @@ Route::middleware(['auth'])->group(function () {
 
 	// Route::resource('faktury','InvoiceController');
 	# Vue
-	Route::any('{all}', 'InvoiceController@index')
-	->where(['all' => '.*']);
+	Route::any('{all}', function() {
+		return view('layouts.app');
+	})->where(['all' => '.*']);
 });

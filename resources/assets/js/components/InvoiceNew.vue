@@ -41,7 +41,7 @@
 <script>
 axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 module.exports = {
-    props: ['currentUser'],
+    props: ['currentUser','list'],
     data: function () {
 	    return {
 		  page: {
@@ -50,7 +50,7 @@ module.exports = {
           invoice: { 
             user_id: this.currentUser.id,
             id: '', 
-            customer: '', 
+            customer: 'Test', 
             created_at: '', 
             items: [{
                 name: "Produkt",
@@ -65,18 +65,42 @@ module.exports = {
               }] 
             } 
 		}
-    }, 
+    },
+    watch: {
+        invoice:  {
+            handler: function(oldValue, newValue) {
+                this.createDraft()
+            },
+            deep: true
+        }
+    },
     methods: {
+        upList() {
+            this.$emit('upList');
+        },
         createInvoice(){
-            axios.post('/api/invoices/add', this.invoice)
+            axios.post('/api/invoices', this.invoice)
               .then((response) => {
-                this.$router.push('/faktury')
+                this.$router.push('/faktury/' + response.data)
               })
               .catch(function (error) {
                 console.log(error);
               });
 
-        }
+        },
+         createDraft: _.debounce(
+              function () {
+                console.log(this.invoice.id)
+                axios.post('/api/invoices', this.invoice)
+                .then((response) => {
+                    this.invoice.id = response.data
+                })
+                this.upList()
+              },
+              // This is the number of milliseconds we wait for the
+              // user to stop typing.
+              500
+            )
     }
 };
 

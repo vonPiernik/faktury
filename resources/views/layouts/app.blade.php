@@ -23,6 +23,7 @@
     @endguest
 
     <!-- Scripts -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script> -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/jquery.nicescroll.min.js') }}"></script>
     <script>    
