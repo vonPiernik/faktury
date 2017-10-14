@@ -4,4 +4,4 @@ v0.1.0
 - dodano dynamiczne przeliczanie wartości elementów
 - poprawiono szybkość działania aplikacji
 
- 
+Przewidywana wersja używalna: v0.8.0
