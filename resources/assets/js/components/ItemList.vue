@@ -16,7 +16,7 @@
 	    </thead>
 	    <tbody>
 
-        <item-row v-for="(item,index) in items" 
+        <item-row v-for="(item,index) in invoice.items" 
         			:key="index" 
         			:i="index" 
         			:item="item" 
@@ -35,24 +35,15 @@
 
 <script>
 module.exports = {
+	props: ['invoice'],
 	data: function () {
 	return {
-	  items: [{
-	  	name: "Produkt",
-	  	amount: 1,
-	  	unit: "szt.",
-	  	price: 0.01,
-	  	vat: 23,
-	  	vat_value: 0.00,
-	  	net_value: 0.00,
-	  	gross_value: 0.00
-	  }],
 	  itemsAmount: 0
 	}
 	}, 
 	methods: {
 		addItem(){
-			this.items.push({
+			this.invoice.items.push({
 			  	name: "Produkt",
 			  	amount: 1,
 			  	unit: "szt.",
@@ -60,12 +51,13 @@ module.exports = {
 			  	vat: 23,
 			  	vat_value: 0.00,
 			  	net_value: 0.00,
-			  	gross_value: 0.00
+			  	gross_value: 0.00,
+                invoice_id: 0
 			  })
 			this.itemsAmount++;
 		},
 		removeItem(index){
-			Vue.delete(this.items,index)
+			Vue.delete(this.invoice.items,index)
 			this.itemsAmount--;
 		}
 	}

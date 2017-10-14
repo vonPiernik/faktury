@@ -30,10 +30,11 @@ class Invoice extends Model
 	protected static function boot()
     {
         parent::boot();
-
-        static::addGlobalScope('belongsToCurrentUser', function (Builder $builder) {
-            $builder->where('user_id', Auth::user()->id);
-        });
+        if(Auth::id()){
+            static::addGlobalScope('belongsToCurrentUser', function (Builder $builder) {
+                    $builder->where('user_id', Auth::id());
+            });
+        }
     }
 
 
