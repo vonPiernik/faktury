@@ -8355,7 +8355,9 @@ button.close {
 body {
   font-family: 'Montserrat', sans-serif;
   color: #8c8c8c;
+  color: #707e8c;
   background: #f5f6fa;
+  background: #edeef2;
   padding-top: 51px;
 }
 
@@ -8428,8 +8430,8 @@ body {
   padding: 20px;
   padding-top: 70px;
   background: #fff;
-  border-right: 1px solid #eee;
   height: 100%;
+  border-right: 1px solid rgba(112, 126, 140, 0.2);
   background: #fdfdfe;
 }
 
@@ -8443,7 +8445,9 @@ body {
   width: 370px;
   background: #fff;
   height: 100%;
+  height: calc(100% - 112px);
   padding: 0px;
+  overflow-y: scroll;
 }
 
 .panel-body,
@@ -8451,21 +8455,22 @@ body {
 .panel-default {
   border: 0;
   -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
   background: transparent;
 }
 
 .panel-body {
   background: #fff;
-  border: 1px solid #eee;
+  border: 1px solid rgba(112, 126, 140, 0.2);
   border-radius: 4px;
   -webkit-transition: .3s all;
-  transition: .3s all;
+  -webkit-transition: .6s all;
+  transition: .6s all;
 }
 
-.blurred {
-  -webkit-filter: blur(4px);
-          filter: blur(4px);
+.blured {
+  -webkit-filter: blur(13px);
+  filter: blur(13px);
 }
 
 .dash-content-main {
@@ -8480,13 +8485,20 @@ body {
   color: #444;
   position: fixed;
   top: 50px;
-  border-bottom: 1px solid #eeeeee;
+  border-bottom: 1px solid rgba(112, 126, 140, 0.2);
   width: 100%;
   background: #fff;
   background: #fbfbfd;
   z-index: 1;
   line-height: 60px;
   /*margin-top: -1px;*/
+}
+
+h3.placeholder {
+  text-align: center;
+  margin: 30px 0;
+  font-size: 20px;
+  font-weight: 100;
 }
 
 /* >>----------> [ lista faktur ] <-----------<< */
@@ -8519,6 +8531,12 @@ ul.invoices-list a:active {
 
 ul.invoices-list small {
   display: block;
+}
+
+/* >>----------> [ scrollbar ] <-----------<< */
+
+div#ascrail2000 {
+  margin-left: 8px !important;
 }
 
 /* >>----------> [ bootstrap container wider ] <-----------<< */

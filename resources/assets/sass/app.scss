@@ -8,7 +8,9 @@
 body{
 	font-family: 'Montserrat', sans-serif;
     color: #8c8c8c;
+    color: #707e8c;
     background: #f5f6fa;
+    background: #edeef2;
     padding-top: 51px;
 }
 /* >>----------> [ navbar ] <-----------<< */
@@ -53,62 +55,85 @@ body{
   opacity: 0;
 }
 
+
 /* >>----------> [ dashboard layout ] <-----------<< */
+
 .dash-sidebar {
-    width: 230px;
-    position: fixed;
-    left: 0;
-    top: 0;
-    padding: 20px;
-    padding-top: 70px;
-    background: #fff;
-    border-right: 1px solid #eee;
-    height: 100%;
-    background: #fdfdfe;
+  width: 230px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding: 20px;
+  padding-top: 70px;
+  background: #fff;
+  height: 100%;
+  border-right: 1px solid rgba(112, 126, 140, 0.2);
+  background: #fdfdfe;
 }
+
 .dash-content {
-    margin-left: 230px;
-    padding-top: 60px;
+  margin-left: 230px;
+  padding-top: 60px;
 }
+
 .dash-content-sidebar {
     position: fixed;
     width: 370px;
     background: #fff;
     height: 100%;
+    height: calc(100% - 112px);
     padding: 0px;
+    overflow-y: scroll;
 }
-.panel-body, .panel-heading, .panel-default {
-    border: 0;
-    box-shadow: none;
-    background: transparent;
+
+.panel-body,
+.panel-heading,
+.panel-default {
+  border: 0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  background: transparent;
 }
+
 .panel-body {
-    background: #fff;
-    border: 1px solid #eee;
-    border-radius: 4px;
-    transition: .3s all;
+  background: #fff;
+  border: 1px solid rgba(112, 126, 140, 0.2);
+  border-radius: 4px;
+  -webkit-transition: .3s all;
+  transition: .6s all;
 }
-.blurred{
-	filter: blur(4px);
+
+.blured {
+  -webkit-filter: blur(13px);
+          filter: blur(13px);
 }
+
 .dash-content-main {
-    margin-left: 370px;
-    padding: 20px;
+  margin-left: 370px;
+  padding: 20px;
 }
+
 .panel-default > .panel-heading {
-    padding: 0 20px;
-    /* font-weight: bold; */
-    font-size: 18px;
-    color: #444;
-    position: fixed;
-    top: 50px;
-    border-bottom: 1px solid #eeeeee;
-    width: 100%;
-    background: #fff;
-    background: #fbfbfd;
-    z-index: 1;
-    line-height: 60px;
-    /*margin-top: -1px;*/
+  padding: 0 20px;
+  /* font-weight: bold; */
+  font-size: 18px;
+  color: #444;
+  position: fixed;
+  top: 50px;
+  border-bottom: 1px solid rgba(112, 126, 140, 0.2);
+  width: 100%;
+  background: #fff;
+  background: #fbfbfd;
+  z-index: 1;
+  line-height: 60px;
+  /*margin-top: -1px;*/
+}
+
+h3.placeholder {
+    text-align: center;
+    margin: 30px 0;
+    font-size: 20px;
+    font-weight: 100;
 }
 
 /* >>----------> [ lista faktur ] <-----------<< */
@@ -140,6 +165,10 @@ ul.invoices-list small {
 }
 
 
+/* >>----------> [ scrollbar ] <-----------<< */  
+div#ascrail2000 {
+    margin-left: 8px !important;
+}
 
 
 /* >>----------> [ bootstrap container wider ] <-----------<< */

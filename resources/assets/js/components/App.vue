@@ -67,10 +67,7 @@
                 <div class="dash-content"> 
 
 	      <!-- router outlet -->
-			  <keep-alive>
-			    <router-view></router-view>
-			  </keep-alive>
-
+                <router-view :currentUser="currentUser"></router-view>
                 </div> 
             </div><!-- /.row --> 
         </div><!-- /.container --> 

@@ -870,7 +870,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(10);
-module.exports = __webpack_require__(51);
+module.exports = __webpack_require__(50);
 
 
 /***/ }),
@@ -880,13 +880,6 @@ module.exports = __webpack_require__(51);
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_router__ = __webpack_require__(37);
-
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
 __webpack_require__(11);
 
 window.Vue = __webpack_require__(36);
@@ -895,46 +888,30 @@ window.Vue = __webpack_require__(36);
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]);
 
-/**
- * Include Vue components
- */
-// Vue.component('item-list', require('./components/ItemList.vue'));
-
-// Vue.component('item-row',require('./components/ItemRow.vue'));
-
-// Vue.component('invoice-list',require('./components/InvoiceList.vue'));
-
-// Vue.component('invoice-single',require('./components/InvoiceSingle.vue'));
-
 Vue.component('App', __webpack_require__(38));
 
-Vue.component('InvoiceList', __webpack_require__(41));
+Vue.component('ItemList', __webpack_require__(60));
+Vue.component('ItemRow', __webpack_require__(63));
 
-// 0. If using a module system, call Vue.use(VueRouter)
+var IndexView = __webpack_require__(41);
 
-// 1. Define route components.
-// These can be imported from other files
-// const App = { component: require('./components/App.vue') }
+var InvoiceNew = __webpack_require__(44);
 
-var IndexView = __webpack_require__(44);
-
-var InvoiceNew = __webpack_require__(47);
-
-var Login = __webpack_require__(50);
+var InvoiceSingle = __webpack_require__(47);
 
 var router = new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({
     mode: 'history',
     routes: [{
-        path: '/faktury',
-        component: IndexView
-    }, {
-        path: '/faktury/nowa',
-        component: InvoiceNew
-    }, {
-        path: '/faktury/:invoiceId',
-        component: IndexView,
-        name: 'faktury/show',
-        props: true
+        path: '/faktury', name: 'faktury',
+        component: IndexView, props: true,
+        children: [{
+            path: '', component: InvoiceSingle
+        }, {
+            path: 'nowa', component: InvoiceNew, name: 'faktury/create'
+        }, {
+            path: ':invoiceId', component: InvoiceSingle, props: true,
+            name: 'faktury/show'
+        }]
     }]
 });
 
@@ -44669,9 +44646,6 @@ module.exports = Component.exports
 //
 //
 //
-//
-//
-//
 
 module.exports = {
     props: ['currentUser'],
@@ -44778,7 +44752,7 @@ var render = function() {
         _c(
           "div",
           { staticClass: "dash-content" },
-          [_c("keep-alive", [_c("router-view")], 1)],
+          [_c("router-view", { attrs: { currentUser: _vm.currentUser } })],
           1
         )
       ])
@@ -44864,9 +44838,9 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources\\assets\\js\\components\\InvoiceList.vue"
+Component.options.__file = "resources\\assets\\js\\components\\IndexView.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] InvoiceList.vue: functional components are not supported with templates, they should use render functions.")}
+if (Component.options.functional) {console.error("[vue-loader] IndexView.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (false) {(function () {
@@ -44875,9 +44849,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-a71a8e4a", Component.options)
+    hotAPI.createRecord("data-v-42b1e3f2", Component.options)
   } else {
-    hotAPI.reload("data-v-a71a8e4a", Component.options)
+    hotAPI.reload("data-v-42b1e3f2", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -44889,6 +44863,433 @@ module.exports = Component.exports
 
 /***/ }),
 /* 42 */
+/***/ (function(module, exports) {
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+module.exports = {
+    props: ['currentUser'],
+    data: function data() {
+        return {
+            list: [],
+            page: {
+                title: "Twoje faktury"
+            },
+            invoice: {
+                blured: "blured",
+                id: '',
+                customer: '',
+                created_at: '',
+                items: {}
+            }
+        };
+    },
+
+    created: function created() {
+        var _this = this;
+
+        axios.get("/api/invoices").then(function (response) {
+            _this.list = response.data;
+        });
+
+        if (this.$route.params.invoiceId) {
+            axios.get("/api/invoices/" + this.$route.params.invoiceId).then(function (response) {
+                _this.invoice = response.data;
+            });
+        } else {
+            axios.get("/api/invoices/first").then(function (response) {
+                _this.invoice = response.data;
+            });
+        }
+    },
+
+
+    methods: {
+        showInvoice: function showInvoice(id) {
+            var _this2 = this;
+
+            this.invoice.blured = "blured";
+            axios.get("/api/invoices/" + id).then(function (response) {
+                _this2.invoice = response.data;
+            });
+        }
+    }
+};
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "panel panel-default" },
+    [
+      _c("div", { staticClass: "panel-heading" }, [
+        _vm._v(_vm._s(_vm.page.title))
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "dash-content-sidebar" }, [
+        _c(
+          "ul",
+          { staticClass: "invoices-list" },
+          _vm._l(_vm.list, function(inv) {
+            return _c(
+              "li",
+              [
+                _c(
+                  "router-link",
+                  {
+                    attrs: {
+                      to: {
+                        name: "faktury/show",
+                        params: { invoiceId: inv.id }
+                      },
+                      tag: "a"
+                    },
+                    nativeOn: {
+                      click: function($event) {
+                        _vm.showInvoice(inv.id)
+                      }
+                    }
+                  },
+                  [
+                    _c("strong", [_vm._v(_vm._s(inv.customer))]),
+                    _vm._v(" "),
+                    _c("small", [_vm._v(" " + _vm._s(inv.created_at))])
+                  ]
+                )
+              ],
+              1
+            )
+          })
+        )
+      ]),
+      _vm._v(" "),
+      _c("router-view", {
+        attrs: { invoice: _vm.invoice, currentUser: _vm.currentUser }
+      })
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-42b1e3f2", module.exports)
+  }
+}
+
+/***/ }),
+/* 44 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(45)
+/* template */
+var __vue_template__ = __webpack_require__(46)
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\InvoiceNew.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] InvoiceNew.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-0dcc0ef3", Component.options)
+  } else {
+    hotAPI.reload("data-v-0dcc0ef3", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports) {
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+module.exports = {
+  props: ['currentUser'],
+  data: function data() {
+    return {
+      page: {
+        title: "Nowa faktura"
+      },
+      invoice: {
+        user_id: this.currentUser.id,
+        id: '',
+        customer: '',
+        created_at: '',
+        items: [{
+          name: "Produkt",
+          amount: 1,
+          unit: "szt.",
+          price: 0.01,
+          vat: 23,
+          vat_value: 0.00,
+          net_value: 0.00,
+          gross_value: 0.00,
+          invoice_id: 0
+        }]
+      }
+    };
+  },
+  methods: {
+    createInvoice: function createInvoice() {
+      var _this = this;
+
+      axios.post('/api/invoices/add', this.invoice).then(function (response) {
+        _this.$router.push('/faktury');
+      }).catch(function (error) {
+        console.log(error);
+      });
+    }
+  }
+};
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "panel panel-default" }, [
+    _c("div", { staticClass: "panel-heading" }, [
+      _vm._v(_vm._s(_vm.page.title))
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "dash-content-main" }, [
+      _c("div", { staticClass: "panel-body" }, [
+        _c(
+          "form",
+          {
+            attrs: { method: "POST", action: "#" },
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                _vm.createInvoice($event)
+              }
+            }
+          },
+          [
+            _c("div", { staticClass: "col-md-4" }, [_vm._v("Twoje dane")]),
+            _vm._v(" "),
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-4" }, [
+              _c("label", { attrs: { for: "date" } }, [_vm._v("Dane klienta")]),
+              _c("br"),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.invoice.customer,
+                    expression: "invoice.customer"
+                  }
+                ],
+                attrs: {
+                  type: "text",
+                  name: "customer",
+                  id: "customer",
+                  required: "",
+                  value: "Klient"
+                },
+                domProps: { value: _vm.invoice.customer },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.invoice.customer = $event.target.value
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("br"),
+            _c("br"),
+            _vm._v(" "),
+            _c("hr"),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-md-12" },
+              [_c("item-list", { attrs: { invoice: _vm.invoice } })],
+              1
+            ),
+            _vm._v(" "),
+            _c("input", { attrs: { type: "submit", value: "Wyślij" } })
+          ]
+        )
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-4" }, [
+      _c("label", { attrs: { for: "date" } }, [_vm._v("Data wystawienia")]),
+      _c("br")
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-0dcc0ef3", module.exports)
+  }
+}
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(48)
+/* template */
+var __vue_template__ = __webpack_require__(49)
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\InvoiceSingle.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] InvoiceSingle.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-8b5fdb76", Component.options)
+  } else {
+    hotAPI.reload("data-v-8b5fdb76", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 48 */
 /***/ (function(module, exports) {
 
 //
@@ -44935,59 +45336,17 @@ module.exports = Component.exports
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 module.exports = {
+    props: ['invoice'],
     data: function data() {
-        return {
-            list: [],
-            invoice: {
-                id: '1',
-                customer: 'Placeholder dla klienta',
-                created_at: '',
-                items: {}
-            }
-        };
-    },
-
-    created: function created() {
-        var _this = this;
-
-        axios.get('/api/invoices').then(function (response) {
-            _this.list = response.data;
-        });
-
-        console.log(this.$route.params.invoiceId);
-
-        if (this.$route.params.invoiceId) {
-            axios.get('/api/invoices/' + this.$route.params.invoiceId).then(function (response) {
-                _this.invoice = response.data;
-            });
-        }
-    },
-
-
-    methods: {
-        showInvoice: function showInvoice(id) {
-            var _this2 = this;
-
-            axios.get('/api/invoices/' + id).then(function (response) {
-                _this2.invoice = response.data;
-            });
-        }
+        return {};
     }
+
 };
 
 /***/ }),
-/* 43 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -44995,51 +45354,19 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "dash-content-sidebar" }, [
-      _c(
-        "ul",
-        { staticClass: "invoices-list" },
-        _vm._l(_vm.list, function(inv) {
-          return _c(
-            "li",
-            [
-              _c(
-                "router-link",
-                {
-                  attrs: {
-                    to: { name: "faktury/show", params: { invoiceId: inv.id } },
-                    tag: "a"
-                  },
-                  nativeOn: {
-                    click: function($event) {
-                      _vm.showInvoice(inv.id)
-                    }
-                  }
-                },
-                [
-                  _c("strong", [_vm._v(_vm._s(inv.customer))]),
-                  _vm._v(" "),
-                  _c("small", [_vm._v(" " + _vm._s(inv.created_at))])
-                ]
-              )
-            ],
-            1
-          )
-        })
-      )
-    ]),
-    _vm._v(" "),
     _c("div", { staticClass: "dash-content-main" }, [
-      _c("div", { staticClass: "panel-body" }, [
+      _c("div", { class: [_vm.invoice.blured, "panel-body"] }, [
         _c("div", { staticClass: "invoice-body" }, [
-          _c("h1", [
-            _vm._v(
-              "Faktura nr " +
-                _vm._s(_vm.invoice.id) +
-                " dla " +
-                _vm._s(_vm.invoice.customer)
-            )
-          ]),
+          _vm.invoice.id
+            ? _c("h1", [
+                _vm._v(
+                  "Faktura nr " +
+                    _vm._s(_vm.invoice.id) +
+                    " dla " +
+                    _vm._s(_vm.invoice.customer)
+                )
+              ])
+            : _vm._e(),
           _vm._v(" "),
           _c("small", [
             _vm._v("Data wystawienia: " + _vm._s(_vm.invoice.created_at))
@@ -45107,20 +45434,116 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-a71a8e4a", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-8b5fdb76", module.exports)
   }
 }
 
 /***/ }),
-/* 44 */
+/* 50 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 51 */,
+/* 52 */
+/***/ (function(module, exports) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function(useSourceMap) {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		return this.map(function (item) {
+			var content = cssWithMappingToString(item, useSourceMap);
+			if(item[2]) {
+				return "@media " + item[2] + "{" + content + "}";
+			} else {
+				return content;
+			}
+		}).join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
+
+function cssWithMappingToString(item, useSourceMap) {
+	var content = item[1] || '';
+	var cssMapping = item[3];
+	if (!cssMapping) {
+		return content;
+	}
+
+	if (useSourceMap && typeof btoa === 'function') {
+		var sourceMapping = toComment(cssMapping);
+		var sourceURLs = cssMapping.sources.map(function (source) {
+			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
+		});
+
+		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+	}
+
+	return [content].join('\n');
+}
+
+// Adapted from convert-source-map (MIT)
+function toComment(sourceMap) {
+	// eslint-disable-next-line no-undef
+	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
+
+	return '/*# ' + data + ' */';
+}
+
+
+/***/ }),
+/* 53 */,
+/* 54 */,
+/* 55 */,
+/* 56 */,
+/* 57 */,
+/* 58 */,
+/* 59 */,
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(45)
+var __vue_script__ = __webpack_require__(61)
 /* template */
-var __vue_template__ = __webpack_require__(46)
+var __vue_template__ = __webpack_require__(62)
 /* styles */
 var __vue_styles__ = null
 /* scopeId */
@@ -45134,9 +45557,9 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources\\assets\\js\\components\\IndexView.vue"
+Component.options.__file = "resources\\assets\\js\\components\\ItemList.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] IndexView.vue: functional components are not supported with templates, they should use render functions.")}
+if (Component.options.functional) {console.error("[vue-loader] ItemList.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (false) {(function () {
@@ -45145,9 +45568,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-42b1e3f2", Component.options)
+    hotAPI.createRecord("data-v-798195de", Component.options)
   } else {
-    hotAPI.reload("data-v-42b1e3f2", Component.options)
+    hotAPI.reload("data-v-798195de", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -45158,108 +45581,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 45 */
-/***/ (function(module, exports) {
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-module.exports = {
-				data: function data() {
-								return {
-												page: {
-																title: "Twoje faktury"
-												}
-								};
-				}
-};
-
-/***/ }),
-/* 46 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "panel panel-default" },
-    [
-      _c("div", { staticClass: "panel-heading" }, [
-        _vm._v(_vm._s(_vm.page.title))
-      ]),
-      _vm._v(" "),
-      _c("invoice-list")
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-42b1e3f2", module.exports)
-  }
-}
-
-/***/ }),
-/* 47 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(1)
-/* script */
-var __vue_script__ = __webpack_require__(48)
-/* template */
-var __vue_template__ = __webpack_require__(49)
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources\\assets\\js\\components\\InvoiceNew.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] InvoiceNew.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-0dcc0ef3", Component.options)
-  } else {
-    hotAPI.reload("data-v-0dcc0ef3", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 48 */
+/* 61 */
 /***/ (function(module, exports) {
 
 //
@@ -45279,37 +45601,106 @@ module.exports = Component.exports
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 module.exports = {
-				data: function data() {
-								return {
-												page: {
-																title: "Nowa faktura"
-												}
-								};
-				}
+	props: ['invoice'],
+	data: function data() {
+		return {
+			itemsAmount: 0
+		};
+	},
+	methods: {
+		addItem: function addItem() {
+			this.invoice.items.push({
+				name: "Produkt",
+				amount: 1,
+				unit: "szt.",
+				price: 0.01,
+				vat: 23,
+				vat_value: 0.00,
+				net_value: 0.00,
+				gross_value: 0.00,
+				invoice_id: 0
+			});
+			this.itemsAmount++;
+		},
+		removeItem: function removeItem(index) {
+			Vue.delete(this.invoice.items, index);
+			this.itemsAmount--;
+		}
+	}
 };
 
 /***/ }),
-/* 49 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "panel panel-default" }, [
-    _c("div", { staticClass: "panel-heading" }, [
-      _vm._v(_vm._s(_vm.page.title))
+  return _c("div", [
+    _c("button", { attrs: { type: "button" }, on: { click: _vm.addItem } }, [
+      _vm._v(" Dodaj element")
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "dash-content-sidebar" }, [
-      _vm._v(
-        " \n                            Sidebar costam\n                        "
+    _c("table", { staticClass: "table table-striped items" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "tbody",
+        _vm._l(_vm.invoice.items, function(item, index) {
+          return _c("item-row", {
+            key: index,
+            attrs: { i: index, item: item },
+            on: {
+              remove: function($event) {
+                _vm.removeItem(index)
+              }
+            }
+          })
+        })
       )
     ]),
     _vm._v(" "),
-    _vm._m(0)
+    _c("input", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model",
+          value: _vm.itemsAmount,
+          expression: "itemsAmount"
+        }
+      ],
+      attrs: { type: "hidden", name: "items_amount" },
+      domProps: { value: _vm.itemsAmount },
+      on: {
+        input: function($event) {
+          if ($event.target.composing) {
+            return
+          }
+          _vm.itemsAmount = $event.target.value
+        }
+      }
+    })
   ])
 }
 var staticRenderFns = [
@@ -45317,11 +45708,23 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "dash-content-main" }, [
-      _c("div", { staticClass: "panel-body" }, [
-        _vm._v(
-          " \n                            Tresc \n                            "
-        )
+    return _c("thead", [
+      _c("tr", [
+        _c("td", [_vm._v("Nazwa")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Ilość")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Jednostka")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Cena")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Stawka VAT (%)")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Kwota VAT")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Wartość netto")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Wartość brutto")])
       ])
     ])
   }
@@ -45331,21 +45734,26 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-0dcc0ef3", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-798195de", module.exports)
   }
 }
 
 /***/ }),
-/* 50 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(64)
+}
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = null
+var __vue_script__ = __webpack_require__(68)
 /* template */
-var __vue_template__ = null
+var __vue_template__ = __webpack_require__(69)
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
 var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
@@ -45357,17 +45765,713 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources\\assets\\js\\components\\Login.vue"
+Component.options.__file = "resources\\assets\\js\\components\\ItemRow.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] ItemRow.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-3aa4d192", Component.options)
+  } else {
+    hotAPI.reload("data-v-3aa4d192", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
 
 module.exports = Component.exports
 
 
 /***/ }),
-/* 51 */
+/* 64 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(65);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(66)("01f76f94", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3aa4d192\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ItemRow.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3aa4d192\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ItemRow.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 65 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(52)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "\ninput[type=\"number\"]{\n    width: 80px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 66 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/*
+  MIT License http://www.opensource.org/licenses/mit-license.php
+  Author Tobias Koppers @sokra
+  Modified by Evan You @yyx990803
+*/
+
+var hasDocument = typeof document !== 'undefined'
+
+if (typeof DEBUG !== 'undefined' && DEBUG) {
+  if (!hasDocument) {
+    throw new Error(
+    'vue-style-loader cannot be used in a non-browser environment. ' +
+    "Use { target: 'node' } in your Webpack config to indicate a server-rendering environment."
+  ) }
+}
+
+var listToStyles = __webpack_require__(67)
+
+/*
+type StyleObject = {
+  id: number;
+  parts: Array<StyleObjectPart>
+}
+
+type StyleObjectPart = {
+  css: string;
+  media: string;
+  sourceMap: ?string
+}
+*/
+
+var stylesInDom = {/*
+  [id: number]: {
+    id: number,
+    refs: number,
+    parts: Array<(obj?: StyleObjectPart) => void>
+  }
+*/}
+
+var head = hasDocument && (document.head || document.getElementsByTagName('head')[0])
+var singletonElement = null
+var singletonCounter = 0
+var isProduction = false
+var noop = function () {}
+
+// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+// tags it will allow on a page
+var isOldIE = typeof navigator !== 'undefined' && /msie [6-9]\b/.test(navigator.userAgent.toLowerCase())
+
+module.exports = function (parentId, list, _isProduction) {
+  isProduction = _isProduction
+
+  var styles = listToStyles(parentId, list)
+  addStylesToDom(styles)
+
+  return function update (newList) {
+    var mayRemove = []
+    for (var i = 0; i < styles.length; i++) {
+      var item = styles[i]
+      var domStyle = stylesInDom[item.id]
+      domStyle.refs--
+      mayRemove.push(domStyle)
+    }
+    if (newList) {
+      styles = listToStyles(parentId, newList)
+      addStylesToDom(styles)
+    } else {
+      styles = []
+    }
+    for (var i = 0; i < mayRemove.length; i++) {
+      var domStyle = mayRemove[i]
+      if (domStyle.refs === 0) {
+        for (var j = 0; j < domStyle.parts.length; j++) {
+          domStyle.parts[j]()
+        }
+        delete stylesInDom[domStyle.id]
+      }
+    }
+  }
+}
+
+function addStylesToDom (styles /* Array<StyleObject> */) {
+  for (var i = 0; i < styles.length; i++) {
+    var item = styles[i]
+    var domStyle = stylesInDom[item.id]
+    if (domStyle) {
+      domStyle.refs++
+      for (var j = 0; j < domStyle.parts.length; j++) {
+        domStyle.parts[j](item.parts[j])
+      }
+      for (; j < item.parts.length; j++) {
+        domStyle.parts.push(addStyle(item.parts[j]))
+      }
+      if (domStyle.parts.length > item.parts.length) {
+        domStyle.parts.length = item.parts.length
+      }
+    } else {
+      var parts = []
+      for (var j = 0; j < item.parts.length; j++) {
+        parts.push(addStyle(item.parts[j]))
+      }
+      stylesInDom[item.id] = { id: item.id, refs: 1, parts: parts }
+    }
+  }
+}
+
+function createStyleElement () {
+  var styleElement = document.createElement('style')
+  styleElement.type = 'text/css'
+  head.appendChild(styleElement)
+  return styleElement
+}
+
+function addStyle (obj /* StyleObjectPart */) {
+  var update, remove
+  var styleElement = document.querySelector('style[data-vue-ssr-id~="' + obj.id + '"]')
+
+  if (styleElement) {
+    if (isProduction) {
+      // has SSR styles and in production mode.
+      // simply do nothing.
+      return noop
+    } else {
+      // has SSR styles but in dev mode.
+      // for some reason Chrome can't handle source map in server-rendered
+      // style tags - source maps in <style> only works if the style tag is
+      // created and inserted dynamically. So we remove the server rendered
+      // styles and inject new ones.
+      styleElement.parentNode.removeChild(styleElement)
+    }
+  }
+
+  if (isOldIE) {
+    // use singleton mode for IE9.
+    var styleIndex = singletonCounter++
+    styleElement = singletonElement || (singletonElement = createStyleElement())
+    update = applyToSingletonTag.bind(null, styleElement, styleIndex, false)
+    remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true)
+  } else {
+    // use multi-style-tag mode in all other cases
+    styleElement = createStyleElement()
+    update = applyToTag.bind(null, styleElement)
+    remove = function () {
+      styleElement.parentNode.removeChild(styleElement)
+    }
+  }
+
+  update(obj)
+
+  return function updateStyle (newObj /* StyleObjectPart */) {
+    if (newObj) {
+      if (newObj.css === obj.css &&
+          newObj.media === obj.media &&
+          newObj.sourceMap === obj.sourceMap) {
+        return
+      }
+      update(obj = newObj)
+    } else {
+      remove()
+    }
+  }
+}
+
+var replaceText = (function () {
+  var textStore = []
+
+  return function (index, replacement) {
+    textStore[index] = replacement
+    return textStore.filter(Boolean).join('\n')
+  }
+})()
+
+function applyToSingletonTag (styleElement, index, remove, obj) {
+  var css = remove ? '' : obj.css
+
+  if (styleElement.styleSheet) {
+    styleElement.styleSheet.cssText = replaceText(index, css)
+  } else {
+    var cssNode = document.createTextNode(css)
+    var childNodes = styleElement.childNodes
+    if (childNodes[index]) styleElement.removeChild(childNodes[index])
+    if (childNodes.length) {
+      styleElement.insertBefore(cssNode, childNodes[index])
+    } else {
+      styleElement.appendChild(cssNode)
+    }
+  }
+}
+
+function applyToTag (styleElement, obj) {
+  var css = obj.css
+  var media = obj.media
+  var sourceMap = obj.sourceMap
+
+  if (media) {
+    styleElement.setAttribute('media', media)
+  }
+
+  if (sourceMap) {
+    // https://developer.chrome.com/devtools/docs/javascript-debugging
+    // this makes source maps inside style tags work properly in Chrome
+    css += '\n/*# sourceURL=' + sourceMap.sources[0] + ' */'
+    // http://stackoverflow.com/a/26603875
+    css += '\n/*# sourceMappingURL=data:application/json;base64,' + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + ' */'
+  }
+
+  if (styleElement.styleSheet) {
+    styleElement.styleSheet.cssText = css
+  } else {
+    while (styleElement.firstChild) {
+      styleElement.removeChild(styleElement.firstChild)
+    }
+    styleElement.appendChild(document.createTextNode(css))
+  }
+}
+
+
+/***/ }),
+/* 67 */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+/**
+ * Translates the list format produced by css-loader into something
+ * easier to manipulate.
+ */
+module.exports = function listToStyles (parentId, list) {
+  var styles = []
+  var newStyles = {}
+  for (var i = 0; i < list.length; i++) {
+    var item = list[i]
+    var id = item[0]
+    var css = item[1]
+    var media = item[2]
+    var sourceMap = item[3]
+    var part = {
+      id: parentId + ':' + i,
+      css: css,
+      media: media,
+      sourceMap: sourceMap
+    }
+    if (!newStyles[id]) {
+      styles.push(newStyles[id] = { id: id, parts: [part] })
+    } else {
+      newStyles[id].parts.push(part)
+    }
+  }
+  return styles
+}
+
+
+/***/ }),
+/* 68 */
+/***/ (function(module, exports) {
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+module.exports = {
+    props: ['item', 'i'],
+    data: function data() {
+        return {};
+    },
+    methods: {
+        remove: function remove() {
+            this.$emit('remove');
+        },
+        computeValues: function computeValues(whatChanged) {
+            vatV = this.item.vat / 100 + 1;
+
+            if (whatChanged == this.item.price || whatChanged == this.item.amount) {
+                this.item.net_value = (this.item.price * this.item.amount).toFixed(2);
+                this.item.gross_value = (this.item.net_value * vatV).toFixed(2);
+                this.item.vat_value = (this.item.net_value * (this.item.vat / 100)).toFixed(2);
+            } else if (whatChanged == this.item.vat) {
+                this.item.gross_value = (this.item.net_value * vatV).toFixed(2);
+                this.item.vat_value = (this.item.net_value * (this.item.vat / 100)).toFixed(2);
+            } else if (whatChanged == this.item.vat_value) {} else if (whatChanged == this.item.net_value) {
+                this.item.gross_value = (this.item.net_value * vatV).toFixed(2);
+                this.item.price = (this.item.net_value / this.item.amount).toFixed(2);
+                this.item.vat_value = (this.item.net_value * (this.item.vat / 100)).toFixed(2);
+            } else if (whatChanged == this.item.gross_value) {
+                this.item.net_value = (this.item.gross_value / vatV).toFixed(2);
+                this.item.price = (this.item.net_value / this.item.amount).toFixed(2);
+                this.item.vat_value = (this.item.net_value * (this.item.vat / 100)).toFixed(2);
+            }
+        }
+    }
+};
+
+/***/ }),
+/* 69 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("tr", { staticClass: "items-row" }, [
+    _c("td", [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.item.name,
+            expression: "item.name"
+          }
+        ],
+        attrs: { required: "", type: "text", name: "name" },
+        domProps: { value: _vm.item.name },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.item.name = $event.target.value
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c("td", [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model.number",
+            value: _vm.item.amount,
+            expression: "item.amount",
+            modifiers: { number: true }
+          }
+        ],
+        attrs: {
+          required: "",
+          min: "0",
+          step: "0.01",
+          type: "number",
+          name: "amount"
+        },
+        domProps: { value: _vm.item.amount },
+        on: {
+          change: function($event) {
+            _vm.computeValues(_vm.item.amount)
+          },
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.item.amount = _vm._n($event.target.value)
+          },
+          blur: function($event) {
+            _vm.$forceUpdate()
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c("td", [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.item.unit,
+            expression: "item.unit"
+          }
+        ],
+        attrs: { required: "", type: "text", name: "unit", size: "4" },
+        domProps: { value: _vm.item.unit },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.item.unit = $event.target.value
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c("td", [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model.number",
+            value: _vm.item.price,
+            expression: "item.price",
+            modifiers: { number: true }
+          }
+        ],
+        attrs: {
+          required: "",
+          min: "0.01",
+          step: "0.01",
+          type: "number",
+          name: "price"
+        },
+        domProps: { value: _vm.item.price },
+        on: {
+          change: function($event) {
+            _vm.computeValues(_vm.item.price)
+          },
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.item.price = _vm._n($event.target.value)
+          },
+          blur: function($event) {
+            _vm.$forceUpdate()
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c("td", [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model.number",
+            value: _vm.item.vat,
+            expression: "item.vat",
+            modifiers: { number: true }
+          }
+        ],
+        attrs: {
+          required: "",
+          min: "1",
+          max: "100",
+          type: "number",
+          name: "vat"
+        },
+        domProps: { value: _vm.item.vat },
+        on: {
+          change: function($event) {
+            _vm.computeValues(_vm.item.vat)
+          },
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.item.vat = _vm._n($event.target.value)
+          },
+          blur: function($event) {
+            _vm.$forceUpdate()
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c("td", [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model.number",
+            value: _vm.item.vat_value,
+            expression: "item.vat_value",
+            modifiers: { number: true }
+          }
+        ],
+        attrs: {
+          readonly: "",
+          required: "",
+          min: "0.01",
+          step: "0.01",
+          type: "number",
+          name: "vat_value"
+        },
+        domProps: { value: _vm.item.vat_value },
+        on: {
+          change: function($event) {
+            _vm.computeValues(_vm.item.vat_value)
+          },
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.item.vat_value = _vm._n($event.target.value)
+          },
+          blur: function($event) {
+            _vm.$forceUpdate()
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c("td", [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model.number",
+            value: _vm.item.net_value,
+            expression: "item.net_value",
+            modifiers: { number: true }
+          }
+        ],
+        attrs: {
+          required: "",
+          min: "0",
+          step: "0.01",
+          type: "number",
+          name: "net_value"
+        },
+        domProps: { value: _vm.item.net_value },
+        on: {
+          change: function($event) {
+            _vm.computeValues(_vm.item.net_value)
+          },
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.item.net_value = _vm._n($event.target.value)
+          },
+          blur: function($event) {
+            _vm.$forceUpdate()
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c("td", [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model.number",
+            value: _vm.item.gross_value,
+            expression: "item.gross_value",
+            modifiers: { number: true }
+          }
+        ],
+        attrs: {
+          required: "",
+          min: "0",
+          step: "0.01",
+          type: "number",
+          name: "gross_value"
+        },
+        domProps: { value: _vm.item.gross_value },
+        on: {
+          change: function($event) {
+            _vm.computeValues(_vm.item.gross_value)
+          },
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.item.gross_value = _vm._n($event.target.value)
+          },
+          blur: function($event) {
+            _vm.$forceUpdate()
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c("td", [
+      _c("button", { attrs: { type: "button" }, on: { click: _vm.remove } }, [
+        _vm._v(" X ")
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-3aa4d192", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
