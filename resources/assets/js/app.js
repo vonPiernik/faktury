@@ -1,22 +1,49 @@
-
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
 require('./bootstrap');
 
 window.Vue = require('vue');
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+import Router from 'vue-router';
 
-Vue.component('example', require('./components/Example.vue'));
+Vue.use(Router)
 
-const app = new Vue({
-    el: '#app'
-});
+
+Vue.component('App',require('./components/App.vue'));
+
+Vue.component('ItemList',require('./components/ItemList.vue'));
+Vue.component('ItemRow',require('./components/ItemRow.vue'));
+
+
+const IndexView = require('./components/IndexView.vue');
+
+const InvoiceNew = require('./components/InvoiceNew.vue');
+
+const InvoiceSingle = require('./components/InvoiceSingle.vue');
+
+
+const router = new Router({
+  mode: 'history',
+  routes: [
+    { 
+        path: '/faktury', name: 'faktury',
+        component: IndexView, props: true,
+        children: [
+            { 
+                path: '', component: InvoiceSingle
+            },
+            { 
+                path: 'nowa', component: InvoiceNew, name: 'faktury/create'
+            },
+            { 
+                path: ':invoiceId', component: InvoiceSingle,props: true,
+                name: 'faktury/show'
+            }
+        ]
+    }
+  ]
+})
+
+new Vue({
+    router,
+    el: 'app'
+})
+
