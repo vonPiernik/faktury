@@ -24,14 +24,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 
-//put invoices in db
-
-Route::resource('invoices', 'InvoiceController' );
-
 // get invoices
 Route::get('invoices/first', function() {
     return Invoice::with("items")->orderBy('created_at','desc')->first();
 });
+//put invoices in db
+
+Route::resource('invoices', 'InvoiceController' );
+
 
 // Route::get('invoices/{id}', function($id) {
 //     return Invoice::with("items")->find($id);

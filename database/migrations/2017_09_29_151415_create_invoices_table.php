@@ -17,6 +17,9 @@ class CreateInvoicesTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->string('customer');
+            $table->integer('net_value')->default(0);
+            $table->integer('gross_value')->default(0);
+            $table->boolean('draft')->default(true);
             $table->timestamps();
         });
     }

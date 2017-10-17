@@ -8387,6 +8387,16 @@ body {
   font-weight: bold;
 }
 
+.navbar-default .navbar-nav > li > a.router-link-exact-active.router-link-active {
+  /* background: #4688ff; */
+  color: #4688ff;
+  border-bottom: 2px solid #4688ff;
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: #707e8c;
+}
+
 /* >>----------> [ transitions for vue  ] <-----------<< */
 
 .fade-enter-active,
@@ -8501,6 +8511,10 @@ h3.placeholder {
   font-weight: 100;
 }
 
+.invoice-body {
+  word-wrap: break-word;
+}
+
 /* >>----------> [ lista faktur ] <-----------<< */
 
 ul.invoices-list li {
@@ -8509,12 +8523,13 @@ ul.invoices-list li {
 
 ul.invoices-list {
   padding: 0;
+  min-height: 101%;
 }
 
 ul.invoices-list a {
   display: block;
-  padding: 20px 20px;
-  color: #444;
+  padding: 13px 20px;
+  color: #707e8c;
   text-decoration: none;
   -webkit-transition: .3s all;
   transition: .3s all;
@@ -8533,10 +8548,69 @@ ul.invoices-list small {
   display: block;
 }
 
+ul.invoices-list a.draft {
+  color: #FF9800;
+  position: relative;
+}
+
+ul.invoices-list .router-link-active.draft {
+  background: #FF9800;
+  color: #fff;
+  /* position: relative; */
+}
+
+/*ul.invoices-list a.draft::after {
+    content: "Wersja robocza";
+    position: absolute;
+    top: 9px;
+    left: 20px;
+    font-size: 10px;
+    text-transform: uppercase;
+}*/
+
+ul.invoices-list a.draft span {
+  /* opacity: 0.7; */
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.37);
+}
+
+ul.invoices-list a.router-link-active.draft span {
+  color: rgba(255, 255, 255, 0.62);
+}
+
 /* >>----------> [ scrollbar ] <-----------<< */
 
 div#ascrail2000 {
   margin-left: 8px !important;
+}
+
+/* >>----------> [ single ivoice ] <-----------<< */
+
+button#deleteInvoice {
+  background: #a6a6a6;
+  border: 0;
+  padding: 10px 20px;
+  color: #fff;
+  float: right;
+  margin: 0 0 0 10px;
+}
+
+button#editInvoice {
+  background: #FF9800;
+  border: 0;
+  padding: 10px 20px;
+  color: #fff;
+  float: right;
+  margin: 0 0 0 10px;
+}
+
+button#printToPDF {
+  background: #4688ff;
+  border: 0;
+  padding: 10px 20px;
+  color: #fff;
+  float: right;
+  margin: 0 0 0 10px;
 }
 
 /* >>----------> [ bootstrap container wider ] <-----------<< */

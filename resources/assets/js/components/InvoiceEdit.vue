@@ -34,6 +34,11 @@
 
                                 </form>
                             </div> 
+                
+                <button id="deleteInvoice"
+                        @click.prevent="deleteInv(invoice.id)">
+                            Usuń fakturę
+                </button>
           </div>
 	</div>
 </template>
@@ -45,7 +50,7 @@ module.exports = {
     data: function () {
 	    return {
 		  page: {
-		  	title: "Nowa faktura"
+		  	title: "Edytuj fakturę"
 		  },
           invoice: { 
             user_id: this.currentUser.id,
@@ -67,6 +72,12 @@ module.exports = {
             } 
 		}
     },
+    created() {
+        console.log(this.$route.params.invoiceId)
+        axios.get(`/api/invoices/` + this.$route.params.invoiceId).then(response => { 
+                this.invoice = response.data
+        }) 
+    },
     watch: {
         invoice:  {
             handler: function(oldValue, newValue) {
@@ -78,6 +89,9 @@ module.exports = {
     methods: {
         upList() {
             this.$emit('upList');
+        },
+        deleteInv(id) {
+            this.$emit('deleteInv',id);
         },
         createInvoice(){
             this.invoice.draft = false

@@ -26,7 +26,8 @@
     <!-- <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script> -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/jquery.nicescroll.min.js') }}"></script>
-    <script>    
+    <script>
+    $(document).ready(function(){
         $(".dash-content-sidebar").niceScroll({
             cursorcolor:"rgb(70, 136, 255)",
             cursorwidth:"6",
@@ -35,8 +36,10 @@
             cursorborderradius:7,
             autohidemode:false,
             mousescrollstep: 15,
-            scrollspeed: 10
-        }); 
+            scrollspeed: 10,
+            enableobserver: true
+        }).resize(); 
+    })
     </script>
     
     @yield('pagescripts')

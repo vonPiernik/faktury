@@ -19,6 +19,8 @@ const InvoiceNew = require('./components/InvoiceNew.vue');
 
 const InvoiceSingle = require('./components/InvoiceSingle.vue');
 
+const InvoiceEdit = require('./components/InvoiceEdit.vue');
+
 
 const router = new Router({
   mode: 'history',
@@ -34,8 +36,12 @@ const router = new Router({
                 path: 'nowa', component: InvoiceNew, name: 'faktury/create'
             },
             { 
-                path: ':invoiceId', component: InvoiceSingle,props: true,
+                path: ':invoiceId', component: InvoiceSingle, props: true,
                 name: 'faktury/show'
+            },
+            { 
+                path: ':invoiceId/edytuj', component: InvoiceEdit, props: true,
+                name: 'faktury/edit'
             }
         ]
     }

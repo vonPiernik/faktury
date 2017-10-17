@@ -41,10 +41,13 @@ class InvoiceController extends Controller
     public function store(Request $request)
     {
         $input = $request -> all();
+
+
         $invoice = Invoice::updateOrCreate(['id' => $input['id']],
             [
-            'user_id' => 1,
+            'user_id' => $input['user_id'],
             'customer' => $input['customer'],
+            'draft' => $input['draft']
             ]
         );
         foreach($input['items'] as &$k){
@@ -98,6 +101,12 @@ class InvoiceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $invoice = Invoice::find($id);
+        foreach($invoice->items as $item){
+            $item->delete();
+        }
+        $invoice->delete();
+
+        return $invoice->id;
     }
 }
