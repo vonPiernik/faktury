@@ -1,6 +1,6 @@
 <template>
 	<div>
-	<button type="button" @click="addItem"> Dodaj element</button>
+	<button type="button" class="add-item" @click="addItem"> Dodaj element</button>
 	<table class="table table-striped items">
 	    <thead>
 	        <tr>
@@ -27,7 +27,6 @@
 
 	</table>
 
-	<input type="hidden" v-model="itemsAmount" name="items_amount">
 
 	</div>
 </template>
@@ -38,12 +37,12 @@ module.exports = {
 	props: ['invoice'],
 	data: function () {
 	return {
-	  itemsAmount: 0
 	}
 	}, 
 	methods: {
 		addItem(){
 			this.invoice.items.push({
+				id: "",
 			  	name: "Produkt",
 			  	amount: 1,
 			  	unit: "szt.",
@@ -54,11 +53,12 @@ module.exports = {
 			  	gross_value: 0.00,
                 invoice_id: 0
 			  })
-			this.itemsAmount++;
 		},
 		removeItem(index){
 			Vue.delete(this.invoice.items,index)
-			this.itemsAmount--;
+			if(this.invoice.items.length == 0){
+				this.addItem()
+			}
 		}
 	}
 };

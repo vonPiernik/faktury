@@ -52,7 +52,7 @@
                 type="number" 
                 :name="'gross_value'">
             </td>
-            <td><button type="button" @click="remove"> X </button></td>
+            <td><button type="button" class="removeItemButton" @click="remove"> X </button></td>
 
     </tr>
 </template>

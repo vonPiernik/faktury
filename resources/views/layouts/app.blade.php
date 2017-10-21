@@ -23,19 +23,13 @@
     @endguest
 
     <!-- Scripts -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script> -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/jquery.nicescroll.min.js') }}"></script>
-    <script>    
-        $(".dash-content-sidebar").niceScroll({
-            cursorcolor:"rgb(70, 136, 255)",
-            cursorwidth:"6",
-            background:"rgba(20,20,20,0)",
-            cursorborder:"0px solid rgba(0, 0, 0, 0)",
-            cursorborderradius:7,
-            autohidemode:false,
-            mousescrollstep: 15,
-            scrollspeed: 10
-        }); 
+    <script>
+        $(".dash-sidebar").niceScroll({
+            scrollbarid: "sidebarScroller"
+        }).resize(); 
     </script>
     
     @yield('pagescripts')

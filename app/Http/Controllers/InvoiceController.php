@@ -19,10 +19,7 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-
-        $invoices = Invoice::orderBy('created_at','desc')->paginate(15);
-
-        return view('faktury.index', compact('invoices'));
+        return Invoice::with('items')->orderBy('created_at','desc')->get();
     }
 
     /**
@@ -43,34 +40,31 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
-        $input = $request -> all();
+        $inputArr = $request->all();
+        $input = (object) $inputArr;
+        // return $inputObj->id;
+        $invoice = Invoice::updateOrCreate(
+            [ 'id' => $input->id],
+            $inputArr
+        );
+        $inputItemsIds = array_map(function($singleItem) {
+            return $singleItem['id'];
+        }, $inputArr['items']);
 
-        $customer = $input['customer'];
-        $invoice = Invoice::create([
-            
-            'user_id' => Auth::user()->id,
-            'customer' => $customer,
 
-        ]);
-        $items = $input['items_amount'];
-        
-        for($i = 0; $i <= $items; $i++){
-            Item::create([
-                
-                'invoice_id' => $invoice->id,
-                'name' => $input['name_'.$i],
-                'amount' => $input['amount_'.$i],
-                'unit' => $input['unit_'.$i],
-                'price' => $input['price_'.$i],
-                'vat' => $input['vat_'.$i],
-                'vat_value' => $input['vat_value_'.$i],
-                'net_value' => $input['net_value_'.$i],
-                'gross_value' => $input['gross_value_'.$i],
+        Item::where('invoice_id', $invoice->id)->whereNotIn('id', $inputItemsIds)->delete();
 
-            ]);
+        foreach($inputArr['items'] as &$k){
+            $k['invoice_id'] = $invoice->id;
+            Item::updateOrCreate(
+                [ 'id' => $k['id'] ],
+                $k
+            );
         }
 
-        return redirect()->route('faktury.show',$invoice->id);
+        return Invoice::with(array('items'=>function($query){
+            $query->select('id','invoice_id');
+        }))->select('id')->find($invoice->id);
     }
 
     /**
@@ -79,12 +73,9 @@ class InvoiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Invoice $faktury)
+    public function show($id)
     {
-        // change variable name, it looks better :p
-        $invoice = $faktury;
-
-        return view('faktury.show', compact('invoice',$invoice));        
+        return Invoice::with("items")->find($id);      
     }
 
     /**
@@ -107,7 +98,31 @@ class InvoiceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $inputArr = $request->all();
+        $input = (object) $inputArr;
+        // return $inputObj->id;
+        $invoice = Invoice::updateOrCreate(
+            [ 'id' => $input->id],
+            $inputArr
+        );
+        $inputItemsIds = array_map(function($singleItem) {
+            return $singleItem['id'];
+        }, $inputArr['items']);
+
+
+        Item::where('invoice_id', $invoice->id)->whereNotIn('id', $inputItemsIds)->delete();
+
+        foreach($inputArr['items'] as &$k){
+            $k['invoice_id'] = $invoice->id;
+            Item::updateOrCreate(
+                [ 'id' => $k['id'] ],
+                $k
+            );
+        }
+
+        return Invoice::with(array('items'=>function($query){
+            $query->select('id','invoice_id');
+        }))->select('id')->find($invoice->id);
     }
 
     /**
@@ -118,6 +133,12 @@ class InvoiceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $invoice = Invoice::find($id);
+        foreach($invoice->items as $item){
+            $item->delete();
+        }
+        $invoice->delete();
+
+        return $invoice->id;
     }
 }

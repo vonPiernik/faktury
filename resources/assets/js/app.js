@@ -9,15 +9,20 @@ Vue.use(Router)
 
 Vue.component('App',require('./components/App.vue'));
 
-Vue.component('ItemList',require('./components/ItemList.vue'));
-Vue.component('ItemRow',require('./components/ItemRow.vue'));
+Vue.component('ItemList',require('./components/Item/ItemList.vue'));
+
+Vue.component('ItemRow',require('./components/Item/ItemRow.vue'));
 
 
-const IndexView = require('./components/IndexView.vue');
+const IndexView = require('./components/IndexView.vue'); 
 
-const InvoiceNew = require('./components/InvoiceNew.vue');
+const Dash = require('./components/Dash.vue');
 
-const InvoiceSingle = require('./components/InvoiceSingle.vue');
+const InvoiceNew = require('./components/Invoice/InvoiceNew.vue');
+
+const InvoiceSingle = require('./components/Invoice/InvoiceSingle.vue');
+
+const InvoiceEdit = require('./components/Invoice/InvoiceEdit.vue');
 
 
 const router = new Router({
@@ -28,14 +33,18 @@ const router = new Router({
         component: IndexView, props: true,
         children: [
             { 
-                path: '', component: InvoiceSingle
+                path: '', component: Dash, name: 'faktury/dash'
             },
             { 
                 path: 'nowa', component: InvoiceNew, name: 'faktury/create'
             },
             { 
-                path: ':invoiceId', component: InvoiceSingle,props: true,
+                path: ':invoiceId', component: InvoiceSingle, props: true,
                 name: 'faktury/show'
+            },
+            { 
+                path: ':invoiceId/edytuj', component: InvoiceEdit, props: true,
+                name: 'faktury/edit'
             }
         ]
     }
@@ -46,4 +55,3 @@ new Vue({
     router,
     el: 'app'
 })
-

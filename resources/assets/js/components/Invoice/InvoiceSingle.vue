@@ -1,12 +1,9 @@
 <template>
 <div>
 	<div class="dash-content-main">
-		<!-- <h3 class="placeholder" v-if="invoice.id == ''">Wybierz fakturę z listy lub <router-link 
-											:to="{ name: 'faktury/create'}"
-											tag="a">utwórz nową</router-link></h3> -->
-		<div :class="[invoice.blured, 'panel-body']">
-			<div class="invoice-body">
-				<h1 v-if="invoice.id">Faktura nr {{ invoice.id }} dla {{ invoice.customer }}</h1>
+		<div :class="['panel-body']">
+			<div class="invoice-body" v-if="invoice && invoice.id">
+				<h1>Faktura nr {{ invoice.id }} dla {{ invoice.customer }}</h1>
 				<small>Data wystawienia: {{ invoice.created_at }}</small> 
 				<hr>
 				<table class="table table-striped"> 
@@ -23,7 +20,7 @@
 		            </thead>
 		            <tbody>
 		            
-		                <tr v-for="item in invoice.items">
+		                <tr v-for="item in invoice.items" :key="item.id">
 		                    <td>{{ item.name }}</td>
 		                    <td>{{ item.price }} zł</td>
 		                    <td>{{ item.amount }} {{ item.unit }}</td>
@@ -35,7 +32,17 @@
 
 		            </tbody>
 		        </table>
-
+				<button id="printToPDF">Pobierz (PDF)</button>
+				<router-link 
+					:to="{ name: 'faktury/edit', params: { invoiceId: invoice.id }}"
+					tag="button"
+					id="editInvoice">
+						Edytuj fakturę
+				</router-link>
+				<button id="deleteInvoice"
+						@click.prevent="deleteInv(invoice.id)">
+							Usuń fakturę
+				</button>
 			</div>
 		</div>
 	</div>
@@ -49,7 +56,19 @@ module.exports = {
         return { 
         }; 
     }, 
-     
+    created(){
+        if(this.$route.params.invoiceId){
+	    	this.showInv(this.$route.params.invoiceId)
+	    }
+    },
+    methods: {
+        showInv(id) {
+            this.$emit('showInv');
+        },
+        deleteInv(id) {
+            this.$emit('deleteInv',id);
+        },
+    }
  
 };
 

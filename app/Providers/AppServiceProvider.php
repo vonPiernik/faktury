@@ -16,10 +16,6 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
         
-        Route::resourceVerbs([
-            'create' => 'dodaj',
-            'edit' => 'edytuj',
-        ]);
     }
 
     /**
