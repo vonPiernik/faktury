@@ -5,6 +5,7 @@
                          
  
                         <div class="dash-content-main"> 
+                            <div class="messageDraft">{{ page.messageDraft }}</div>
                             <div class="panel-body">    
                                 <form method="POST" action="#" @submit.prevent="createInvoice">
 
@@ -30,15 +31,10 @@
                                     </div>               
                                     <!-- </lista elementów na fakturze> -->
 
-                                    <input type="submit" value="Wyślij">
+                                    <input type="submit" value="Zapisz fakturę" id="saveInvoice">
 
                                 </form>
                             </div> 
-                
-                <button id="deleteInvoice"
-                        @click.prevent="deleteInv(invoice.id)">
-                            Usuń fakturę
-                </button>
           </div>
 	</div>
 </template>
@@ -50,8 +46,11 @@ module.exports = {
     data: function () {
 	    return {
 		  page: {
-		  	title: "Edytuj fakturę"
+		  	title: "Nowa faktura",
+            messageDraft: ""
 		  },
+          doNotTriggerUpdate: false,
+
           invoice: { 
             user_id: this.currentUser.id,
             id: '', 
@@ -59,6 +58,7 @@ module.exports = {
             draft: true,
             created_at: '', 
             items: [{
+                id: "",
                 name: "Produkt",
                 amount: 1,
                 unit: "szt.",
@@ -72,16 +72,19 @@ module.exports = {
             } 
 		}
     },
-    created() {
-        console.log(this.$route.params.invoiceId)
-        axios.get(`/api/invoices/` + this.$route.params.invoiceId).then(response => { 
-                this.invoice = response.data
-        }) 
-    },
     watch: {
         invoice:  {
             handler: function(oldValue, newValue) {
-                this.createDraft()
+                if(this.doNotTriggerUpdate){
+                    this.doNotTriggerUpdate = false
+                    return
+                }
+                this.page.messageDraft = ""
+                if(this.invoice.id){
+                    this.updateDraft();
+                } else {
+                    this.createDraft();
+                }
             },
             deep: true
         }
@@ -90,14 +93,13 @@ module.exports = {
         upList() {
             this.$emit('upList');
         },
-        deleteInv(id) {
-            this.$emit('deleteInv',id);
-        },
         createInvoice(){
+            this.doNotTriggerUpdate = true
             this.invoice.draft = false
             axios.post('/api/invoices', this.invoice)
               .then((response) => {
-                this.$router.push('/faktury/' + response.data)
+                this.upList()
+                this.$router.push('/faktury/' + response.data.id)
               })
               .catch(function (error) {
                 console.log(error);
@@ -106,15 +108,44 @@ module.exports = {
         },
         createDraft: _.debounce(
             function () {
+                this.page.messageDraft = "Zapisuję..."
                 axios.post('/api/invoices', this.invoice)
                 .then((response) => {
-                    this.invoice.id = response.data
+                    this.doNotTriggerUpdate = true;
+
+                    this.invoice.id = response.data.id
+                    _.forEach(this.invoice.items, function(value, key) {
+                        value.id = response.data.items[key].id
+
+                    });
+
                     this.upList()
+                    this.page.messageDraft = "Zapisano"
                 })
             },
             // This is the number of milliseconds we wait for the
             // user to stop typing.
-            3000
+            1500
+        ),
+        updateDraft: _.debounce(
+            function () {
+                this.page.messageDraft = "Zapisuję..."
+                axios.put('/api/invoices/' + this.invoice.id, this.invoice)
+                .then((response) => {
+                    this.doNotTriggerUpdate = true;
+
+                    _.forEach(this.invoice.items, function(value, key) {
+                        value.id = response.data.items[key].id
+
+                    });
+
+                    this.upList()
+                    this.page.messageDraft = "Zapisano"
+                })
+            },
+            // This is the number of milliseconds we wait for the
+            // user to stop typing.
+            1500
         )
     }
 };

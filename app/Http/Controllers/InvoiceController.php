@@ -40,23 +40,31 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
-        $input = $request -> all();
-
-
-        $invoice = Invoice::updateOrCreate(['id' => $input['id']],
-            [
-            'user_id' => $input['user_id'],
-            'customer' => $input['customer'],
-            'draft' => $input['draft']
-            ]
+        $inputArr = $request->all();
+        $input = (object) $inputArr;
+        // return $inputObj->id;
+        $invoice = Invoice::updateOrCreate(
+            [ 'id' => $input->id],
+            $inputArr
         );
-        foreach($input['items'] as &$k){
-            $k['invoice_id'] = $invoice->id;
-        }
-        Item::where('invoice_id',$invoice->id)->delete();
-        Item::insert($input['items']);
+        $inputItemsIds = array_map(function($singleItem) {
+            return $singleItem['id'];
+        }, $inputArr['items']);
 
-        return $invoice->id;
+
+        Item::where('invoice_id', $invoice->id)->whereNotIn('id', $inputItemsIds)->delete();
+
+        foreach($inputArr['items'] as &$k){
+            $k['invoice_id'] = $invoice->id;
+            Item::updateOrCreate(
+                [ 'id' => $k['id'] ],
+                $k
+            );
+        }
+
+        return Invoice::with(array('items'=>function($query){
+            $query->select('id','invoice_id');
+        }))->select('id')->find($invoice->id);
     }
 
     /**
@@ -90,7 +98,31 @@ class InvoiceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $inputArr = $request->all();
+        $input = (object) $inputArr;
+        // return $inputObj->id;
+        $invoice = Invoice::updateOrCreate(
+            [ 'id' => $input->id],
+            $inputArr
+        );
+        $inputItemsIds = array_map(function($singleItem) {
+            return $singleItem['id'];
+        }, $inputArr['items']);
+
+
+        Item::where('invoice_id', $invoice->id)->whereNotIn('id', $inputItemsIds)->delete();
+
+        foreach($inputArr['items'] as &$k){
+            $k['invoice_id'] = $invoice->id;
+            Item::updateOrCreate(
+                [ 'id' => $k['id'] ],
+                $k
+            );
+        }
+
+        return Invoice::with(array('items'=>function($query){
+            $query->select('id','invoice_id');
+        }))->select('id')->find($invoice->id);
     }
 
     /**

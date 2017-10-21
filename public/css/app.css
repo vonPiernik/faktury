@@ -8438,7 +8438,7 @@ body {
   left: 0;
   top: 0;
   padding: 20px;
-  padding-top: 70px;
+  top: 50px;
   background: #fff;
   height: 100%;
   border-right: 1px solid rgba(112, 126, 140, 0.2);
@@ -8476,6 +8476,16 @@ body {
   -webkit-transition: .3s all;
   -webkit-transition: .6s all;
   transition: .6s all;
+  margin-top: 10px;
+}
+
+.messageDraft {
+  position: absolute;
+  top: 115px;
+  font-size: 16px;
+  right: 0;
+  padding-right: 25px;
+  /* text-transform: uppercase; */
 }
 
 .blured {
@@ -8511,6 +8521,22 @@ h3.placeholder {
   font-weight: 100;
 }
 
+h3.placeholder a {
+  background-image: url(/images/icons/new-invoice.png);
+  background-repeat: no-repeat;
+  background-position: 10px center;
+  background-size: 26px;
+  line-height: 52px;
+  display: inline-block;
+  margin-left: 20px;
+  height: 50px;
+  text-decoration: none;
+  text-transform: uppercase;
+  padding: 0 10px 0 44px;
+  background-color: #fff;
+  font-size: 15px;
+}
+
 .invoice-body {
   word-wrap: break-word;
 }
@@ -8523,7 +8549,12 @@ ul.invoices-list li {
 
 ul.invoices-list {
   padding: 0;
-  min-height: 101%;
+  /*min-height: 101%;*/
+}
+
+.invoices-list--placeholder {
+  padding: 30px 20px;
+  /* color: #707e93; */
 }
 
 ul.invoices-list a {
@@ -8584,7 +8615,54 @@ div#ascrail2000 {
   margin-left: 8px !important;
 }
 
-/* >>----------> [ single ivoice ] <-----------<< */
+/* >>----------> [ left menu ] <-----------<< */
+
+ul.left-menu {
+  margin: 0;
+  padding: 5px 0px;
+}
+
+ul.left-menu li {
+  display: block;
+}
+
+ul.left-menu li a {
+  display: block;
+  padding: 0 0 0 30px;
+  line-height: 40px;
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+  -webkit-transition: .3s all;
+  transition: .3s all;
+}
+
+ul.left-menu li a img {
+  position: absolute;
+  left: 0;
+  height: 24px;
+  top: 8px;
+  -webkit-transition: .3s all;
+  transition: .3s all;
+}
+
+ul.left-menu li a:hover {
+  color: #FF9800;
+}
+
+ul.left-menu li a:hover img {
+  opacity: .5;
+}
+
+ul.left-menu li a.router-link-exact-active {
+  color: #FF9800;
+}
+
+ul.left-menu li a.router-link-exact-active img {
+  opacity: .5;
+}
+
+/* >>----------> [ buttony ] <-----------<< */
 
 button#deleteInvoice {
   background: #a6a6a6;
@@ -8611,6 +8689,40 @@ button#printToPDF {
   color: #fff;
   float: right;
   margin: 0 0 0 10px;
+}
+
+input#saveInvoice {
+  background: #4688ff;
+  border: 0;
+  padding: 10px 20px;
+  color: #fff;
+  float: right;
+  margin: 0 15 0 10px;
+}
+
+button.add-item {
+  background-image: url(/images/icons/add-item.png);
+  background-position: 18px center;
+  background-repeat: no-repeat;
+  background-size: 22px;
+  line-height: 40px;
+  margin-left: 7px;
+  padding-left: 45px;
+  padding-right: 20px;
+  background-color: #edeef2;
+  border: 0;
+}
+
+button.removeItemButton {
+  background-image: url(/images/icons/delete.png);
+  overflow: hidden;
+  text-indent: -999px;
+  background-size: 20px;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border: 0;
+  background-position: center;
+  line-height: 26px;
 }
 
 /* >>----------> [ bootstrap container wider ] <-----------<< */

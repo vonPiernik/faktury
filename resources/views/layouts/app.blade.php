@@ -27,19 +27,9 @@
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/jquery.nicescroll.min.js') }}"></script>
     <script>
-    $(document).ready(function(){
-        $(".dash-content-sidebar").niceScroll({
-            cursorcolor:"rgb(70, 136, 255)",
-            cursorwidth:"6",
-            background:"rgba(20,20,20,0)",
-            cursorborder:"0px solid rgba(0, 0, 0, 0)",
-            cursorborderradius:7,
-            autohidemode:false,
-            mousescrollstep: 15,
-            scrollspeed: 10,
-            enableobserver: true
+        $(".dash-sidebar").niceScroll({
+            scrollbarid: "sidebarScroller"
         }).resize(); 
-    })
     </script>
     
     @yield('pagescripts')
