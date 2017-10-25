@@ -14,6 +14,9 @@ module.exports = {
         return { 
         }; 
     }, 
+    created(){
+        this.$emit('setPTitle', "Twoje faktury")
+    }
  
 };
 

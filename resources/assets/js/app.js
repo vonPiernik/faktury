@@ -14,10 +14,42 @@ Vue.component('ItemList',require('./components/Item/ItemList.vue'));
 
 Vue.component('ItemRow',require('./components/Item/ItemRow.vue'));
 
+Vue.component('InvoiceList',require('./components/Invoice/InvoiceList.vue'));
 
-const Index = require('./components/Index.vue'); 
 
-const Dash = require('./components/Dash.vue');
+Vue.component('ProductList',require('./components/Product/ProductList.vue'));
+
+
+Vue.component('CustomerList',require('./components/Customer/CustomerList.vue'));
+
+
+const Invoices = require('./components/Invoices.vue'); 
+
+const Trash = require('./components/Trash.vue');
+
+const Products = require('./components/Products.vue');
+
+const Customers = require('./components/Customers.vue');
+
+
+
+const ProductNew = require('./components/Product/ProductNew.vue');
+
+const ProductEdit = require('./components/Product/ProductEdit.vue');
+
+const ProductSingle = require('./components/Product/ProductSingle.vue');
+
+
+
+const CustomerNew = require('./components/Customer/CustomerNew.vue');
+
+const CustomerEdit = require('./components/Customer/CustomerEdit.vue');
+
+const CustomerSingle = require('./components/Customer/CustomerSingle.vue');
+
+
+
+const Main = require('./components/Invoice/Main.vue');
 
 const InvoiceNew = require('./components/Invoice/InvoiceNew.vue');
 
@@ -25,18 +57,16 @@ const InvoiceSingle = require('./components/Invoice/InvoiceSingle.vue');
  
 const InvoiceEdit = require('./components/Invoice/InvoiceEdit.vue');
 
-const InvoiceTrash = require('./components/Trash.vue');
-
 
 const router = new Router({
   mode: 'history',
   routes: [
     { 
         path: '/faktury', name: 'invoices',
-        component: Index, props: true,
+        component: Invoices, props: true,
         children: [
             { 
-                path: '', component: Dash, name: 'invoices-dash'
+                path: '', component: Main, name: 'invoices-dash'
             },
             { 
                 path: 'nowa', component: InvoiceNew, name: 'invoices-create'
@@ -52,7 +82,39 @@ const router = new Router({
         ]
     },
     { 
-        path: '/kosz', component: InvoiceTrash, name: 'invoices-trash'
+        path: '/kosz', component: Trash, name: 'invoices-trash'
+    },
+    { 
+        path: '/produkty', component: Products, name: 'products',
+        children: [
+            { 
+                path: 'nowy', component: ProductNew, name: 'products-create'
+            },
+            { 
+                path: ':productId', component: ProductSingle, props: true,
+                name: 'products-show'
+            },
+            { 
+                path: ':productId/edytuj', component: ProductEdit, props: true,
+                name: 'products-edit'
+            }
+        ]
+    },
+    { 
+        path: '/klienci', component: Customers, name: 'customers',
+        children: [
+            { 
+                path: 'nowy', component: CustomerNew, name: 'customers-create'
+            },
+            { 
+                path: ':customerId', component: CustomerSingle, props: true,
+                name: 'customers-show'
+            },
+            { 
+                path: ':customerId/edytuj', component: CustomerEdit, props: true,
+                name: 'customers-edit'
+            }
+        ]
     },
   ]
 })

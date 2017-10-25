@@ -1,8 +1,6 @@
 <template>
     <div class="panel panel-default"> 
         
-                        <div class="panel-heading">{{ page.title }} 
-                        </div> 
                          
  
                         <div class="dash-content-main"> 
@@ -93,6 +91,9 @@ module.exports = {
             },
             deep: true
         }
+    },
+    created() {
+        this.$emit('setPTitle', "Nowa faktura")
     },
     methods: {
         upList() {

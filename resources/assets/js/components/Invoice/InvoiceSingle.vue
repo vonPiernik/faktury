@@ -60,6 +60,7 @@ module.exports = {
         if(this.$route.params.invoiceId){
         	console.log("ping")
 	    	this.showInv(this.$route.params.invoiceId)
+	        this.$emit('setPTitle', "Faktura nr " + this.$route.params.invoiceId)
 	    }
     },
     methods: {

@@ -4,27 +4,17 @@
                         <div class="panel-heading">{{ page.title }}</div> 
                         	<div class="dash-content-sidebar">
 								<ul class="invoices-list" v-if="list[0]">
-									<li v-for="inv in list">
-                                        <router-link
-                                            v-if="inv.draft" 
-                                            :to="{ name: 'invoices-edit', params: {  invoiceId: inv.id }}"
-                                            tag="a"
-                                            class="draft">
-                                                <strong>{{ inv.customer }} <span>(wersja robocza)</span></strong>
-                                                <small> {{ inv.created_at | formatDate }}</small>
-                                        </router-link>
-                                        <router-link
-                                            v-else
-                                            :to="{ name: 'invoices-show', params: { invoiceId: inv.id }}"
-                                            tag="a"
-                                            class="final">
-                                                <strong>{{ inv.customer }}</strong>
-                                                <small> {{ inv.created_at | formatDate }}</small>
-                                        </router-link>
-                                    </li>
+									<customer-list :list="list"></customer-list>
 								</ul>
+                                <div v-else-if="loading" class="invoices-list--placeholder">
+                                    <div class="spinner">
+                                      <div class="bounce1"></div>
+                                      <div class="bounce2"></div>
+                                      <div class="bounce3"></div>
+                                    </div>
+                                </div>
                                 <div v-else class="invoices-list--placeholder">
-                                    Nie utworzyłeś jeszcze żadnej faktury
+                                    Nie dodałeś jeszcze żadnych użytkowników
                                 </div>
 							</div>
                             <transition name="fade" mode="out-in">
@@ -34,7 +24,8 @@
                                              v-on:deleteInv="deleteInvoice"
 							    			 :currentUser="currentUser"
                                              :dimmed="dimmed"
-                                             @switchL="switchL">
+                                             @switchL="switchL"
+                                             @setPTitle="setPageTitle">
 							    </router-view>
                             </transition>
                        
@@ -48,8 +39,9 @@ module.exports = {
      data: function() { 
         return { 
             list: [],
+            loading: true,
             page: {
-            	title: "Twoje faktury"
+            	title: "Twoi klienci"
             },
             invoice: { 
        			blured: "blured",
@@ -76,6 +68,9 @@ module.exports = {
     },
 
     methods: {  
+        setPageTitle(newTitle){
+            this.page.title = newTitle
+        },
         switchL() {
             this.$emit('switchL');
         },
@@ -97,7 +92,7 @@ module.exports = {
         	axios.get(`/api/users/`+ this.currentUser.id + `/invoices`) 
 	        .then(response => { 
 	            this.list = response.data 
-
+                this.loading = false
 	        }) 
 	        
 		}, 1000 ) 

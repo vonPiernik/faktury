@@ -1,6 +1,6 @@
 <template>
 <div>
-	Nowy produkt
+	Nowy klient
 </div>
 </div>
 </template>

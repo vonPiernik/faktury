@@ -1,6 +1,6 @@
 <template>
 <div>
-	Nowy produkt
+	Edytuj produkt
 </div>
 </div>
 </template>

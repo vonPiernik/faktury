@@ -77,13 +77,13 @@
                                     <img src="/images/icons/new-invoice.png">Nowa faktura
                             </router-link>
                         </li>
-                        <li>
+<!--                         <li>
                             <router-link
                                 :to="{ path: '#' }"
                                 tag="a">
                                     <img src="/images/icons/draft.png">Wersje robocze
                             </router-link>
-                        </li>
+                        </li> -->
                         <li>
                             <router-link
                                 :to="{ name: 'invoices-trash' }"
@@ -94,14 +94,14 @@
                         <hr>
                         <li>
                             <router-link
-                                :to="{ path: '#' }"
+                                :to="{ name: 'products' }"
                                 tag="a">
                                     <img src="/images/icons/products.png">Twoje produkty
                             </router-link>
                         </li>
                         <li>
                             <router-link
-                                :to="{ path: '#' }"
+                                :to="{ name: 'products-create' }"
                                 tag="a">
                                     <img src="/images/icons/add-product.png">Nowy produkt
                             </router-link>
@@ -109,14 +109,14 @@
                         <hr>
                         <li>
                             <router-link
-                                :to="{ path: '#' }"
+                                :to="{ name: 'customers' }"
                                 tag="a">
                                     <img src="/images/icons/clients.png">Twoi klienci
                             </router-link>
                         </li>
                         <li>
                             <router-link
-                                :to="{ path: '#' }"
+                                :to="{ name: 'customers-create' }"
                                 tag="a">
                                     <img src="/images/icons/add-client.png">Nowy klient
                             </router-link>

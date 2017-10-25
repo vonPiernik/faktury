@@ -1,9 +1,6 @@
 <template>
     <div class="panel panel-default"> 
         
-                        <div class="panel-heading">{{ page.title }}</div> 
-                         
- 
                         <div class="dash-content-main"> 
                             <div class="messageDraft">{{ page.messageDraft }}</div>
                             <div class="lightSwitcher" @click="switchL">
@@ -87,6 +84,7 @@ module.exports = {
         })
         this.page.messageDraft = "Zapisano"
 
+        this.$emit('setPTitle', "Edytuj fakturę")
     },
     watch: {
         invoice:  {
