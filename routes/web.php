@@ -17,13 +17,13 @@ Route::get('/', function () {
 
 Auth::routes();
 
-
-
 Route::middleware(['auth'])->group(function () {
 
+	Route::get('logout', 'Auth\LoginController@logout');
 	// Route::resource('faktury','InvoiceController');
 	# Vue
 	Route::any('{all}', function() {
 		return view('layouts.app');
 	})->where(['all' => '.*']);
+
 });

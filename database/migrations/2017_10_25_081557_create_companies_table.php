@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateInvoicesTable extends Migration
+class CreateCompaniesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class CreateInvoicesTable extends Migration
      */
     public function up()
     {
-        Schema::create('invoices', function (Blueprint $table) {
+        Schema::create('companies', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
-            $table->text('customer');
-            $table->float('net_value')->default(0);
-            $table->float('gross_value')->default(0);
-            $table->boolean('draft')->default(true);
-            $table->softDeletes();
+            $table->string('name');
+            $table->string('adress');
+            $table->string('nip');
+            $table->string('bank_account');
             $table->timestamps();
         });
     }
@@ -32,6 +31,6 @@ class CreateInvoicesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('invoices');
+        Schema::dropIfExists('companies');
     }
 }

@@ -2,7 +2,7 @@
 <div>
 	<div class="dash-content-main">
 		<h3 class="placeholder">Wybierz fakturę z listy lub <router-link 
-											:to="{ name: 'faktury/create'}"
+											:to="{ name: 'invoices-create'}"
 											tag="a">utwórz nową</router-link></h3>
 	</div>
 </div>

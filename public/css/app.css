@@ -8361,6 +8361,11 @@ body {
   padding-top: 51px;
 }
 
+body,
+html {
+  height: 100%;
+}
+
 /* >>----------> [ navbar ] <-----------<< */
 
 .navbar-default {
@@ -8401,8 +8406,8 @@ body {
 
 .fade-enter-active,
 .fade-leave-active {
-  -webkit-transition: opacity .5s;
-  transition: opacity .5s;
+  -webkit-transition: opacity .25s;
+  transition: opacity .25s;
 }
 
 .fade-enter,
@@ -8410,24 +8415,32 @@ body {
   opacity: 0;
 }
 
-/* Enter and leave animations can use different */
+/* >>----------> [ page layout ] <-----------<< */
 
-/* durations and timing functions.              */
-
-.slide-fade-enter-active {
-  -webkit-transition: all .3s ease;
-  transition: all .3s ease;
+.layout-page .dash-content-main {
+  margin: 0;
 }
 
-.slide-fade-leave-active {
-  display: none;
+.layout-page .dash-content {
+  margin: 0;
 }
 
-.slide-fade-enter,
-.slide-fade-leave-to {
-  -webkit-transform: translateY(-10px);
-          transform: translateY(-10px);
-  opacity: 0;
+.layout-page .panel-body {
+  padding: 40px;
+  max-width: 800px;
+  margin: 20px auto;
+}
+
+.layout-page {
+  background-color: #202b3f;
+}
+
+.layout-page .panel-default > .panel-heading {
+  background: transparent;
+  text-align: center;
+  margin: 20px 0 0;
+  color: #fff;
+  border: 0;
 }
 
 /* >>----------> [ dashboard layout ] <-----------<< */
@@ -8443,6 +8456,8 @@ body {
   height: 100%;
   border-right: 1px solid rgba(112, 126, 140, 0.2);
   background: #fdfdfe;
+  overflow: auto;
+  height: calc(100% - 50px);
 }
 
 .dash-content {
@@ -8457,7 +8472,8 @@ body {
   height: 100%;
   height: calc(100% - 112px);
   padding: 0px;
-  overflow-y: scroll;
+  overflow: auto;
+  z-index: 1;
 }
 
 .panel-body,
@@ -8479,9 +8495,13 @@ body {
   margin-top: 10px;
 }
 
+.panel-default {
+  position: relative;
+}
+
 .messageDraft {
   position: absolute;
-  top: 115px;
+  top: 4px;
   font-size: 16px;
   right: 0;
   padding-right: 25px;
@@ -8609,6 +8629,19 @@ ul.invoices-list a.router-link-active.draft span {
   color: rgba(255, 255, 255, 0.62);
 }
 
+ul.invoices-list a strong {
+  font-weight: 400;
+  color: #222;
+}
+
+ul.invoices-list a.draft strong {
+  color: #FF9800;
+}
+
+ul.invoices-list a.router-link-active strong {
+  color: #fff;
+}
+
 /* >>----------> [ scrollbar ] <-----------<< */
 
 div#ascrail2000 {
@@ -8697,7 +8730,7 @@ input#saveInvoice {
   padding: 10px 20px;
   color: #fff;
   float: right;
-  margin: 0 15 0 10px;
+  margin: 0 15px 0 10px;
 }
 
 button.add-item {
@@ -8723,6 +8756,114 @@ button.removeItemButton {
   border: 0;
   background-position: center;
   line-height: 26px;
+}
+
+button#restoreInvoice {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: #4CAF50;
+}
+
+/* >>----------> [ trash ] <-----------<< */
+
+.dash-content-main.dash-content-trash {
+  margin-left: 0;
+  padding: 0;
+}
+
+ul.invoices-list li.singleTrashItem div {
+  /* float: left; */
+  margin: 0 -5px 20px;
+  /* width: 100%; */
+  /* margin-right: 1%; */
+  padding: 20px;
+  background: #fff;
+}
+
+.panel-body.panel-body-trash {
+  max-width: 1200px;
+  margin: 15px auto;
+}
+
+.table > tbody > tr.singleTrashItem > td {
+  padding: 25px 8px;
+}
+
+table.invoices-list.table.table-striped thead {
+  font-weight: 500;
+}
+
+/* >>----------> [ dimmed ] <-----------<< */
+
+.panel-heading,
+.dash-content-sidebar,
+.dash-sidebar,
+.component-core,
+.messageDraft {
+  -webkit-transition: .3s all;
+  transition: .3s all;
+}
+
+.dimmed.invoices-edit .panel-default > .panel-heading,
+.dimmed.invoices-create .panel-default > .panel-heading {
+  -webkit-filter: brightness(0.4);
+          filter: brightness(0.4);
+  -webkit-box-shadow: 10px -6px 21px rgba(0, 0, 0, 0.8);
+          box-shadow: 10px -6px 21px rgba(0, 0, 0, 0.8);
+}
+
+.dimmed.invoices-edit .dash-content-sidebar,
+.dimmed.invoices-create .dash-content-sidebar {
+  opacity: .4;
+  opacity: .8;
+  -webkit-filter: brightness(0.4);
+          filter: brightness(0.4);
+}
+
+.dimmed.invoices-edit .dash-sidebar,
+.dimmed.invoices-create .dash-sidebar {
+  opacity: .8;
+  -webkit-filter: brightness(0.4);
+          filter: brightness(0.4);
+}
+
+.dimmed.invoices-edit .lightSwitcher strong,
+.dimmed.invoices-create .lightSwitcher strong {
+  color: #FF9800;
+}
+
+.dimmed.invoices-edit .lightSwitcher,
+.dimmed.invoices-create .lightSwitcher {
+  color: rgba(255, 152, 0, 0.51);
+}
+
+.dimmed.invoices-edit .messageDraft,
+.dimmed.invoices-create .messageDraft {
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.dimmed.component-core.invoices-edit,
+.dimmed.component-core.invoices-create {
+  background: #5c5c5c;
+}
+
+.component-core {
+  position: relative;
+  min-height: 100%;
+}
+
+.lightSwitcher {
+  position: fixed;
+  top: 50px;
+  right: 0;
+  padding: 0 25px;
+  font-size: 13px;
+  line-height: 62px;
+  z-index: 9999;
+  color: #FF9800;
+  color: #4688ff;
+  cursor: pointer;
 }
 
 /* >>----------> [ bootstrap container wider ] <-----------<< */

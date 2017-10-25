@@ -34,7 +34,7 @@
 		        </table>
 				<button id="printToPDF">Pobierz (PDF)</button>
 				<router-link 
-					:to="{ name: 'faktury/edit', params: { invoiceId: invoice.id }}"
+					:to="{ name: 'invoices-edit', params: { invoiceId: invoice.id }}"
 					tag="button"
 					id="editInvoice">
 						Edytuj fakturę
@@ -58,6 +58,7 @@ module.exports = {
     }, 
     created(){
         if(this.$route.params.invoiceId){
+        	console.log("ping")
 	    	this.showInv(this.$route.params.invoiceId)
 	    }
     },

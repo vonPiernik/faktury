@@ -20,7 +20,9 @@
   },
   "dependencies": {
     "axios": "^0.16.2",
+    "moment": "^2.19.1",
     "vue-router": "^2.7.0",
     "vue-router-transition": "^1.0.9"
   }
 }
+ 

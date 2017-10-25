@@ -17,9 +17,9 @@ class InvoiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($user_id)
     {
-        return Invoice::with('items')->orderBy('created_at','desc')->get();
+        return Invoice::where('user_id', $user_id)->with('items')->orderBy('created_at','desc')->get();
     }
 
     /**
@@ -73,9 +73,34 @@ class InvoiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($user_id, $id)
     {
-        return Invoice::with("items")->find($id);      
+        return Invoice::where('user_id', $user_id)->with("items")->find($id);      
+    }
+
+    /**
+     * Display trash
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function trash($user_id)
+    {
+        return Invoice::where('user_id', $user_id)->onlyTrashed()->orderBy('created_at','desc')->get();
+    }
+
+
+    /**
+     * Display trash
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function restore($user_id,$id)
+    {
+        return Invoice::where(['user_id' => $user_id,
+            'id' => $id
+        ])->restore();      
     }
 
     /**
@@ -84,7 +109,7 @@ class InvoiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($user_id, $id)
     {
         //
     }
@@ -96,7 +121,7 @@ class InvoiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $user_id, $id)
     {
         $inputArr = $request->all();
         $input = (object) $inputArr;
@@ -120,7 +145,7 @@ class InvoiceController extends Controller
             );
         }
 
-        return Invoice::with(array('items'=>function($query){
+        return Invoice::where('user_id', $user_id)->with(array('items'=>function($query){
             $query->select('id','invoice_id');
         }))->select('id')->find($invoice->id);
     }
@@ -131,14 +156,10 @@ class InvoiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($user_id,$id)
     {
-        $invoice = Invoice::find($id);
-        foreach($invoice->items as $item){
-            $item->delete();
-        }
-        $invoice->delete();
+        $invoice = Invoice::find($id)->delete();
 
-        return $invoice->id;
+        return $id;
     }
 }

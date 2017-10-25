@@ -6,6 +6,8 @@ use App\Invoice;
 
 use App\Item;
 
+use App\User;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -21,16 +23,22 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+$routes = array(
+    'invoices' => 'InvoiceController',
+    'products' => 'ProductController',
+    'customers' => 'CustomerController',
+);
 
+foreach ($routes as $key => $controller)
+{
+	if($key == 'invoices'){
+	    Route::get("users/{user_id}/$key/deleted", array('uses' => "$controller@trash"));
 
-
-// get invoices
-Route::get('invoices/first', function() {
-    return Invoice::with("items")->orderBy('created_at','desc')->first();
-});
-//put invoices in db
-
-Route::resource('invoices', 'InvoiceController' );
+	    Route::put("users/{user_id}/$key/{id}/restore", array('uses' => "$controller@restore"));
+	}
+	
+    Route::resource("users/{user_id}/$key", $controller);
+}
 
 
 // Route::get('invoices/{id}', function($id) {

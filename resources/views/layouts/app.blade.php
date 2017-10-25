@@ -17,20 +17,14 @@
 <body>
 
     @guest
-        <app v-bind:current-user="{}"></app>
+        <app v-bind:current-user="{}" :class="{{ $route.name }}"></app>
     @else
-        <app v-bind:current-user="{{ Auth::user()->toJson() }}"></app>
+        <app v-bind:current-user="{{ Auth::user()->toJson() }}" v-bind:class="$route.name"></app>
     @endguest
 
     <!-- Scripts -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script> -->
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/jquery.nicescroll.min.js') }}"></script>
-    <script>
-        $(".dash-sidebar").niceScroll({
-            scrollbarid: "sidebarScroller"
-        }).resize(); 
-    </script>
     
     @yield('pagescripts')
 </body>

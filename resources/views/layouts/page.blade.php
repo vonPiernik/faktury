@@ -14,14 +14,13 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,500,700" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet"> 
 </head> 
-<body> 
+<body class="layout-page"> 
     <div id="app"> 
         <nav class="navbar navbar-default navbar-fixed-top"> 
             <div class="container-fluid"> 
                 <div class="navbar-header"> 
  
-                    <!-- Collapsed Hamburger --> 
-+
+                    <!-- Collapsed Hamburger -->
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse"> 
                         <span class="sr-only">Toggle Navigation</span> 
                         <span class="icon-bar"></span> 
@@ -83,16 +82,9 @@
  
         <div class="container-fluid"> 
             <div class="row"> 
-                <div class="dash-sidebar"> 
-                    Pasek boczny 
-                </div> 
                 <div class="dash-content"> 
                     <div class="panel panel-default"> 
                         <div class="panel-heading">@yield('page-title')</div> 
-                         
-                        <div class="dash-content-sidebar"> 
-                            @yield('sub-sidebar') 
-                        </div> 
  
                         <div class="dash-content-main"> 
                             <div class="panel-body"> 

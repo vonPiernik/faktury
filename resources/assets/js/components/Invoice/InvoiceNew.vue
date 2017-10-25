@@ -1,11 +1,16 @@
 <template>
     <div class="panel panel-default"> 
         
-                        <div class="panel-heading">{{ page.title }}</div> 
+                        <div class="panel-heading">{{ page.title }} 
+                        </div> 
                          
  
                         <div class="dash-content-main"> 
                             <div class="messageDraft">{{ page.messageDraft }}</div>
+                            <div class="lightSwitcher" @click="switchL">
+                                <span v-if="dimmed">Światło wyłączono. <strong>WŁĄCZ</strong></span>
+                                <span v-else>Światło włączono. <strong>WYŁĄCZ</strong></span>
+                            </div>
                             <div class="panel-body">    
                                 <form method="POST" action="#" @submit.prevent="createInvoice">
 
@@ -16,7 +21,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <label for="date">Dane klienta</label><br>
-                                        <input type="text" name="customer" id="customer" required value="Klient" v-model="invoice.customer">
+                                        <textarea name="customer" id="customer" required value="Klient" v-model="invoice.customer"></textarea>
                                     </div>
 
                                     <br><br>
@@ -42,7 +47,7 @@
 <script>
 axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 module.exports = {
-    props: ['currentUser','list'],
+    props: ['currentUser','list', 'dimmed'],
     data: function () {
 	    return {
 		  page: {
@@ -93,10 +98,13 @@ module.exports = {
         upList() {
             this.$emit('upList');
         },
+        switchL() {
+            this.$emit('switchL');
+        },
         createInvoice(){
             this.doNotTriggerUpdate = true
             this.invoice.draft = false
-            axios.post('/api/invoices', this.invoice)
+            axios.post('/api/users/'+ this.currentUser.id + '/invoices', this.invoice)
               .then((response) => {
                 this.upList()
                 this.$router.push('/faktury/' + response.data.id)
@@ -109,7 +117,7 @@ module.exports = {
         createDraft: _.debounce(
             function () {
                 this.page.messageDraft = "Zapisuję..."
-                axios.post('/api/invoices', this.invoice)
+                axios.post('/api/users/'+ this.currentUser.id + '/invoices', this.invoice)
                 .then((response) => {
                     this.doNotTriggerUpdate = true;
 
@@ -130,7 +138,7 @@ module.exports = {
         updateDraft: _.debounce(
             function () {
                 this.page.messageDraft = "Zapisuję..."
-                axios.put('/api/invoices/' + this.invoice.id, this.invoice)
+                axios.put('/api/users/'+ this.currentUser.id + '/invoices/' + this.invoice.id, this.invoice)
                 .then((response) => {
                     this.doNotTriggerUpdate = true;
 

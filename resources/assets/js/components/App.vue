@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div v-bind:class="[{dimmed} , 'component-core']">
 	   <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -25,7 +25,7 @@
                     <ul class="nav navbar-nav" v-if="currentUser.id">
                          <!-- Authentication Links -->
                         <!-- <li><router-link to="/faktury">Twoje faktury</router-link></li>
-                        <li><router-link to="/faktury/nowa">Nowa faktura</router-link></li> -->
+                        <li><router-link to="/invoices-nowa">Nowa faktura</router-link></li> -->
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -65,14 +65,14 @@
                     <ul class="left-menu">
                         <li>
                             <router-link
-                                :to="{ name: 'faktury/dash' }"
+                                :to="{ name: 'invoices-dash' }"
                                 tag="a">
                                     <img src="/images/icons/invoices.png">Twoje faktury
                             </router-link>
                         </li>
                         <li>
                             <router-link
-                                :to="{ name: 'faktury/create' }"
+                                :to="{ name: 'invoices-create' }"
                                 tag="a">
                                     <img src="/images/icons/new-invoice.png">Nowa faktura
                             </router-link>
@@ -82,6 +82,13 @@
                                 :to="{ path: '#' }"
                                 tag="a">
                                     <img src="/images/icons/draft.png">Wersje robocze
+                            </router-link>
+                        </li>
+                        <li>
+                            <router-link
+                                :to="{ name: 'invoices-trash' }"
+                                tag="a">
+                                    <img src="/images/icons/delete.png">Kosz
                             </router-link>
                         </li>
                         <hr>
@@ -127,7 +134,11 @@
                 <div class="dash-content"> 
 
 	      <!-- router outlet -->
-                <router-view :currentUser="currentUser"></router-view>
+                <router-view :currentUser="currentUser"
+                             @switchL="switchLight"
+                             :dimmed="dimmed">
+                                 
+                             </router-view>
                 </div> 
             </div><!-- /.row --> 
         </div><!-- /.container --> 
@@ -142,9 +153,18 @@ module.exports = {
     props: ['currentUser'],
     data: function () {
         return {
-        
+            dimmed: false
         }
     }, 
+    methods: {
+        switchLight: function(off){
+            if(off == 'off'){
+                this.dimmed = false
+            } else {
+                this.dimmed = !this.dimmed
+            }
+        }
+    }
 };
 
 
