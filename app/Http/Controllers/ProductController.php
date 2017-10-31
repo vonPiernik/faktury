@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\Product;
 use Illuminate\Http\Request;
 
@@ -12,9 +13,20 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, $user_id)
     {
-        //
+        $input = $request->all();
+
+        if(isset($input['fields'])){
+            return Product::where('user_id', $user_id)
+                                    ->select(DB::raw($input['fields']))
+                                    ->orderBy('created_at','desc')
+                                    ->get();
+        } else {
+             return Product::where('user_id', $user_id)
+                                    ->orderBy('created_at','desc')
+                                    ->get();           
+        }
     }
 
     /**
@@ -35,7 +47,14 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $inputArr = $request->all();
+        $input = (object) $inputArr;
+        $product = Product::updateOrCreate(
+            [ 'id' => $input->id],
+            $inputArr
+        );
+
+        return Product::find($product->id);
     }
 
     /**
@@ -44,9 +63,9 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show($user_id, $id)
     {
-        //
+        return Product::where('user_id', $user_id)->find($id);
     }
 
     /**
@@ -67,9 +86,16 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $user_id, $id)
     {
-        //
+        $inputArr = $request->all();
+        $input = (object) $inputArr;
+        $product = Product::updateOrCreate(
+            [ 'id' => $input->id],
+            $inputArr
+        );
+
+        return Product::find($product->id);
     }
 
     /**
@@ -78,8 +104,10 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy($user_id,$id)
     {
-        //
+        $invoice = Product::find($id)->delete();
+
+        return $id;
     }
 }

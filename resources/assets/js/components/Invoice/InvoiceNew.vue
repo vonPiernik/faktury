@@ -29,12 +29,12 @@
                                     <!-- <lista elementów na fakturze> -->
                                     <div class="col-md-12">
                                     
-                                        <item-list :invoice="invoice"></item-list>
+                                        <item-list :invoice="invoice" :currentUser="currentUser"></item-list>
 
                                     </div>               
                                     <!-- </lista elementów na fakturze> -->
 
-                                    <input type="submit" value="Zapisz fakturę" id="saveInvoice">
+                                    <input type="submit" value="Zapisz fakturę"  class="saveButton">
 
                                 </form>
                             </div> 
@@ -43,7 +43,6 @@
 </template>
 
 <script>
-axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 module.exports = {
     props: ['currentUser','list', 'dimmed'],
     data: function () {
@@ -62,7 +61,7 @@ module.exports = {
             created_at: '', 
             items: [{
                 id: "",
-                name: "Produkt",
+                name: "",
                 amount: 1,
                 unit: "szt.",
                 price: 0.01,

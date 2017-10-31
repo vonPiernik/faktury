@@ -32,14 +32,14 @@
 
 		            </tbody>
 		        </table>
-				<button id="printToPDF">Pobierz (PDF)</button>
+				<button class="saveButton">Pobierz (PDF)</button>
 				<router-link 
 					:to="{ name: 'invoices-edit', params: { invoiceId: invoice.id }}"
 					tag="button"
-					id="editInvoice">
+					class="editButton">
 						Edytuj fakturę
 				</router-link>
-				<button id="deleteInvoice"
+				<button class="deleteButton" 
 						@click.prevent="deleteInv(invoice.id)">
 							Usuń fakturę
 				</button>
@@ -58,7 +58,6 @@ module.exports = {
     }, 
     created(){
         if(this.$route.params.invoiceId){
-        	console.log("ping")
 	    	this.showInv(this.$route.params.invoiceId)
 	        this.$emit('setPTitle', "Faktura nr " + this.$route.params.invoiceId)
 	    }

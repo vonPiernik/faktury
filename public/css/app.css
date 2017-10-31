@@ -8577,11 +8577,22 @@ html {
   top: 50px;
   border-bottom: 1px solid rgba(112, 126, 140, 0.2);
   width: 100%;
+  width: calc( 100% - 230px);
   background: #fff;
   background: #fbfbfd;
   z-index: 1;
   line-height: 60px;
   /*margin-top: -1px;*/
+}
+
+.panel-default > .panel-heading > button {
+  /* float: right; */
+  position: absolute;
+  right: 0;
+  line-height: 60px;
+  margin: 0px;
+  font-size: 16px;
+  padding: 0px 50px;
 }
 
 h3.placeholder {
@@ -8692,6 +8703,92 @@ ul.invoices-list a.router-link-active strong {
   color: #fff;
 }
 
+/* >>----------> [ items products dropdown ] <-----------<< */
+
+.items input[name="name"] {
+  width: 270px;
+  margin-right: 76px;
+}
+
+.items input {
+  line-height: 28px;
+  padding: 2px 5px;
+}
+
+.productInputContainer {
+  height: 36px;
+  position: relative;
+}
+
+.productInputContainer ul {
+  position: absolute;
+  top: 36px;
+  background: #222;
+  color: #fff;
+  left: 0px;
+  width: 305px;
+  padding: 0;
+  -webkit-transition: .3s all;
+  transition: .3s all;
+  margin: 0;
+  /*opacity: 0;*/
+  z-index: 1;
+  -webkit-animation: fadein .3s;
+          animation: fadein .3s;
+  max-height: 210px;
+  overflow: auto;
+}
+
+.productInputContainer ul li {
+  display: block;
+  padding: 10px 6px;
+  cursor: pointer;
+  -webkit-transition: .3s all;
+  transition: .3s all;
+}
+
+.productInputContainer ul li:hover {
+  color: #ff9800;
+}
+
+/*.productInputContainer ul.listOpened{
+  opacity: 1;
+}*/
+
+button.openList {
+  height: 36px;
+  width: 36px;
+  position: absolute;
+  left: 269px;
+  outline: 0;
+  border: 0;
+  font-size: 12px;
+  background: #edeef2;
+  border-color: darkgrey;
+  border-width: 1px 1px 1px 0;
+  border-style: solid;
+}
+
+@-webkit-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
 /* >>----------> [ scrollbar ] <-----------<< */
 
 div#ascrail2000 {
@@ -8746,15 +8843,6 @@ ul.left-menu li a.router-link-exact-active img {
 }
 
 /* >>----------> [ buttony ] <-----------<< */
-
-button#deleteInvoice {
-  background: #a6a6a6;
-  border: 0;
-  padding: 10px 20px;
-  color: #fff;
-  float: right;
-  margin: 0 0 0 10px;
-}
 
 button#editInvoice {
   background: #FF9800;
@@ -8815,6 +8903,42 @@ button#restoreInvoice {
   color: #4CAF50;
 }
 
+.deleteButton {
+  background: #a6a6a6;
+  border: 0;
+  padding: 10px 20px;
+  color: #fff;
+  float: right;
+  margin: 20px 5px 15px 10px;
+}
+
+.editButton {
+  background: #FF9800;
+  border: 0;
+  padding: 10px 20px;
+  color: #fff;
+  float: right;
+  margin: 20px 5px 15px 10px;
+}
+
+.saveButton {
+  background: #4688ff;
+  border: 0;
+  padding: 10px 20px;
+  color: #fff;
+  float: right;
+  margin: 20px 15px 15px 10px;
+}
+
+.updateButton {
+  background: #4CAF50;
+  border: 0;
+  padding: 10px 20px;
+  color: #fff;
+  float: right;
+  margin: 20px 15px 15px 10px;
+}
+
 /* >>----------> [ trash ] <-----------<< */
 
 .dash-content-main.dash-content-trash {
@@ -8842,6 +8966,27 @@ ul.invoices-list li.singleTrashItem div {
 
 table.invoices-list.table.table-striped thead {
   font-weight: 500;
+}
+
+/* >>----------> [ product ] <-----------<< */
+
+.products input[type="text"],
+.products input[type="number"] {
+  font-size: 20px;
+  display: block;
+  border: 1px solid #dedede;
+  padding: 10px;
+  outline: 0;
+  width: 100%;
+  color: #4688ff;
+  background: #edeef2;
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.19); */
+}
+
+.products label.labelDefault {
+  margin: 30px 0 10px;
+  font-weight: 400;
+  color: #565656;
 }
 
 /* >>----------> [ dimmed ] <-----------<< */

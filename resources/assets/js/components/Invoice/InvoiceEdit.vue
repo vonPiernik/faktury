@@ -27,14 +27,14 @@
                                     <!-- <lista elementów na fakturze> -->
                                     <div class="col-md-12">
                                     
-                                        <item-list :invoice="invoice"></item-list>
+                                        <item-list :invoice="invoice" :currentUser="currentUser"></item-list>
 
                                     </div>               
                                     <!-- </lista elementów na fakturze> -->
 
-                                    <input type="submit" value="Zapisz fakturę" id="saveInvoice">
+                                    <input type="submit" value="Zapisz zmiany" class="updateButton">
 
-                                    <button id="deleteInvoice"
+                                    <button class="deleteButton" 
                                             @click.prevent="deleteInv(invoice.id)">
                                                 Usuń fakturę
                                     </button>

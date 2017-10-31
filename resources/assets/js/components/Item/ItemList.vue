@@ -20,6 +20,8 @@
         			:key="index" 
         			:i="index" 
         			:item="item" 
+        			:productList="productList"
+        			:currentUser="currentUser"
         			v-on:remove="removeItem(index)">
         </item-row>
 
@@ -34,16 +36,20 @@
 
 <script>
 module.exports = {
-	props: ['invoice'],
+	props: ['invoice','currentUser'],
 	data: function () {
-	return {
-	}
+		return {
+			productList: ""
+		}
 	}, 
+	created(){
+		this.loadProductList()
+	},
 	methods: {
 		addItem(){
 			this.invoice.items.push({
 				id: "",
-			  	name: "Produkt",
+			  	name: "",
 			  	amount: 1,
 			  	unit: "szt.",
 			  	price: 0.01,
@@ -54,6 +60,11 @@ module.exports = {
                 invoice_id: 0
 			  })
 		},
+        loadProductList() {
+            axios.get(`/api/users/`+ this.currentUser.id + `/products?fields=id,name`).then(response => { 
+                this.productList = response.data
+            }) 
+        },
 		removeItem(index){
 			Vue.delete(this.invoice.items,index)
 			if(this.invoice.items.length == 0){

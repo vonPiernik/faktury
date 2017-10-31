@@ -29,6 +29,10 @@
                                     </tr>
                                     </tbody>
 								</table>
+
+                                <p v-else class="text-center">
+                                    Nie usunąłeś jeszcze żadnej faktury :)
+                                </p>
                             </div>
 	</div>
                        

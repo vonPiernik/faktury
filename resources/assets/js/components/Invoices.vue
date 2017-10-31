@@ -1,7 +1,16 @@
 <template>
     <div class="panel panel-default"> 
-        
-                        <div class="panel-heading">{{ page.title }}</div> 
+            
+                            <div class="panel-heading">{{ page.title }}
+                                <router-link v-if=" $route.name != 'invoices-create' &&
+                                                    $route.name != 'invoices-edit'"
+                                    :to="{ name: 'invoices-create' }"
+                                    tag="button"
+                                    class="saveButton">
+                                        Nowa faktura
+                                </router-link>
+                            </div> 
+
                         	<div class="dash-content-sidebar">
 								<ul class="invoices-list" v-if="list[0]">
 									<invoice-list :list="list"></invoice-list>
@@ -77,6 +86,11 @@ module.exports = {
         showInvoice(id) { 
             axios.get(`/api/users/`+ this.currentUser.id + `/invoices/` + id).then(response => { 
                 this.invoice = response.data
+
+                if(this.invoice.draft == true){
+                    this.$router.push('/faktury/' + this.invoice.id + '/edytuj')
+                } 
+
             }) 
         },
         

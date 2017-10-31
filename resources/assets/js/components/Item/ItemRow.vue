@@ -1,10 +1,33 @@
 <template>
     <tr class="items-row">
             <td>
-                <input required type="text"
-                         v-model="item.name" 
-                         :name="'name'">
-            </td>
+                    <input required type="text"
+                            placeholder="Wpisz lub wybierz z listy" 
+                            v-model="item.name" 
+                            @input="autocomplete"
+                            list="suggestions" 
+                            autocomplete="off" 
+                            :name="'name'">
+
+                    <datalist id="suggestions">
+                        <option v-for="product in productList" :value="product.name">{{ product.name }}</option>
+                    </datalist>
+<!-- 
+                    <button class="openList"
+                            @click.prevent="openList">
+                        V
+                    </button> -->
+
+                   <!--  <ul     v-if="listOpened && productListFiltered[0]"
+                            v-bind:class="[{listOpened}]"
+                            v-on-click-outside="closeList">
+                                <li v-for="product in productListFiltered"
+                                        @click="fillItemWithProductData(product.id)">
+                                        {{ product.name }}
+                                </li>
+                    </ul> -->
+
+            </td> 
             <td>
                 <input required  min="0" step="0.01" 
                 v-model.number="item.amount" 
@@ -65,15 +88,56 @@
 
 <script>
 module.exports = {
-    props: ['item', 'i'],
+    props: ['item', 'i', 'productList', 'currentUser'],
     data: function () {
         return {
-        
+            listOpened: false,
+            productListFiltered: {
+
+            }
         }
     }, 
+    created() {
+        this.productListFiltered = this.productList;
+    },
     methods: {
+        openList() {
+            this.listOpened = true
+        },
+        closeList() {
+            this.listOpened = false
+        },
         remove() {
             this.$emit('remove');
+        },
+        autocomplete() {
+            console.log(this.item.name);
+
+            // if(this.item.name != "" && this.listOpened == false){
+            //     this.openList();
+
+            // } else if(this.item.name == "" && this.listOpened == true) {
+            //     this.closeList();
+            // }
+
+            // var itemName = this.item.name;
+            // itemName = itemName.toLowerCase();
+            // this.productListFiltered = _.filter(this.productList, function(o) { 
+            //     return _.includes(o.name.toLowerCase(), itemName)
+            // })
+
+        },
+        fillItemWithProductData(id) {
+            axios.get(`/api/users/`+ this.currentUser.id + `/products/` + id).then(response => { 
+                this.closeList()
+                this.item.name = response.data.name
+                if(response.data.price){
+                    this.item.price = response.data.price     
+                }
+                if(response.data.unit){
+                    this.item.unit = response.data.unit     
+                }
+            }) 
         },
         computeValues(whatChanged){
             vatV = (this.item.vat / 100) + 1;

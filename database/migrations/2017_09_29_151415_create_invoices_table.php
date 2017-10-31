@@ -16,10 +16,10 @@ class CreateInvoicesTable extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
-            $table->text('customer');
-            $table->float('net_value')->default(0);
-            $table->float('gross_value')->default(0);
-            $table->boolean('draft')->default(true);
+            $table->text('customer')->nullable();
+            $table->float('net_value')->default(0)->nullable();
+            $table->float('gross_value')->default(0)->nullable();
+            $table->boolean('draft')->default(true)->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

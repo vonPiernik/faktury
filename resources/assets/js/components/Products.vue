@@ -1,10 +1,17 @@
 <template>
-    <div class="panel panel-default"> 
+    <div class="panel panel-default products"> 
         
-                        <div class="panel-heading">{{ page.title }}</div> 
+                        <div class="panel-heading">{{ page.title }}
+                            <router-link v-if="$route.name != 'products-create'"
+                                :to="{ name: 'products-create' }"
+                                tag="button"
+                                class="saveButton">
+                                    Nowy produkt
+                            </router-link>
+                        </div> 
                             <div class="dash-content-sidebar">
                                 <ul class="invoices-list" v-if="list[0]">
-                                    <customer-list :list="list"></customer-list>
+                                    <product-list :list="list"></product-list>
                                 </ul>
                                 <div v-else-if="loading" class="invoices-list--placeholder">
                                     <div class="spinner">
@@ -18,13 +25,11 @@
                                 </div>
                             </div>
                             <transition name="fade" mode="out-in">
-                                <router-view :invoice="invoice"
-                                             v-on:upList="updateInvoicesList()"
-                                             v-on:showInv="showInvoice($route.params.invoiceId)"
-                                             v-on:deleteInv="deleteInvoice"
+                                <router-view :product="product"
+                                             v-on:upList="updateProductsList()"
+                                             v-on:showProd="showProduct($route.params.productId)"
+                                             v-on:deleteProd="deleteProduct"
                                              :currentUser="currentUser"
-                                             :dimmed="dimmed"
-                                             @switchL="switchL"
                                              @setPTitle="setPageTitle">
                                 </router-view>
                             </transition>
@@ -43,12 +48,14 @@ module.exports = {
             page: {
                 title: "Twoje produkty"
             },
-            invoice: { 
+            product: { 
                 blured: "blured",
                 id: '',
-                customer: '', 
+                name: '', 
+                unit: '',
+                price: '',
+                code: '',
                 created_at: '', 
-                items: {} 
             } 
         }; 
     },
@@ -56,44 +63,43 @@ module.exports = {
     watch: {
         $route:  {
             handler: function(oldValue, newValue) {
-                if(this.$route.params.invoiceId){
-                    this.invoice = _.find(this.list, {'id': this.$route.params.invoiceId, 'draft': 0}); 
+                if(this.$route.params.productId){
+                    this.product = _.find(this.list, {'id': this.$route.params.productId}); 
                 }
             }
         }
     },
 
     created() { 
-        this.updateInvoicesList()
+        this.updateProductsList()
     },
 
     methods: {  
         setPageTitle(newTitle){
             this.page.title = newTitle
         },
-        switchL() {
-            this.$emit('switchL');
-        },
-        showInvoice(id) { 
-            axios.get(`/api/users/`+ this.currentUser.id + `/invoices/` + id).then(response => { 
-                this.invoice = response.data
+        showProduct(id) { 
+            axios.get(`/api/users/`+ this.currentUser.id + `/products/` + id).then(response => { 
+                this.product = response.data
             }) 
         },
         
-        deleteInvoice(id) { 
-            console.log(id)
-            axios.delete(`/api/users/`+ this.currentUser.id + `/invoices/` + id).then(response => {
-                this.updateInvoicesList()
-                this.$router.push('/faktury')
+        deleteProduct(id) { 
+            axios.delete(`/api/users/`+ this.currentUser.id + `/products/` + id).then(response => {
+                this.updateProductsList()
+                this.$router.push('/produkty')
             }) 
         },
 
-        updateInvoicesList: _.throttle( function(){
-            axios.get(`/api/users/`+ this.currentUser.id + `/invoices`) 
+        updateProductsList: _.throttle( function(){
+            axios.get(`/api/users/`+ this.currentUser.id + `/products`) 
             .then(response => { 
                 this.list = response.data 
                 this.loading = false
             }) 
+            .catch(function (error) {
+                console.log(error);
+            });
             
         }, 1000 ) 
     } 

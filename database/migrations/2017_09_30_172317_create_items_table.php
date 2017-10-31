@@ -16,14 +16,14 @@ class CreateItemsTable extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('invoice_id');
-            $table->string('name');
-            $table->float('amount');
-            $table->string('unit');
-            $table->float('price');
-            $table->float('vat');
-            $table->float('vat_value');
-            $table->float('net_value');
-            $table->float('gross_value');
+            $table->string('name')->nullable();
+            $table->float('amount')->nullable();
+            $table->string('unit')->nullable();
+            $table->float('price')->nullable();
+            $table->float('vat')->nullable();
+            $table->float('vat_value')->nullable();
+            $table->float('net_value')->nullable();
+            $table->float('gross_value')->nullable();
             $table->timestamps();
         });
     }
