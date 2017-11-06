@@ -65,7 +65,7 @@ const router = new Router({
   mode: 'history',
   routes: [
     { 
-        path: '/faktury', name: 'invoices',
+        path: '/faktury', 
         component: Invoices, props: true,
         children: [
             { 

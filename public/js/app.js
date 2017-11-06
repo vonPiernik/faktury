@@ -16899,7 +16899,7 @@ var InvoiceEdit = __webpack_require__(221);
 var router = new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({
     mode: 'history',
     routes: [{
-        path: '/faktury', name: 'invoices',
+        path: '/faktury',
         component: Invoices, props: true,
         children: [{
             path: '', component: Main, name: 'invoices-dash'
@@ -62137,7 +62137,9 @@ module.exports = {
             this.$emit('remove');
         },
         autocomplete: function autocomplete() {
-            console.log(this.item.name);
+            if (_.find(this.productList, { 'name': this.item.name })) {
+                this.fillItemWithProductData(_.find(this.productList, { 'name': this.item.name }).id);
+            }
 
             // if(this.item.name != "" && this.listOpened == false){
             //     this.openList();

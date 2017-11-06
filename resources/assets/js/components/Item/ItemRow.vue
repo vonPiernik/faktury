@@ -111,7 +111,9 @@ module.exports = {
             this.$emit('remove');
         },
         autocomplete() {
-            console.log(this.item.name);
+            if(_.find(this.productList, {'name': this.item.name})){
+                this.fillItemWithProductData(_.find(this.productList, {'name': this.item.name}).id);
+            }
 
             // if(this.item.name != "" && this.listOpened == false){
             //     this.openList();
